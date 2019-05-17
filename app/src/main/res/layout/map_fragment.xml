@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.minipoly.android.ui.map.MapViewModel" />
+        <variable
+            name="latlng"
+            type="com.google.android.gms.maps.model.LatLng" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.map.MapFragment">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:cardElevation="6dp"
+            app:cardMaxElevation="10dp"
+            android:visibility="@{vm.addVisible?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="?android:dividerHorizontal"
+
+                android:gravity="start|center_horizontal"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:gravity="center"
+                    android:onClick="@{(v)->vm.addRealestate(v,latlng)}"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/add_realestate"
+                    android:textColor="@color/design_default_color_primary"
+                    android:drawableLeft="@android:drawable/ic_input_add" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/com_facebook_button_background_color_focused_disabled"
+                    android:textColor="@color/com_facebook_button_background_color_focused_disabled" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/add_market"
+                    android:textColor="@color/design_default_color_primary"
+                    android:drawableLeft="@android:drawable/ic_input_add" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/com_facebook_button_background_color_focused_disabled"
+                    android:textColor="@color/com_facebook_button_background_color_focused_disabled" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableStart="@android:drawable/ic_menu_search"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/search_map"
+                    android:textColor="@color/design_default_color_primary"
+                    android:drawableLeft="@android:drawable/ic_menu_search" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

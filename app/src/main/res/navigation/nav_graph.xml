@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mapFragment">
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.minipoly.android.ui.map.MapFragment"
+        android:label="map_fragment"
+        tools:layout="@layout/map_fragment" >
+        <action
+            android:id="@+id/addRealestate"
+            app:destination="@id/addAdvrtDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <dialog
+        android:id="@+id/addAdvrtDialog"
+        android:name="com.minipoly.android.ui.newadvrt.AddAdvrtDialog"
+        android:label="add_advrt_dialog"
+        tools:layout="@layout/add_advrt_dialog" >
+        <argument
+            android:name="item"
+            app:argType="com.minipoly.android.entity.Realestate" />
+    </dialog>
+</navigation>

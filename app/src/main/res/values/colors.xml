@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="primaryText">#8C0505</color>
+    <color name="priceText">#F44336</color>
+    <color name="border">#0F0F0F</color>
+    <color name="white">#F1EAEA</color>
+    <color name="country_bg">#5C58D1</color>
+    <color name="edit_bg">#EFEFEF</color>
+    <color name="editborder">#DEDEDE</color>
+</resources>
