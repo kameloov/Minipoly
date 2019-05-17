@@ -11,4 +11,18 @@
     <string name="choose">Choose Action</string>
     <string name="title">Title</string>
     <string name="price">Price</string>
+    <string name="category">Category</string>
+    <string name="subcategory">Subcategory</string>
+    <string name="add_description">Add Description</string>
+    <string name="room_count">Room Count</string>
+    <string name="bathroom_count">Bathrooms</string>
+    <string name="building_age">Building age</string>
+    <string name="furnished">Furnished</string>
+    <string name="yearly_rent">Yearly Rent</string>
+    <string name="monthly_rent">Monthly Rent</string>
+    <string name="set_default">Default</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="add">Add</string>
 </resources>

@@ -1,8 +1,8 @@
 package com.minipoly.android.repository;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,19 +20,27 @@ public class CountryRepository {
     private static MutableLiveData<List<Country>> countryList;
     private static final String TAG = "CountryRepository";
 
-    public static void addCountry(Country country){
+    public static void addCountry(Country country) {
         countries.document(country.getId()).set(country);
     }
 
-    public static void addCountries(List<Country> countries){
-        for (Country c  : countries)
+    public static void addCountries(List<Country> countries) {
+        for (Country c : countries)
             addCountry(c);
     }
 
-    public static FireLiveQuery<Country> getCountries(ValueFilter<Double> lang){
+    public static FireLiveQuery<Country> getCountries(ValueFilter<Double> lang) {
         Log.e(TAG, "getCountries: getting countries");
-        Query query = FireStoreUtils.processFilter(countries,lang);
-        return new FireLiveQuery<>(query,Country.class);
+        Query query = FireStoreUtils.processFilter(countries, lang);
+        return new FireLiveQuery<>(query, Country.class);
+    }
+
+    public static void getCountries(ValueFilter<Double> lang, MutableLiveData liveData) {
+        Query query = FireStoreUtils.processFilter(countries, lang);
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null)
+                liveData.setValue(task.getResult().toObjects(Country.class));
+        });
     }
 
 }

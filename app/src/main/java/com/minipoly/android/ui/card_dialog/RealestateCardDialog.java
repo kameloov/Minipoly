@@ -1,37 +1,40 @@
 package com.minipoly.android.ui.card_dialog;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.minipoly.android.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
 
-public class RealestateCardFragment extends Fragment {
+import com.minipoly.android.databinding.RealestateCardDialogBinding;
 
-    private RealestateCardViewModel mViewModel;
+public class RealestateCardDialog extends DialogFragment {
 
-    public static RealestateCardFragment newInstance() {
-        return new RealestateCardFragment();
+    private RealestateCardViewModel model;
+    private RealestateCardDialogBinding binding;
+
+    public static RealestateCardDialog newInstance() {
+        return new RealestateCardDialog();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.realestate_card_fragment, container, false);
+        binding = RealestateCardDialogBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(RealestateCardViewModel.class);
+        model = ViewModelProviders.of(this).get(RealestateCardViewModel.class);
+        model.setRealestate(RealestateCardDialogArgs.fromBundle(getArguments()).getRealestate());
+        binding.setLifecycleOwner(this);
+        binding.setVm(model);
         // TODO: Use the ViewModel
     }
 

@@ -1,12 +1,15 @@
 package com.minipoly.android.ui.main;
-import androidx.lifecycle.ViewModel;
+
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+
+import androidx.lifecycle.ViewModel;
+
 import com.minipoly.android.StorageManager;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.livedata.FireLiveQuery;
-import com.minipoly.android.livedata.UploadFileLive;
+import com.minipoly.android.livedata.FireLiveUpload;
 import com.minipoly.android.repository.CategoryRepository;
 
 
@@ -14,7 +17,7 @@ public class MainViewModel extends ViewModel {
 
     private static final String TAG="MainViewModel";
     public String text = " hello from VM";
-    private UploadFileLive uploadLive ;
+    private FireLiveUpload uploadLive;
     private FireLiveQuery<Category> categories;
     public void setText(View view) {
         this.text = "clicked";
@@ -27,9 +30,9 @@ public class MainViewModel extends ViewModel {
         return categories;
     }
 
-    public UploadFileLive getUploadLive() {
+    public FireLiveUpload getUploadLive() {
         if (uploadLive==null)
-            uploadLive = new UploadFileLive();
+            uploadLive = new FireLiveUpload();
         return uploadLive;
     }
 

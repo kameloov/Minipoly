@@ -8,6 +8,11 @@
     <color name="border">#0F0F0F</color>
     <color name="white">#F1EAEA</color>
     <color name="country_bg">#5C58D1</color>
-    <color name="edit_bg">#EFEFEF</color>
+    <color name="edit_bg">#DFDFDFDF</color>
     <color name="editborder">#DEDEDE</color>
+    <color name="line_color">#302F2F</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="gradiant_start">#FD4B4B</color>
+    <color name="gradiant_end">#9E0404</color>
+    <color name="radio_incative">#46FF5722</color>
 </resources>

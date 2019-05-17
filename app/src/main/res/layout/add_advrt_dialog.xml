@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="vm"
@@ -10,91 +11,246 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:srcCompat="@drawable/rectangle" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/monthly_rent"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_bias="1.0"
+            bind:layout_constraintEnd_toStartOf="@+id/guideline16"
+            bind:layout_constraintStart_toStartOf="@+id/guideline15"
+            bind:layout_constraintTop_toBottomOf="@+id/include3" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/yearly_rent"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            bind:layout_constraintEnd_toStartOf="@+id/guideline16"
+            bind:layout_constraintHorizontal_bias="0.495"
+            bind:layout_constraintStart_toStartOf="@+id/guideline15"
+            bind:layout_constraintTop_toBottomOf="@+id/include3" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/furnished"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/include3" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:enabled="@{vm.radio.checked}"
+            android:onCheckedChanged="@{(s,b)->vm.changeMonthlyRent(b)}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView29"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView29"
+            bind:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/bathroom_count"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            bind:layout_constraintEnd_toEndOf="@+id/linearLayout14"
+            bind:layout_constraintStart_toStartOf="@+id/linearLayout14"
+            bind:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/radio_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            bind:layout_constraintEnd_toStartOf="@+id/guideline16"
+            bind:layout_constraintHorizontal_bias="0.0"
+            bind:layout_constraintStart_toStartOf="@+id/guideline15"
+            bind:layout_constraintTop_toBottomOf="@+id/textView22">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changeRooms(-1)}"
+                bind:srcCompat="@mipmap/dec" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="@{``+vm.realestate.roomCount}" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changeRooms(1)}"
+                bind:srcCompat="@mipmap/inc" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/radio_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            bind:layout_constraintTop_toBottomOf="@+id/textView22">
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changebath(-1)}"
+                bind:srcCompat="@mipmap/dec" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="@{``+vm.realestate.bathroomCount}" />
+
+            <ImageView
+                android:id="@+id/imageView66"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changebath(1)}"
+                bind:srcCompat="@mipmap/inc" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.35" />
+            app:layout_constraintGuide_percent="0.28" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imgGallery"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/edit_text"
-            android:padding="8dp"
+            android:padding="16dp"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline17"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2"
             app:srcCompat="@mipmap/add" />
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/title"
             android:inputType="textPersonName"
+            android:textColor="@color/line_color"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView15"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/imgGallery" />
 
         <EditText
             android:id="@+id/textView7"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
             android:gravity="center"
             android:hint="@string/price"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            android:textColor="@color/line_color"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgGallery"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
             android:gravity="center"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="Usd"
+            android:text="USD"
+            android:textColor="@color/line_color"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintTop_toTopOf="@+id/textView7" />
@@ -104,12 +260,307 @@
             android:id="@+id/textView12"
             android:layout_width="0dp"
             android:layout_height="1px"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/line_color"
+            app:layout_constraintBottom_toBottomOf="@+id/textView11"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/category"
+            android:textColor="@color/border"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imgGallery" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/horizontal_line"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
             android:layout_marginTop="8dp"
-            android:background="@color/com_facebook_button_background_color_focused_disabled"
+            android:background="@drawable/edit_text"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/add_description"
+            android:inputType="textMultiLine"
+            android:singleLine="false"
+            android:textColor="@color/line_color"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/radios"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:radio="@{vm.radio}" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_rect"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Building"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_rect"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Flat"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_rect"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Farm"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_rect"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Shop"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_rect"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Room"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="10sp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgGallery"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toEndOf="@+id/imgGallery"
+            app:layout_constraintTop_toTopOf="@+id/imgGallery" />
+
+        <include
+            android:id="@+id/include3"
+            layout="@layout/horizontal_line"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <include
+            android:id="@+id/include4"
+            layout="@layout/radios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:radio="@{vm.radio}" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:enabled="@{vm.radio.checked}"
+            android:layout_marginRight="8dp"
+            android:onCheckedChanged="@{(s,b)->vm.changeYearlyRent(b)}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView27"
+            app:layout_constraintStart_toStartOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <Switch
+            android:id="@+id/switch4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:enabled="@{vm.radio.checked}"
+            android:onCheckedChanged="@{(s,b)->vm.changeFurnished(b)}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView24"
+            app:layout_constraintStart_toStartOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            bind:layout_constraintHorizontal_bias="0.5" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/radio_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+            <ImageView
+                android:id="@+id/imageView91"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changeOld(-1)}"
+                bind:srcCompat="@mipmap/dec" />
+
+            <TextView
+                android:id="@+id/textView98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="@{``+vm.realestate.old}" />
+
+            <ImageView
+                android:id="@+id/imageView96"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changeOld(1)}"
+                app:srcCompat="@mipmap/inc" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/room_count"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/building_age"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <TextView
+            android:id="@+id/txtAdd"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rect_radio_checked"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/editText2"
+            tools:text="@string/add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

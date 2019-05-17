@@ -14,14 +14,39 @@
             app:destination="@id/addAdvrtDialog"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/showRealestate"
+            app:destination="@id/realestateCardDialog"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <dialog
         android:id="@+id/addAdvrtDialog"
         android:name="com.minipoly.android.ui.newadvrt.AddAdvrtDialog"
         android:label="add_advrt_dialog"
-        tools:layout="@layout/add_advrt_dialog" >
+        tools:layout="@layout/add_advrt_dialog">
         <argument
             android:name="item"
             app:argType="com.minipoly.android.entity.Realestate" />
+        <action
+            android:id="@+id/action_addAdvrtDialog_to_galleryDialog"
+            app:destination="@id/galleryDialog" />
     </dialog>
+    <dialog
+        android:id="@+id/realestateCardDialog"
+        android:name="com.minipoly.android.ui.card_dialog.RealestateCardDialog"
+        tools:layout="@layout/realestate_card_dialog"
+        android:label="RealestateCardDialog">
+        <argument
+            android:name="realestate"
+            app:argType="com.minipoly.android.entity.Realestate" />
+    </dialog>
+
+    <dialog
+        tools:layout="@layout/gallery_dialog"
+        android:id="@+id/galleryDialog"
+        android:name="com.minipoly.android.ui.gallery.GalleryDialog"
+        android:label="GalleryDialog" />
 </navigation>

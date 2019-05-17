@@ -13,8 +13,29 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-362" />
-                            <option name="y" value="37" />
+                            <option name="x" value="-334" />
+                            <option name="y" value="-115" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addAdvrtDialog_to_galleryDialog">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="galleryDialog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-155" />
+                            <option name="y" value="-199" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -25,8 +46,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-552" />
-                            <option name="y" value="29" />
+                            <option name="x" value="-603" />
+                            <option name="y" value="17" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -36,7 +57,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="showRealestate">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="realestateCardDialog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-309" />
+                            <option name="y" value="209" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

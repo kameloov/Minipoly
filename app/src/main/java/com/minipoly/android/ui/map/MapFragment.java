@@ -1,18 +1,19 @@
 package com.minipoly.android.ui.map;
 
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
 import android.location.Geocoder;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
 import com.minipoly.android.R;
 import com.minipoly.android.databinding.MapFragmentBinding;
 import com.minipoly.android.utils.CardBuilder;
@@ -49,17 +50,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         model.setMapAndGeocoder(googleMap, new Geocoder(getContext(), Locale.getDefault()));
-        googleMap.setOnCameraIdleListener(() -> model.setRegion(googleMap.getProjection().getVisibleRegion()));
+        googleMap.setOnCameraIdleListener(() -> model.update());
         googleMap.setOnMapLongClickListener(latLng ->{
             binding.setLatlng(latLng);
             model.showMenu();
         });
-        googleMap.setOnMapClickListener(latLng -> {
-            model.hideMenu();
-            //model.goToCountry(latLng);
-        });
-
+        googleMap.setOnMapClickListener(latLng -> model.hideMenu());
          model.getCountries().observe(this,countries -> model.drawCountries(countries));
+        model.getRealestates().observe(this, realestates -> model.drawRealestates(realestates));
     }
 
     @Override

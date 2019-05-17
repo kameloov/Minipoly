@@ -1,30 +1,35 @@
 package com.minipoly.android.ui.map;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 import android.location.Geocoder;
 import android.view.View;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.navigation.Navigation;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
+import com.minipoly.android.HttpService;
+import com.minipoly.android.R;
+import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.Country;
+import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.ValueFilter;
 import com.minipoly.android.repository.CountryRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.utils.CardBuilder;
+
 import java.util.List;
 
 
 public class MapViewModel extends ViewModel {
-
-    private MutableLiveData<VisibleRegion> region = new MutableLiveData<>();
-    private LiveData<List<Country>> countries = Transformations.switchMap(region, input ->
-            CountryRepository.getCountries(getlongFilter(input)));
+    private MutableLiveData<List<Country>> countries = new MutableLiveData<>();
+    private MutableLiveData<List<City>> cities = new MutableLiveData<>();
+    private MutableLiveData<List<Realestate>> realestates = new MutableLiveData<>();
     private GoogleMap googleMap;
     private Geocoder geocoder;
     private CardBuilder cardBuilder;
@@ -50,8 +55,21 @@ public class MapViewModel extends ViewModel {
         return countries;
     }
 
-    public void setRegion(VisibleRegion region) {
-        this.region.setValue(region);
+    public LiveData<List<City>> getCities() {
+        return cities;
+    }
+
+    public LiveData<List<Realestate>> getRealestates() {
+        return realestates;
+    }
+
+    public void update() {
+        VisibleRegion region = googleMap.getProjection().getVisibleRegion();
+        float zoom = googleMap.getCameraPosition().zoom;
+        if (zoom > 8)
+            HttpService.getRealestates(realestates, region.latLngBounds.southwest, region.latLngBounds.northeast);
+        else
+            CountryRepository.getCountries(getLongFilter(region), countries);
     }
 
     public void setMapAndGeocoder(GoogleMap map, Geocoder geocoder) {
@@ -80,10 +98,29 @@ public class MapViewModel extends ViewModel {
         }
     }
 
-    private ValueFilter<Double> getlongFilter(VisibleRegion region) {
+    public void drawRealestates(List<Realestate> realestates) {
+        if (googleMap == null)
+            return;
+        googleMap.clear();
+        for (Realestate r : realestates) {
+            LatLng pos = new LatLng(r.getLat(), r.getLang());
+            float zoom = googleMap.getCameraPosition().zoom;
+            googleMap.addMarker(new MarkerOptions().position(pos)
+                    .title(r.getTitle()).anchor(0.5f, 0.5f)
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.house)));
+        }
+    }
+
+    private ValueFilter<Double> getLongFilter(VisibleRegion region) {
         double min = region.latLngBounds.southwest.longitude;
         double max = region.latLngBounds.northeast.longitude;
         return new ValueFilter<>("lang", ValueFilter.FilterType.RANGE, min, max);
+    }
+
+    private ValueFilter<Double> getLatFilter(VisibleRegion region) {
+        double min = region.latLngBounds.southwest.latitude;
+        double max = region.latLngBounds.northeast.latitude;
+        return new ValueFilter<>("lat", ValueFilter.FilterType.RANGE, min, max);
     }
 
 

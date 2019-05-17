@@ -1,7 +1,8 @@
 package com.minipoly.android.livedata;
 
-import androidx.lifecycle.LiveData;
 import android.util.Log;
+
+import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -10,15 +11,15 @@ import com.google.firebase.storage.UploadTask;
 import com.minipoly.android.ProgressInfo;
 import com.minipoly.android.entity.TransferInfo;
 
-public class UploadFileLive extends LiveData<TransferInfo> {
+public class FireLiveUpload extends LiveData<TransferInfo> {
     private TransferInfo info;
     private UploadTask uploadTask;
     private OnSuccessListener successListener;
     private OnFailureListener failureListener;
     private OnProgressListener progressListener;
-    private static final String TAG = "UploadFileLive";
+    private static final String TAG = "FireLiveUpload";
 
-    public UploadFileLive() {
+    public FireLiveUpload() {
         info = new TransferInfo();
         info.setText("start");
         info.setProgress(0);

@@ -1,4 +1,4 @@
 package com.minipoly.android.entity;
 
-public class City {
+public class City extends Pin {
 }

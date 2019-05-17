@@ -1,19 +1,21 @@
 package com.minipoly.android.ui.profile;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.minipoly.android.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.minipoly.android.databinding.ProfileFragmentBinding;
 
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel mViewModel;
+    private ProfileFragmentBinding binding;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -22,7 +24,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.profile_fragment, container, false);
+        binding = ProfileFragmentBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override

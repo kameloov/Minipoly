@@ -16,10 +16,27 @@ public class Realestate extends Pin implements Serializable {
     private int roomCount;
     private int bathroomCount;
     private boolean furnished;
-    private int rentPeriod;
     private int old;
     private String countryId;
     private String cityId;
+    private boolean monthlyRent;
+    private boolean yearlyRent;
+
+    public boolean isMonthlyRent() {
+        return monthlyRent;
+    }
+
+    public void setMonthlyRent(boolean monthlyRent) {
+        this.monthlyRent = monthlyRent;
+    }
+
+    public boolean isYearlyRent() {
+        return yearlyRent;
+    }
+
+    public void setYearlyRent(boolean yearlyRent) {
+        this.yearlyRent = yearlyRent;
+    }
 
     public String getCountryId() {
         return countryId;
@@ -139,14 +156,6 @@ public class Realestate extends Pin implements Serializable {
 
     public void setFurnished(boolean furnished) {
         this.furnished = furnished;
-    }
-
-    public int getRentPeriod() {
-        return rentPeriod;
-    }
-
-    public void setRentPeriod(int rentPeriod) {
-        this.rentPeriod = rentPeriod;
     }
 
     public int getOld() {
