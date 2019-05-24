@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.minipoly.android.ui.realestate_details.RealestateDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1px"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/browser_actions_title_color"
+            app:layout_constraintBottom_toTopOf="@+id/include6"
+            app:layout_constraintStart_toEndOf="@+id/textView39"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+        <include
+            android:id="@+id/include16"
+            layout="@layout/horizontal_line"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerCrop"
+            app:image="@{m.realestate.images.get(0)}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView30"
+            tools:src="@tools:sample/avatars"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{m.realestate.title}"
+            android:textColor="@color/gradiant_end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@{m.realestate.title}"
+            android:textColor="@color/gradiant_end"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageView10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+        <TextView
+            android:id="@+id/editText4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            app:srcCompat="@mipmap/bell" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/tag_rect_empty"
+            android:padding="4dp"
+            android:text="TextView"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/tag_rect_fill"
+            android:padding="4dp"
+            android:text="@{m.realestate.rent? `For rent`:`For buy`}"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+        <include
+            android:id="@+id/include6"
+            layout="@layout/horizontal_line"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toStartOf="@+id/guideline23"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView12"
+            app:srcCompat="@mipmap/samsara" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toStartOf="@+id/guideline24"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="@+id/guideline23"
+            app:layout_constraintTop_toBottomOf="@+id/include6"
+            app:srcCompat="@mipmap/share" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toStartOf="@+id/guideline25"
+            app:layout_constraintStart_toStartOf="@+id/guideline24"
+            app:layout_constraintTop_toTopOf="@+id/imageView12"
+            app:srcCompat="@mipmap/like" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="@+id/guideline25"
+            app:layout_constraintTop_toTopOf="@+id/imageView13"
+            app:srcCompat="@mipmap/dislike" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="@+id/imageView11"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11"
+            tools:text="@string/brokerage" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/share"
+            app:layout_constraintEnd_toEndOf="@+id/imageView12"
+            app:layout_constraintStart_toStartOf="@+id/imageView12"
+            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{m.realestate.like+``}"
+            app:layout_constraintEnd_toEndOf="@+id/imageView13"
+            app:layout_constraintStart_toStartOf="@+id/imageView13"
+            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{m.realestate.dislike}"
+            app:layout_constraintEnd_toEndOf="@+id/imageView14"
+            app:layout_constraintStart_toStartOf="@+id/imageView14"
+            app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Area`+m.realestate.area }"
+            android:textColor="@color/gradiant_start"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView33"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1px"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/browser_actions_title_color"
+            app:layout_constraintBottom_toTopOf="@+id/include6"
+            app:layout_constraintEnd_toStartOf="@+id/textView39"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="@+id/textView39"
+            app:layout_constraintEnd_toStartOf="@+id/divider"
+            app:layout_constraintTop_toTopOf="@+id/textView39"
+            app:srcCompat="@mipmap/location" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:text="TextView"
+            android:textColor="@color/gradiant_start"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView39"
+            app:layout_constraintEnd_toStartOf="@+id/imageView15"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView33" />
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:text="@{m.realestate.price+``}"
+            android:textColor="@color/gradiant_start"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView39"
+            app:layout_constraintStart_toEndOf="@+id/divider2" />
+
+        <TextView
+            android:id="@+id/textView42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="SR"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView41"
+            app:layout_constraintStart_toEndOf="@+id/textView41" />
+
+        <include
+            android:id="@+id/include7"
+            layout="@layout/user_brief"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:brief="@{m.realestate.userBrief}"
+            app:layout_constraintTop_toBottomOf="@+id/include16" />
+
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/edit_text"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/add_comment"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include7" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@+id/editText5"
+            app:layout_constraintTop_toTopOf="@+id/editText5"
+            app:srcCompat="@mipmap/send" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

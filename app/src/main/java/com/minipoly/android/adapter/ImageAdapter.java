@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
-
     private List<Image> images;
     private Image current;
     private View.OnClickListener listener;
@@ -32,11 +30,21 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return images;
     }
 
+
+    public void setImages(List<Image> images) {
+        this.images.addAll(images);
+        for (Image i : images)
+            if (i.isIcon())
+                current = i;
+    }
+
     public void addImage(Image image) {
         images.add(image);
         // set the first added image as default image
-        if (images.size() == 2)
+        if (images.size() == 2) {
             current = image;
+            current.setIcon(true);
+        }
         notifyItemInserted(images.size() - 1);
     }
 
@@ -60,14 +68,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Image image;
         private ImageView img;
-        private TextView txtDel;
-        private TextView txtDefault;
+        private ImageView imgUpload;
+        private ImageView txtDel;
+        private ImageView txtDefault;
         private View bg;
         private boolean visible;
 
         public ImageViewHolder(@NonNull View v) {
             super(v);
             img = v.findViewById(R.id.image);
+            imgUpload = v.findViewById(R.id.imgUpload);
             txtDel = v.findViewById(R.id.btnDelete);
             txtDefault = v.findViewById(R.id.btnDefault);
             bg = v;
@@ -79,7 +89,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 img.setImageResource(R.mipmap.add_image);
             else
                 Glide.with(img.getContext()).load(image.getUri()).into(img);
-            bg.setBackgroundResource(image == current ? R.color.country_bg : R.color.white);
+            imgUpload.setVisibility(image.isUploaded() ? View.VISIBLE : View.GONE);
+            bg.setBackgroundResource(image.isIcon() ? R.color.country_bg : R.color.white);
             txtDefault.setOnClickListener(this);
             txtDel.setOnClickListener(this);
             img.setOnClickListener(index == 0 ? listener : this);
@@ -96,13 +107,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             switch (v.getId()) {
                 case R.id.btnDefault:
                     visible = false;
+                    current.setIcon(false);
                     current = image;
+                    current.setIcon(true);
                     notifyDataSetChanged();
                     break;
                 case R.id.btnDelete:
                     images.remove(image);
-                    notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(), images.size());
+                    notifyDataSetChanged();
                     break;
                 case R.id.image:
                     visible = !visible;

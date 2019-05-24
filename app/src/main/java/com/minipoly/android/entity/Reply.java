@@ -2,7 +2,7 @@ package com.minipoly.android.entity;
 
 public class Reply {
     private String id ;
-    private String userId;
+    private UserBrief userBrief;
     private String commentId;
     private String text;
 
@@ -14,12 +14,12 @@ public class Reply {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserBrief getUserBrief() {
+        return userBrief;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserBrief(UserBrief userBrief) {
+        this.userBrief = userBrief;
     }
 
     public String getCommentId() {

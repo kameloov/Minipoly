@@ -26,26 +26,35 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
+    <ImageView
         android:id="@+id/btnDelete"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:alpha="0.8"
-        android:background="@android:drawable/ic_delete"
         android:gravity="center"
-        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete" />
 
-    <TextView
+    <ImageView
         android:id="@+id/btnDefault"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:alpha="0.8"
-        android:background="@mipmap/verified"
         android:gravity="center"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_default" />
+
+    <ImageView
+        android:id="@+id/imgUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_upload" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

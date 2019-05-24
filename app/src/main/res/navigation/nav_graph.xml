@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/editProfileFragment">
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.minipoly.android.ui.map.MapFragment"
@@ -49,4 +49,27 @@
         android:id="@+id/galleryDialog"
         android:name="com.minipoly.android.ui.gallery.GalleryDialog"
         android:label="GalleryDialog" />
+    <fragment
+        tools:layout="@layout/home_fragment"
+        android:id="@+id/homeFragment"
+        android:name="com.minipoly.android.ui.home.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/realestateDetails"
+            app:destination="@id/realestateDetails" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/realestate_details_fragment"
+        android:id="@+id/realestateDetails"
+        android:name="com.minipoly.android.ui.realestate_details.RealestateDetails"
+        android:label="RealestateDetails">
+        <argument
+            android:name="realestate"
+            app:argType="com.minipoly.android.entity.Realestate" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/edit_profile_fragment"
+        android:id="@+id/editProfileFragment"
+        android:name="com.minipoly.android.ui.edit_profile.EditProfileFragment"
+        android:label="EditProfileFragment" />
 </navigation>

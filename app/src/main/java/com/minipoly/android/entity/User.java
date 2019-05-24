@@ -1,11 +1,10 @@
 package com.minipoly.android.entity;
 
-import java.util.List;
-
 public class User {
     private String id;
     private String name;
     private float balance;
+    private String email;
     private int stars ;
     private String phone;
     private String bio;
@@ -13,6 +12,14 @@ public class User {
     private int friendsCount;
     private int rateCount;
     private int dealCount;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getDealCount() {
         return dealCount;

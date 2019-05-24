@@ -37,7 +37,7 @@ public class MainViewModel extends ViewModel {
     }
 
     public void upload(String path , Uri uri){
-        uploadLive.setUploadTask(StorageManager.getRoot().child(path).putFile(uri));
+        uploadLive.setUploadTask(StorageManager.getUserRoot().child(path).putFile(uri));
     }
 
     public void addCategories(){

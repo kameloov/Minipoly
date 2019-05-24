@@ -12,7 +12,9 @@
     <color name="editborder">#DEDEDE</color>
     <color name="line_color">#302F2F</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="gradiant_start">#FD4B4B</color>
-    <color name="gradiant_end">#9E0404</color>
+    <color name="gradiant_start">#FF4D4D</color>
+    <color name="gradiant_end">#990000</color>
     <color name="radio_incative">#46FF5722</color>
+    <color name="green">#7CB342</color>
+    <color name="text_secondary">#A7A7A7</color>
 </resources>

@@ -3,8 +3,12 @@ package com.minipoly.android.entity;
 public class Comment {
     private String id ;
     private String text;
-     private String advrtId;
-     private String userId;
+    private String advrtId;
+    private UserBrief userBrief;
+    private int like;
+    private int dislike;
+    private Reply reply;
+
 
     public String getId() {
         return id;
@@ -30,11 +34,35 @@ public class Comment {
         this.advrtId = advrtId;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserBrief getUserBrief() {
+        return userBrief;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserBrief(UserBrief userBrief) {
+        this.userBrief = userBrief;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getDislike() {
+        return dislike;
+    }
+
+    public void setDislike(int dislike) {
+        this.dislike = dislike;
+    }
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
     }
 }

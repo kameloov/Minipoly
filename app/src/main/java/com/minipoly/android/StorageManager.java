@@ -1,11 +1,11 @@
 package com.minipoly.android;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.minipoly.android.livedata.FireLiveUpload;
 
 import java.io.InputStream;
-
 
 public class StorageManager {
     private static FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -19,5 +19,10 @@ public class StorageManager {
 
     public static StorageReference getRoot() {
         return root;
+    }
+
+    public static StorageReference getUserRoot() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        return root.child(uid);
     }
 }

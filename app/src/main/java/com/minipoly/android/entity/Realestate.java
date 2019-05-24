@@ -1,16 +1,20 @@
 package com.minipoly.android.entity;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class Realestate extends Pin implements Serializable {
     private String id;
     private String title;
     private String text;
+    private boolean isRent;
     private String categoryId;
-    private String subcategoryId;
-    private String[] images;
+    private List<Image> images;
     private String[] videos;
-    private String userId;
+    private UserBrief userBrief;
     private float area;
     private float price;
     private int roomCount;
@@ -18,12 +22,84 @@ public class Realestate extends Pin implements Serializable {
     private boolean furnished;
     private int old;
     private String countryId;
+    private String currency;
     private String cityId;
+    private String cityName;
+    private String cityNameAR;
     private boolean monthlyRent;
     private boolean yearlyRent;
+    private int like;
+    private int dislike;
+    private int views;
+    @ServerTimestamp
+    private Date publishDate;
+
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCityNameAR() {
+        return cityNameAR;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setCityNameAR(String cityNameAR) {
+        this.cityNameAR = cityNameAR;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getDislike() {
+        return dislike;
+    }
+
+    public void setDislike(int dislike) {
+        this.dislike = dislike;
+    }
 
     public boolean isMonthlyRent() {
         return monthlyRent;
+    }
+
+    public boolean isRent() {
+        return isRent;
+    }
+
+    public void setRent(boolean rent) {
+        isRent = rent;
     }
 
     public void setMonthlyRent(boolean monthlyRent) {
@@ -86,19 +162,11 @@ public class Realestate extends Pin implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public String getSubcategoryId() {
-        return subcategoryId;
-    }
-
-    public void setSubcategoryId(String subcategoryId) {
-        this.subcategoryId = subcategoryId;
-    }
-
-    public String[] getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(String[] images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
@@ -110,12 +178,12 @@ public class Realestate extends Pin implements Serializable {
         this.videos = videos;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserBrief getUserBrief() {
+        return userBrief;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserBrief(UserBrief userBrief) {
+        this.userBrief = userBrief;
     }
 
     public float getArea() {

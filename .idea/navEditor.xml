@@ -29,6 +29,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="editProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-870" />
+                            <option name="y" value="150" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="galleryDialog">
                     <value>
                       <LayoutPositions>
@@ -41,13 +53,34 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="homeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-787" />
+                            <option name="y" value="-231" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="realestateDetails">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="mapFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-603" />
-                            <option name="y" value="17" />
+                            <option name="x" value="-593" />
+                            <option name="y" value="89" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -74,6 +107,18 @@
                           <Point>
                             <option name="x" value="-309" />
                             <option name="y" value="209" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="realestateDetails">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-545" />
+                            <option name="y" value="-304" />
                           </Point>
                         </option>
                       </LayoutPositions>

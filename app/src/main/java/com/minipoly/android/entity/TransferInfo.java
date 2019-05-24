@@ -1,8 +1,9 @@
 package com.minipoly.android.entity;
 
+import android.net.Uri;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import android.net.Uri;
 
 import com.minipoly.android.BR;
 import com.minipoly.android.ProgressInfo;
@@ -18,6 +19,17 @@ public class TransferInfo  extends BaseObservable {
     private int progress;
     private Uri uri;
     private String text;
+    private int overallProgress;
+
+    @Bindable
+    public int getOverallProgress() {
+        return overallProgress;
+    }
+
+    public void setOverallProgress(int overallProgress) {
+        this.overallProgress = overallProgress;
+        notifyPropertyChanged(BR.overallProgress);
+    }
 
     @Bindable
     public String getText() {

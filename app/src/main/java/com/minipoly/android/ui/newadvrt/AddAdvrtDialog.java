@@ -1,16 +1,19 @@
 package com.minipoly.android.ui.newadvrt;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.minipoly.android.R;
 import com.minipoly.android.databinding.AddAdvrtDialogBinding;
 import com.minipoly.android.entity.CustomRadio;
@@ -46,7 +49,7 @@ public class AddAdvrtDialog extends DialogFragment {
         model = ViewModelProviders.of(this).get(AddAdvrtDialogViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setVm(model);
-        binding.imgGallery.setOnClickListener((v) -> showGallery());
+        attachEvents();
         Realestate realestate = AddAdvrtDialogArgs.fromBundle(getArguments()).getItem();
         CustomRadio cr = new CustomRadio();
         cr.setName1("For Rent");
@@ -54,10 +57,31 @@ public class AddAdvrtDialog extends DialogFragment {
         cr.setChecked(false);
         model.setRadio(cr);
         model.setRealestate(realestate);
+        model.getDefaultImage().observe(this, image -> {
+            if (image != null)
+                Glide.with(this).load(image.getUri()).into(binding.imgGallery);
+        });
+        model.getSuccess().observe(this, a -> {
+            Log.e("add", "addRealestate: " + a);
+            Toast.makeText(getContext(),
+                    getString(a ? R.string.added : R.string.error_add), Toast.LENGTH_SHORT).show();
+            if (a)
+                dismiss();
+        });
     }
 
+    private void attachEvents() {
+        binding.imgGallery.setOnClickListener((v) -> showGallery());
+        binding.txtAdd.setOnClickListener(v -> {
+            if (model.isDataMissing())
+                Toast.makeText(getContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
+            else {
+                model.addRealestate();
+            }
+        });
+    }
     private void showGallery() {
-        GalleryDialog dialog = GalleryDialog.newInstance();
+        GalleryDialog dialog = GalleryDialog.newInstance(AddAdvrtDialogViewModel.getUploader());
         dialog.show(getFragmentManager(), "gallery");
     }
 
