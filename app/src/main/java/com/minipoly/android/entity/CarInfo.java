@@ -2,12 +2,11 @@ package com.minipoly.android.entity;
 
 import java.io.Serializable;
 
-public class CarInfo implements Serializable {
+public class CarInfo extends Market implements Serializable {
     private String type;
     private String brand;
     private String color;
     private int kilometres;
-    private boolean used;
     private String fuel;
     private boolean automatic;
 
@@ -41,14 +40,6 @@ public class CarInfo implements Serializable {
 
     public void setKilometres(int kilometres) {
         this.kilometres = kilometres;
-    }
-
-    public boolean isUsed() {
-        return used;
-    }
-
-    public void setUsed(boolean used) {
-        this.used = used;
     }
 
     public String getFuel() {

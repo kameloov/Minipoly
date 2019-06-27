@@ -1,6 +1,7 @@
 package com.minipoly.android.livedata;
 
 import androidx.lifecycle.LiveData;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 

@@ -11,10 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.minipoly.android.R;
+import com.minipoly.android.adapter.CategoryAdapter;
 import com.minipoly.android.databinding.MapFragmentBinding;
 import com.minipoly.android.utils.CardBuilder;
 
@@ -24,6 +27,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapViewModel model;
     private MapFragmentBinding binding;
+    private CategoryAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -43,9 +47,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         binding.map.onCreate(savedInstanceState);
         model.setCardBuilder(new CardBuilder(getLayoutInflater()));
         binding.map.getMapAsync(this);
+        prepareAdapter();
+        model.categories.observe(this, categories -> adapter.submitList(categories));
     }
 
 
+    private void prepareAdapter() {
+        adapter = new CategoryAdapter();
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+        binding.lstCategory.setLayoutManager(manager);
+        binding.lstCategory.setAdapter(adapter);
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

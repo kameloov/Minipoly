@@ -39,6 +39,10 @@ public class UserManager {
         ac.startActivityForResult(signInIntent, GOOGLE_LOGIN);
     }
 
+    public static boolean isLogged() {
+        return (mauth.getUid() != null && !mauth.getUid().isEmpty());
+    }
+
     public static void linkToGoogle(GoogleSignInAccount acct, CompleteListener listener) {
         Log.d("signIn", "firebaseAuthWithGoogle:" + acct.getId());
 

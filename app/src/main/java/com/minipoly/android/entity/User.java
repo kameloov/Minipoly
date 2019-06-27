@@ -12,6 +12,15 @@ public class User {
     private int friendsCount;
     private int rateCount;
     private int dealCount;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getEmail() {
         return email;

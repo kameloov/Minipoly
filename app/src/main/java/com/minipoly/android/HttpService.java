@@ -32,8 +32,10 @@ public class HttpService {
         return queue;
     }
 
-    public static void getRealestates(MutableLiveData<List<Realestate>> liveData, LatLng min, LatLng max) {
-        StringRequest request = new StringRequest(Request.Method.GET, buildUrl(min, max),
+    public static void getRealestates(MutableLiveData<List<Realestate>> liveData, LatLng min,
+                                      LatLng max, float minPrice, float maxPrice, boolean rent, String category) {
+        StringRequest request = new StringRequest(Request.Method.GET,
+                buildUrl(min, max, minPrice, maxPrice, rent, category),
                 response -> {
                     Log.e(TAG, "getRealestates: " + response);
                     if (response != null && !response.isEmpty()) {
@@ -50,14 +52,15 @@ public class HttpService {
     }
 
     private static String round(double value) {
-        DecimalFormat df = new DecimalFormat("#.######");
+        DecimalFormat df = new DecimalFormat("#.#######");
         df.setRoundingMode(RoundingMode.CEILING);
         return df.format(value);
     }
 
-    private static String buildUrl(LatLng min, LatLng max) {
+    private static String buildUrl(LatLng min, LatLng max, float minPrice, float maxPrice, boolean rent, String category) {
         String url = realestateUrl + "?minLat=" + round(min.latitude) + "&minLng=" + round(min.longitude) + "&maxLng=" +
-                round(max.longitude) + "&maxLat=" + round(max.latitude);
+                round(max.longitude) + "&maxLat=" + round(max.latitude) + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice +
+                "&rent=" + rent + "&category=" + category;
         Log.e(TAG, "buildUrl: " + url);
         return url;
     }

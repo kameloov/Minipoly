@@ -1,11 +1,26 @@
 package com.minipoly.android.entity;
 
-public class UserBrief {
+import java.io.Serializable;
+
+public class UserBrief implements Serializable {
     private String id;
     private String name;
     private int stars;
     private String picture;
     private int deals;
+    private String token;
+
+    public UserBrief(User user) {
+        id = user.getId();
+        name = user.getName();
+        stars = user.getStars();
+        picture = user.getPicture();
+        deals = user.getDealCount();
+        token = user.getToken();
+    }
+
+    public UserBrief() {
+    }
 
     public String getId() {
         return id;

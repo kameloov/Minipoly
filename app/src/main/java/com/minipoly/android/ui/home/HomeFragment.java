@@ -11,15 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import com.minipoly.android.R;
 import com.minipoly.android.adapter.RealestateAdapter;
+import com.minipoly.android.databinding.HomeFragmentBinding;
+import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.utils.ZoomOutPageTransformer;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel model;
     private RealestateAdapter adapter;
     private ViewPager pager;
+    private HomeFragmentBinding binding;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -28,7 +32,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        binding = HomeFragmentBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
@@ -41,17 +46,15 @@ public class HomeFragment extends Fragment {
                 adapter = new RealestateAdapter(realestates, getContext());
             else
                 adapter.setRealestates(realestates);
-            pager = getView().findViewById(R.id.pager);
-            pager.setOffscreenPageLimit(5);
-            int w = pager.getWidth();
-            pager = getView().findViewById(R.id.pager);
-            // pager.setPadding(w/10,0,w/10,0);
-            // pager.setPageMargin(-w/4);
-            // pager.setClipToPadding(false);
-            pager.setPageTransformer(false, new ZoomOutPageTransformer());
-            pager.setAdapter(adapter);
+            preparePager(binding.pager, realestates);
 
         });
+    }
+
+    private void preparePager(ViewPager pager, List<Realestate> realestates) {
+        pager.setOffscreenPageLimit(5);
+        pager.setPageTransformer(false, new ZoomOutPageTransformer());
+        pager.setAdapter(adapter);
     }
 
 }

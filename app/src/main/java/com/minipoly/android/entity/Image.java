@@ -5,8 +5,10 @@ import android.net.Uri;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public class Image {
+public class Image implements Serializable {
     @Exclude
     private Uri uri;
     private boolean uploaded;
@@ -55,6 +57,7 @@ public class Image {
         this.uploaded = uploaded;
     }
 
+    @Exclude
     public Uri getUri() {
         return uri;
     }

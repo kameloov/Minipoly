@@ -6,12 +6,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.minipoly.android.UserManager;
 import com.minipoly.android.entity.TransferInfo;
 import com.minipoly.android.entity.User;
 import com.minipoly.android.livedata.FireLiveUpload;
 import com.minipoly.android.repository.MediaRepository;
 import com.minipoly.android.repository.SocialRepository;
+import com.minipoly.android.utils.LocalData;
 
 public class EditProfileViewModel extends ViewModel {
     private MutableLiveData<User> user = new MutableLiveData<>();
@@ -67,7 +67,8 @@ public class EditProfileViewModel extends ViewModel {
         SocialRepository.updateUser(u, s -> success.setValue(s));
     }
 
+
     public void upload(Uri uri) {
-        MediaRepository.updateAvatar(UserManager.getUserID(), uri, uploader);
+        MediaRepository.updateAvatar(LocalData.getUserInfo().getId(), uri, uploader);
     }
 }

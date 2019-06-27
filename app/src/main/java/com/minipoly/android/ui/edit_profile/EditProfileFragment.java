@@ -15,11 +15,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.minipoly.android.ProgressInfo;
 import com.minipoly.android.R;
 import com.minipoly.android.databinding.EditProfileFragmentBinding;
-import com.minipoly.android.repository.SocialRepository;
 import com.minipoly.android.utils.GlideApp;
+import com.minipoly.android.utils.LocalData;
 import com.minipoly.android.utils.PermissionUtils;
 import com.minipoly.android.utils.UriUtils;
 
@@ -46,8 +47,7 @@ public class EditProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         model = ViewModelProviders.of(this).get(EditProfileViewModel.class);
-        // todo provide real user data
-        model.setUser(SocialRepository.getdemoUser());
+        model.setUser(LocalData.getUserInfo());
         binding.setLifecycleOwner(this);
         binding.setM(model);
         attachEvents();
@@ -63,7 +63,9 @@ public class EditProfileFragment extends Fragment {
     private void attachObservers() {
         model.getUploader().observe(this, transferInfo -> {
             if (transferInfo.getStatus() == ProgressInfo.SUCCESS)
-                GlideApp.with(this).load(selectedImageUri).into(binding.imgProfile);
+                GlideApp.with(this).load(selectedImageUri)
+                        .apply(new RequestOptions().circleCrop().error(R.drawable.circle))
+                        .into(binding.imgProfile);
         });
         model.getSuccess().observe(this, a -> {
             Toast.makeText(getContext(), getString(a ? R.string.update_success : R.string.error), Toast.LENGTH_SHORT).show();

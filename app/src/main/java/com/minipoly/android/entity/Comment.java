@@ -1,5 +1,9 @@
 package com.minipoly.android.entity;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Comment {
     private String id ;
     private String text;
@@ -8,7 +12,26 @@ public class Comment {
     private int like;
     private int dislike;
     private Reply reply;
+    private int replyCount;
 
+    @ServerTimestamp
+    private Date date;
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public String getId() {
         return id;

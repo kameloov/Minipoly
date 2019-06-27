@@ -1,11 +1,15 @@
 package com.minipoly.android.livedata;
 
 import androidx.lifecycle.LiveData;
+
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,12 +45,20 @@ public class FireLiveQuery<T> extends LiveData<List<T>> {
             registration.remove();
     }
 
-    public FireLiveQuery(Query query, Class<T> x ) {
+    public FireLiveQuery(Query query, Class<T> x, boolean newOnly) {
         this.query = query;
         listener = (queryDocumentSnapshots, e) -> {
         if (e!=null)
             return;
-        setValue(queryDocumentSnapshots.toObjects(x));
+            if (newOnly) {
+                List<T> items = new ArrayList<>();
+                for (DocumentChange d : queryDocumentSnapshots.getDocumentChanges()) {
+                    if (d.getType() == DocumentChange.Type.ADDED)
+                        items.add(d.getDocument().toObject(x));
+                }
+                setValue(items);
+            } else
+                setValue(queryDocumentSnapshots.toObjects(x));
         };
     }
 }

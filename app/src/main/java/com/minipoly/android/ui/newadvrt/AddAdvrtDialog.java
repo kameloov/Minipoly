@@ -16,8 +16,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.Glide;
 import com.minipoly.android.R;
 import com.minipoly.android.databinding.AddAdvrtDialogBinding;
-import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.Realestate;
+import com.minipoly.android.ui.category_dialog.CategoryDialog;
 import com.minipoly.android.ui.gallery.GalleryDialog;
 
 public class AddAdvrtDialog extends DialogFragment {
@@ -32,7 +32,7 @@ public class AddAdvrtDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_Dialog);
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.Theme_Dialog);
     }
 
     @Override
@@ -51,12 +51,22 @@ public class AddAdvrtDialog extends DialogFragment {
         binding.setVm(model);
         attachEvents();
         Realestate realestate = AddAdvrtDialogArgs.fromBundle(getArguments()).getItem();
-        CustomRadio cr = new CustomRadio();
-        cr.setName1("For Rent");
-        cr.setName2("For Sale");
-        cr.setChecked(false);
-        model.setRadio(cr);
         model.setRealestate(realestate);
+        addObservers();
+    }
+
+    private void addObservers() {
+        model.command.observe(this, command -> {
+            if (command == AddAdvrtDialogViewModel.Command.IDLE)
+                return;
+            String id = command == AddAdvrtDialogViewModel.Command.SHOW_CATEGORY ?
+                    null : model.category.getValue().getId();
+            CategoryDialog dialog = CategoryDialog.newInstance(id, (sub, category) -> model.setCatOrSubId(sub, category));
+
+            dialog.show(getFragmentManager(), "CAT");
+            model.command.setValue(AddAdvrtDialogViewModel.Command.IDLE);
+        });
+
         model.getDefaultImage().observe(this, image -> {
             if (image != null)
                 Glide.with(this).load(image.getUri()).into(binding.imgGallery);
@@ -68,6 +78,7 @@ public class AddAdvrtDialog extends DialogFragment {
             if (a)
                 dismiss();
         });
+
     }
 
     private void attachEvents() {
@@ -80,6 +91,8 @@ public class AddAdvrtDialog extends DialogFragment {
             }
         });
     }
+
+
     private void showGallery() {
         GalleryDialog dialog = GalleryDialog.newInstance(AddAdvrtDialogViewModel.getUploader());
         dialog.show(getFragmentManager(), "gallery");

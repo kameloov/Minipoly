@@ -50,7 +50,8 @@ public class RealestateAdapter extends PagerAdapter {
         binding.setArabic(false);
         View v = binding.getRoot();
         v.setOnClickListener(v1 -> {
-            HomeFragmentDirections.RealestateDetails realestateDetails = HomeFragmentDirections.realestateDetails(realestates.get(0));
+            HomeFragmentDirections.RealestateDetails realestateDetails =
+                    HomeFragmentDirections.realestateDetails(realestates.get(position));
             Navigation.findNavController(v).navigate(realestateDetails);
         });
         container.addView(v);

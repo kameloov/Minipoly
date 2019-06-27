@@ -11,15 +11,20 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 import com.minipoly.android.HttpService;
 import com.minipoly.android.R;
+import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.Country;
+import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.ValueFilter;
-import com.minipoly.android.repository.CountryRepository;
+import com.minipoly.android.livedata.FireLiveQuery;
+import com.minipoly.android.repository.CategoryRepository;
+import com.minipoly.android.repository.MiscRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.utils.CardBuilder;
 
@@ -34,6 +39,30 @@ public class MapViewModel extends ViewModel {
     private Geocoder geocoder;
     private CardBuilder cardBuilder;
     private MutableLiveData<Boolean> addVisible = new MutableLiveData<>();
+    private MutableLiveData<Boolean> filtersVisible = new MutableLiveData<>();
+    public FireLiveQuery<Category> categories;
+    public MutableLiveData<Integer> minPrice = new MutableLiveData<>();
+    public MutableLiveData<Integer> maxPrice = new MutableLiveData<>();
+    public MutableLiveData<String> catgory = new MutableLiveData<>();
+    public MutableLiveData<CustomRadio> rent = new MutableLiveData<>();
+    public MutableLiveData<CustomRadio> realestate = new MutableLiveData<>();
+
+    public MapViewModel() {
+        categories = CategoryRepository.getCategories();
+        filtersVisible.setValue(true);
+        rent.setValue(new CustomRadio(false, "For Rent", "For Sale"));
+        realestate.setValue(new CustomRadio(false, "Realestate", "Market"));
+
+    }
+
+
+    public LiveData<Boolean> getFiltersVisible() {
+        return filtersVisible;
+    }
+
+    public void toggleFilters() {
+        filtersVisible.setValue(!filtersVisible.getValue());
+    }
 
     public LiveData<Boolean> getAddVisible() {
         return addVisible;
@@ -67,9 +96,10 @@ public class MapViewModel extends ViewModel {
         VisibleRegion region = googleMap.getProjection().getVisibleRegion();
         float zoom = googleMap.getCameraPosition().zoom;
         if (zoom > 8)
-            HttpService.getRealestates(realestates, region.latLngBounds.southwest, region.latLngBounds.northeast);
+            HttpService.getRealestates(realestates, region.latLngBounds.southwest, region.latLngBounds.northeast,
+                    minPrice.getValue(), maxPrice.getValue(), rent.getValue().isChecked(), catgory.getValue());
         else
-            CountryRepository.getCountries(getLongFilter(region), countries);
+            MiscRepository.getCountries(getLongFilter(region), countries);
     }
 
     public void setMapAndGeocoder(GoogleMap map, Geocoder geocoder) {
@@ -105,7 +135,7 @@ public class MapViewModel extends ViewModel {
         for (Realestate r : realestates) {
             LatLng pos = new LatLng(r.getLat(), r.getLang());
             float zoom = googleMap.getCameraPosition().zoom;
-            googleMap.addMarker(new MarkerOptions().position(pos)
+            Marker m = googleMap.addMarker(new MarkerOptions().position(pos)
                     .title(r.getTitle()).anchor(0.5f, 0.5f)
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.house)));
         }

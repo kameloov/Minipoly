@@ -34,7 +34,7 @@
     <string name="brokerage">Brokerage</string>
     <string name="share">Share</string>
     <string name="add_comment">Write Comment</string>
-    <string name="deals">Deals</string>
+    <string name="dealsCount">Deals</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="change_name">Change Name</string>
     <string name="change_email">Change E-mail</string>
@@ -49,4 +49,41 @@
     <string name="update_success">User Info Updated Successfully</string>
     <string name="rent">For Rent</string>
     <string name="sell">For Sale</string>
+    <string name="type">Type</string>
+    <string name="no_comments">No comments</string>
+    <string name="offer_owner">Offer owner</string>
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
+    <string name="no_messages">No messages yet</string>
+    <string name="order_deal">Order this deal</string>
+    <string name="kilometers">Kilometers</string>
+    <string name="transmission">Transmission</string>
+    <string name="select_category">Select category</string>
+    <string name="select_subcategory">Select subcategory</string>
+    <string-array name="colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Silver</item>
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Gray</item>
+        <item>Orange</item>
+        <item>Sky blue</item>
+    </string-array>
+    <string-array name="brands">
+        <item>BMW</item>
+        <item>Audi</item>
+        <item>VolksWegan</item>
+        <item>Porsche</item>
+        <item>Honda</item>
+        <item>Hyundai</item>
+        <item>Kia</item>
+        <item>Volvo</item>
+        <item>Nissan</item>
+        <item>Fiat</item>
+        <item>Ferrari</item>
+        <item>Mazda</item>
+    </string-array>
 </resources>

@@ -28,14 +28,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <include
+            layout="@layout/radios_sm"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="8dp"
+            app:radio="@{vm.realestate}"
+            android:visibility="@{vm.filtersVisible ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline38"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/crdAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:visibility="@{vm.addVisible?View.VISIBLE:View.GONE}"
             app:cardElevation="6dp"
             app:cardMaxElevation="10dp"
-            android:visibility="@{vm.addVisible?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -56,13 +68,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:drawableStart="@android:drawable/ic_input_add"
+                    android:drawableLeft="@android:drawable/ic_input_add"
                     android:gravity="center"
                     android:onClick="@{(v)->vm.addRealestate(v,latlng)}"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="@string/add_realestate"
-                    android:textColor="@color/design_default_color_primary"
-                    android:drawableLeft="@android:drawable/ic_input_add" />
+                    android:textColor="@color/design_default_color_primary" />
 
                 <TextView
                     android:id="@+id/textView20"
@@ -76,12 +88,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:drawableStart="@android:drawable/ic_input_add"
+                    android:drawableLeft="@android:drawable/ic_input_add"
                     android:gravity="center"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="@string/add_market"
-                    android:textColor="@color/design_default_color_primary"
-                    android:drawableLeft="@android:drawable/ic_input_add" />
+                    android:textColor="@color/design_default_color_primary" />
 
                 <TextView
                     android:id="@+id/textView19"
@@ -95,14 +107,82 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:drawableStart="@android:drawable/ic_menu_search"
+                    android:drawableLeft="@android:drawable/ic_menu_search"
                     android:gravity="center"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="@string/search_map"
-                    android:textColor="@color/design_default_color_primary"
-                    android:drawableLeft="@android:drawable/ic_menu_search" />
+                    android:textColor="@color/design_default_color_primary" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstCategory"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:visibility="@{vm.filtersVisible ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline42"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView29"
+            app:layout_constraintTop_toTopOf="@+id/guideline38" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline38"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.88" />
+
+        <include
+            android:id="@+id/include9"
+            layout="@layout/radios_sm"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{vm.filtersVisible ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="parent"
+            app:radio="@{vm.rent}" />
+
+        <ImageView
+            android:id="@+id/imageView29"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{()->vm.toggleFilters()}"
+            android:src="@{vm.filtersVisible ? @drawable/close: @drawable/ic_tune}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline42"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline38" />
+
+        <com.edmodo.rangebar.RangeBar
+            android:id="@+id/rangebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{vm.filtersVisible ? View.VISIBLE : View.INVISIBLE}"
+            app:barColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/include9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tickCount="12" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

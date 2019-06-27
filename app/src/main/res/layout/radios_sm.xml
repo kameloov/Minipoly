@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="radio"
+            type="com.minipoly.android.entity.CustomRadio" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/radio_bg">
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/radio"
+            android:button="@color/fui_transparent"
+            android:checked="@{!radio.checked}"
+            android:gravity="center"
+            android:onClick="@{()->radio.setChecked(false)}"
+            android:text="@{radio.name2,default = `for sale`}"
+            android:textColor="@drawable/radio_text_color"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="6sp"
+            android:paddingStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingLeft="8dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/radio"
+            android:paddingEnd="8dp"
+            android:button="@android:color/transparent"
+            android:checked="@{radio.checked}"
+            android:gravity="center"
+            android:onClick="@{()->radio.setChecked(true)}"
+            android:text="@{radio.name1 ,default=`for rent`}"
+            android:textColor="@drawable/radio_text_color"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="6sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingRight="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

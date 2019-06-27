@@ -30,166 +30,19 @@
             app:layout_constraintTop_toTopOf="parent"
             bind:srcCompat="@drawable/rectangle" />
 
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/monthly_rent"
-            android:textColor="@color/border"
-            android:textSize="12sp"
-            app:layout_constraintHorizontal_bias="1.0"
-            bind:layout_constraintEnd_toStartOf="@+id/guideline16"
-            bind:layout_constraintStart_toStartOf="@+id/guideline15"
-            bind:layout_constraintTop_toBottomOf="@+id/include3" />
-
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/yearly_rent"
-            android:textColor="@color/border"
-            android:textSize="12sp"
-            bind:layout_constraintEnd_toStartOf="@+id/guideline16"
-            bind:layout_constraintHorizontal_bias="0.495"
-            bind:layout_constraintStart_toStartOf="@+id/guideline15"
-            bind:layout_constraintTop_toBottomOf="@+id/include3" />
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/furnished"
-            android:textColor="@color/border"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/include3" />
-
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:enabled="@{vm.radio.checked}"
-            android:onCheckedChanged="@{(s,b)->vm.changeMonthlyRent(b)}"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView29"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/textView29"
-            bind:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-        <TextView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/bathroom_count"
-            android:textColor="@color/border"
-            android:textSize="12sp"
-            bind:layout_constraintEnd_toEndOf="@+id/linearLayout14"
-            bind:layout_constraintStart_toStartOf="@+id/linearLayout14"
-            bind:layout_constraintTop_toBottomOf="@+id/include" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/radio_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            bind:layout_constraintEnd_toStartOf="@+id/guideline16"
-            bind:layout_constraintHorizontal_bias="0.0"
-            bind:layout_constraintStart_toStartOf="@+id/guideline15"
-            bind:layout_constraintTop_toBottomOf="@+id/textView22">
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->vm.changeRooms(-1)}"
-                bind:srcCompat="@mipmap/dec" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:text="@{``+vm.realestate.roomCount}" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->vm.changeRooms(1)}"
-                bind:srcCompat="@mipmap/inc" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/radio_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"
-            bind:layout_constraintTop_toBottomOf="@+id/textView22">
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->vm.changebath(-1)}"
-                bind:srcCompat="@mipmap/dec" />
-
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:text="@{``+vm.realestate.bathroomCount}" />
-
-            <ImageView
-                android:id="@+id/imageView66"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->vm.changebath(1)}"
-                bind:srcCompat="@mipmap/inc" />
-
-        </LinearLayout>
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.07" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.93" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
@@ -202,13 +55,13 @@
             android:id="@+id/imgGallery"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/edit_text"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline17"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2"
             app:srcCompat="@drawable/ic_photo_library_black_24dp" />
 
         <EditText
@@ -221,46 +74,51 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/title"
+            android:inputType="text"
             android:text="@={vm.realestate.title}"
             android:textColor="@color/line_color"
             android:textSize="14sp"
-            android:inputType="number"
-            app:layout_constraintBottom_toBottomOf="@+id/imgGallery"
+            app:layout_constraintBottom_toTopOf="@+id/textView15"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toTopOf="@+id/imgGallery" />
 
         <EditText
             android:id="@+id/textView7"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
             android:background="@drawable/edit_text"
             android:gravity="center"
             android:hint="@string/price"
+            android:inputType="number"
             android:text="@={vm.price}"
             android:textColor="@color/line_color"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editText3"
-            app:layout_constraintEnd_toStartOf="@+id/textView9"
+            app:layout_constraintBottom_toBottomOf="@+id/imgGallery"
+            app:layout_constraintEnd_toStartOf="@+id/guideline52"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/lstCurrency"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
             android:background="@drawable/edit_text"
             android:gravity="center"
             android:paddingLeft="8dp"
+            android:entries="@{vm.currencies}"
+            android:selectedItemPosition="@={vm.index}"
             android:paddingRight="8dp"
-            android:text="USD"
             android:textColor="@color/line_color"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@id/guideline52"
             app:layout_constraintTop_toTopOf="@+id/textView7" />
 
 
@@ -268,154 +126,71 @@
             android:id="@+id/textView12"
             android:layout_width="0dp"
             android:layout_height="1px"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/line_color"
-            app:layout_constraintBottom_toBottomOf="@+id/textView11"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toTopOf="@+id/textView11" />
+            app:layout_constraintStart_toStartOf="@+id/imgGallery"
+            app:layout_constraintTop_toBottomOf="@+id/imgGallery" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="@string/category"
             android:textColor="@color/border"
             android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner2"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintTop_toTopOf="@+id/spinner2" />
 
         <include
             android:id="@+id/include"
             layout="@layout/horizontal_line"
             android:layout_width="0dp"
             android:layout_height="1px"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/switch1" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner3" />
 
         <EditText
             android:id="@+id/editText2"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/edit_text"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/add_description"
             android:inputType="textMultiLine"
             android:singleLine="false"
-            android:textColor="@color/line_color"
             android:text="@={vm.realestate.text}"
+            android:textColor="@color/line_color"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+            app:layout_constraintTop_toBottomOf="@+id/textView69" />
 
         <include
             android:id="@+id/include2"
             layout="@layout/radios"
-            android:layout_width="160dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView15"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="0.308"
-            app:layout_constraintStart_toEndOf="@+id/imgGallery"
-            app:layout_constraintTop_toTopOf="@+id/imgGallery"
-            bind:radio="@{vm.radio}" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:layout_constraintDimensionRatio="h,6:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/textView11">
-
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radio_rect"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Building"
-                android:textColor="@drawable/radio_text_color"
-                android:textSize="10sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radio_rect"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Flat"
-                android:textColor="@drawable/radio_text_color"
-                android:textSize="10sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radio_rect"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Farm"
-                android:textColor="@drawable/radio_text_color"
-                android:textSize="10sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radio_rect"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Shop"
-                android:textColor="@drawable/radio_text_color"
-                android:textSize="10sp" />
-
-            <RadioButton
-                android:id="@+id/radioButton5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radio_rect"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Room"
-                android:textColor="@drawable/radio_text_color"
-                android:textSize="10sp" />
-
-        </RadioGroup>
+            app:layout_constraintTop_toTopOf="parent"
+            bind:radio="@{vm.kindRadio}" />
 
         <TextView
             android:id="@+id/textView15"
@@ -428,8 +203,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/imgGallery"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toEndOf="@+id/imgGallery"
-            app:layout_constraintTop_toTopOf="@+id/imgGallery"
-            app:layout_constraintVertical_bias="0.58000004" />
+            app:layout_constraintTop_toTopOf="@+id/imgGallery" />
 
         <include
             android:id="@+id/include3"
@@ -439,14 +213,14 @@
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.64" />
 
         <include
             android:id="@+id/include4"
@@ -457,104 +231,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
             app:layout_constraintTop_toTopOf="parent"
-            bind:radio="@{vm.radio}" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:enabled="@{vm.radio.checked}"
-            android:layout_marginRight="8dp"
-            android:onCheckedChanged="@{(s,b)->vm.changeYearlyRent(b)}"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView27"
-            app:layout_constraintStart_toStartOf="@+id/textView27"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-        <Switch
-            android:id="@+id/switch4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            android:enabled="@{vm.radio.checked}"
-            android:onCheckedChanged="@{(s,b)->vm.changeFurnished(b)}"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView24"
-            app:layout_constraintStart_toStartOf="@+id/textView24"
-            app:layout_constraintTop_toBottomOf="@+id/textView24"
-            bind:layout_constraintHorizontal_bias="0.5" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/radio_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/textView22">
-
-            <ImageView
-                android:id="@+id/imageView91"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->vm.changeOld(-1)}"
-                bind:srcCompat="@mipmap/dec" />
-
-            <TextView
-                android:id="@+id/textView98"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:text="@{``+vm.realestate.old}" />
-
-            <ImageView
-                android:id="@+id/imageView96"
-                android:layout_width="28dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:onClick="@{()->vm.changeOld(1)}"
-                app:srcCompat="@mipmap/inc" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/room_count"
-            android:textColor="@color/border"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/building_age"
-            android:textColor="@color/border"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout9"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            bind:radio="@{vm.kindRadio}" />
 
         <TextView
             android:id="@+id/txtAdd"
@@ -577,19 +254,210 @@
             android:id="@+id/editText3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
-            android:inputType="number"
             android:gravity="center"
+            android:hint="@string/area"
+            android:inputType="number"
             android:text="@={vm.area}"
+            android:visibility="@{vm.kindRadio.checked?View.VISIBLE:View.INVISIBLE}"
             android:textColor="@color/line_color"
             android:textSize="14sp"
-            android:hint="@string/area"
-            app:layout_constraintDimensionRatio="w,1:2.2"
-            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintBottom_toBottomOf="@+id/include5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline19"
+            app:layout_constraintTop_toTopOf="@+id/include5" />
+
+        <TextView
+            android:id="@+id/spinner2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_text"
+            android:gravity="center"
+            android:hint="@string/select_category"
+            android:onClick="@{()->vm.showSelect(false)}"
+            android:text="@{vm.category.title}"
+            app:layout_constraintDimensionRatio="w,1:6.5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/guideline17"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView67"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/type"
+            android:textColor="@color/border"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner3"
+            app:layout_constraintEnd_toStartOf="@+id/imageView28"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/imgGallery" />
+            app:layout_constraintTop_toTopOf="@+id/spinner3" />
+
+        <TextView
+            android:id="@+id/spinner3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_text"
+            android:gravity="center"
+            android:hint="@string/select_subcategory"
+            android:onClick="@{()->vm.showSelect(true)}"
+            android:text="@{vm.subCategory.title}"
+            app:layout_constraintDimensionRatio="w,1:6.5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline17"
+            app:layout_constraintTop_toBottomOf="@+id/include3" />
+
+        <ImageView
+            android:id="@+id/imageView28"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{()->vm.toggleExtra()}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView67"
+            app:layout_constraintEnd_toStartOf="@+id/guideline17"
+            app:layout_constraintTop_toTopOf="@+id/textView67"
+            bind:srcCompat="@drawable/ic_tune" />
+
+        <TextView
+            android:id="@+id/textView68"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:text="@string/type"
+            android:textColor="@color/border"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/include5"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toTopOf="@+id/include5" />
+
+        <include
+            android:id="@+id/include5"
+            layout="@layout/radios"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:visibility="@{vm.kindRadio.checked?View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintDimensionRatio="4:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline19"
+            app:layout_constraintStart_toEndOf="@+id/textView68"
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            bind:radio="@{vm.typeRadio}" />
+
+
+        <include
+            android:id="@+id/include55"
+            layout="@layout/radios"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:visibility="@{!vm.kindRadio.checked?View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintDimensionRatio="4:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline19"
+            app:layout_constraintStart_toEndOf="@+id/textView68"
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            bind:radio="@{vm.usedRadio}" />
+
+        <TextView
+            android:id="@+id/textView69"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_color"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/include5" />
+
+        <include
+            android:id="@+id/extra_realestate"
+            layout="@layout/realestate_extra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{(vm.extraVisible &amp;&amp; vm.kindRadio.checked)? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:m="@{vm.realestateManager}" />
+
+        <include
+            android:id="@+id/extra_car"
+            layout="@layout/car_extra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{(vm.extraVisible &amp;&amp; !vm.kindRadio.checked)? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:m="@{vm.realestateManager}" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/radio_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:visibility="@{!vm.kindRadio.checked?View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/include5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toEndOf="@+id/include5"
+            app:layout_constraintTop_toTopOf="@+id/include5">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changeOld(-1)}"
+                app:srcCompat="@mipmap/dec" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="@{``+vm.old}" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="@{()->vm.changeOld(1)}"
+                app:srcCompat="@mipmap/inc" />
+
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

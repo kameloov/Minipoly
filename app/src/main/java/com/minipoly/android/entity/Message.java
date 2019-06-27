@@ -2,9 +2,10 @@ package com.minipoly.android.entity;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Message {
+public class Message implements Serializable {
     private String id;
     private String text;
     private String userId;

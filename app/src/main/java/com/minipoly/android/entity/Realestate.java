@@ -12,6 +12,7 @@ public class Realestate extends Pin implements Serializable {
     private String text;
     private boolean isRent;
     private String categoryId;
+    private String subCategoryId;
     private List<Image> images;
     private String[] videos;
     private UserBrief userBrief;
@@ -31,6 +32,54 @@ public class Realestate extends Pin implements Serializable {
     private int like;
     private int dislike;
     private int views;
+
+    private CarInfo carInfo;
+    private RealestateInfo realestateInfo;
+    private MobileInfo mobileInfo;
+
+
+    public String getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(String subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+
+    public ComputerInfo getComputerInfo() {
+        return computerInfo;
+    }
+
+    public void setComputerInfo(ComputerInfo computerInfo) {
+        this.computerInfo = computerInfo;
+    }
+
+    private ComputerInfo computerInfo;
+
+    public CarInfo getCarInfo() {
+        return carInfo;
+    }
+
+    public void setCarInfo(CarInfo carInfo) {
+        this.carInfo = carInfo;
+    }
+
+    public RealestateInfo getRealestateInfo() {
+        return realestateInfo;
+    }
+
+    public void setRealestateInfo(RealestateInfo realestateInfo) {
+        this.realestateInfo = realestateInfo;
+    }
+
+    public MobileInfo getMobileInfo() {
+        return mobileInfo;
+    }
+
+    public void setMobileInfo(MobileInfo mobileInfo) {
+        this.mobileInfo = mobileInfo;
+    }
+
     @ServerTimestamp
     private Date publishDate;
 

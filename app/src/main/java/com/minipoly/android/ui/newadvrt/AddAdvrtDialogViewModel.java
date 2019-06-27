@@ -3,16 +3,16 @@ package com.minipoly.android.ui.newadvrt;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.minipoly.android.UserManager;
+import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.Image;
 import com.minipoly.android.entity.Realestate;
-import com.minipoly.android.entity.TransferInfo;
-import com.minipoly.android.entity.UserBrief;
+import com.minipoly.android.param_managers.MobileManager;
+import com.minipoly.android.param_managers.RealestateManager;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.SocialRepository;
 import com.minipoly.android.utils.Uploader;
@@ -20,19 +20,52 @@ import com.minipoly.android.utils.Uploader;
 import java.util.List;
 
 public class AddAdvrtDialogViewModel extends ViewModel {
-    private MutableLiveData<CustomRadio> radio = new MutableLiveData<>();
+    public enum Command {IDLE, SHOW_CATEGORY, SHOW_SUBCATEGORY}
+
+    public MutableLiveData<CustomRadio> kindRadio = new MutableLiveData<>();
+    public MutableLiveData<CustomRadio> typeRadio = new MutableLiveData<>();
+    public MutableLiveData<CustomRadio> usedRadio = new MutableLiveData<>();
     private MutableLiveData<Realestate> realestate = new MutableLiveData<>();
+    public MutableLiveData<Category> category = new MutableLiveData<>();
+    public MutableLiveData<Category> subCategory = new MutableLiveData<>();
+    public String[] currencies = new String[]{"USD", "EUR", "SAR", "EGP", "SYP"};
+    public MutableLiveData<Integer> index = new MutableLiveData<>(0);
     private List<Image> images;
-    private MediatorLiveData<TransferInfo> info = new MediatorLiveData<>();
     private LiveData<Image> defaultImage;
     private static Uploader uploader;
     public MutableLiveData<String> price = new MutableLiveData<>();
     public MutableLiveData<String> area = new MutableLiveData<>();
-    private MutableLiveData<Boolean> success = new MutableLiveData<>();
+    public MutableLiveData<Boolean> success = new MutableLiveData<>();
+    public MutableLiveData<Boolean> extraVisible = new MutableLiveData<>(false);
+    public MutableLiveData<Integer> selectedCategory = new MutableLiveData<>();
+    public MobileManager mobileManager = new MobileManager();
+    public MutableLiveData<Integer> old = new MutableLiveData<>(1);
+    public RealestateManager realestateManager;
+    public MutableLiveData<Command> command = new MutableLiveData<>(Command.IDLE);
 
     public AddAdvrtDialogViewModel() {
         uploader = new Uploader(UserManager.getUserID());
         defaultImage = uploader.getDefaultImage();
+        selectedCategory.setValue(0);
+        realestateManager = new RealestateManager(new Realestate());
+        kindRadio.setValue(new CustomRadio(false, "Add Realestate", "Add Market"));
+        typeRadio.setValue(new CustomRadio(false, "For Rent", "For Sale"));
+        usedRadio.setValue(new CustomRadio(false, "New", "Used"));
+    }
+
+    public void setCatOrSubId(boolean sub, Category cat) {
+        if (sub)
+            subCategory.setValue(cat);
+        else
+            category.setValue(cat);
+    }
+
+    public void changeOld(int value) {
+        old.setValue(old.getValue() + value);
+    }
+
+    public void toggleExtra() {
+        extraVisible.setValue(!extraVisible.getValue());
     }
 
     public static Uploader getUploader() {
@@ -49,12 +82,13 @@ public class AddAdvrtDialogViewModel extends ViewModel {
         realestate.postValue(r);
     }
 
-    public MutableLiveData<Boolean> getSuccess() {
-        return success;
+    public void showSelect(boolean subcategory) {
+        command.setValue(subcategory ? Command.SHOW_SUBCATEGORY : Command.SHOW_CATEGORY);
     }
 
-    public LiveData<TransferInfo> getInfo() {
-        return info;
+
+    public MutableLiveData<Boolean> getSuccess() {
+        return success;
     }
 
     public LiveData<Image> getDefaultImage() {
@@ -69,62 +103,18 @@ public class AddAdvrtDialogViewModel extends ViewModel {
         this.images = images;
     }
 
-    public void changeFurnished(boolean furnished) {
-        Realestate r = realestate.getValue();
-        r.setFurnished(furnished);
-        realestate.postValue(r);
-    }
-
-    public void changeMonthlyRent(boolean b) {
-        Realestate r = realestate.getValue();
-        r.setMonthlyRent(b);
-        realestate.postValue(r);
-    }
-
-    public void changeYearlyRent(boolean b) {
-        Realestate r = realestate.getValue();
-        r.setYearlyRent(b);
-        realestate.postValue(r);
-    }
-
-    public void changebath(int i) {
-        Realestate r = realestate.getValue();
-        r.setBathroomCount(r.getBathroomCount() + i);
-        realestate.postValue(r);
-    }
-
-    public void changeOld(int i) {
-        Realestate r = realestate.getValue();
-        r.setOld(r.getOld() + i);
-        realestate.postValue(r);
-    }
-
-    public LiveData<CustomRadio> getRadio() {
-        return radio;
-    }
-
-    public void setRadio(CustomRadio radio) {
-        this.radio.setValue(radio);
-    }
-
     public void setRealestate(Realestate realestate) {
         this.realestate.setValue( realestate);
+        this.realestateManager = new RealestateManager(realestate);
     }
 
     public void addRealestate() {
+        // todo missing values like category and subcategory
         Realestate r = realestate.getValue();
         r.setArea(Float.parseFloat(area.getValue()));
         r.setPrice(Float.parseFloat(price.getValue()));
-        UserBrief brief = new UserBrief();
-        // todo make the user Brief dynamic
-        brief.setId(SocialRepository.getUserId());
-        brief.setName("Kamel");
-        brief.setPicture("XOOhwofsSZbVMo8l7l7JP2vbFnx2");
-        brief.setId("XOOhwofsSZbVMo8l7l7JP2vbFnx2");
-        brief.setDeals(12);
-        brief.setStars(4);
-        r.setUserBrief(brief);
-        r.setRent(radio.getValue().isChecked());
+        r.setUserBrief(SocialRepository.getDemoBrief());
+        r.setRent(typeRadio.getValue().isChecked());
         r.setImages(uploader.getImages());
         RealestateRepository.addRealestate(r, (s) -> {
             success.setValue(s);

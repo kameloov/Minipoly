@@ -1,7 +1,8 @@
 package com.minipoly.android.ui.popup;
 
-import androidx.lifecycle.ViewModel;
 import android.util.Log;
+
+import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.maps.model.LatLng;
 

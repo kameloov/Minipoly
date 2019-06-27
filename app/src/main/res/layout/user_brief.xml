@@ -12,8 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.Guideline
@@ -28,8 +28,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:avatar="@{brief.picture}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="w,1:1"
-            app:layout_constraintEnd_toStartOf="@+id/guideline20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
@@ -38,13 +38,13 @@
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:gravity="center"
             android:text="@{brief.name}"
-            android:textSize="18sp"
             android:textStyle="bold"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/guideline21"
             app:layout_constraintStart_toEndOf="@+id/imgAvatar"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,8 +57,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toTopOf="@+id/guideline21"
-            app:stars="@{brief.stars}"
-            app:srcCompat="@mipmap/star3" />
+            app:srcCompat="@mipmap/star3"
+            app:stars="@{brief.stars}" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline21"
@@ -70,10 +70,13 @@
         <TextView
             android:id="@+id/txtDeals"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="@{`(`+ brief.deals+@string/deals+`)`}"
+            android:text="@{`(`+ brief.deals+` `+@string/dealsCount+`)`,default = `150 dealsCount`}"
+            android:textColor="@color/primaryText"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgRating"
             app:layout_constraintTop_toTopOf="@+id/guideline21" />

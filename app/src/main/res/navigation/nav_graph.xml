@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/editProfileFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.minipoly.android.ui.map.MapFragment"
@@ -59,17 +59,48 @@
             app:destination="@id/realestateDetails" />
     </fragment>
     <fragment
-        tools:layout="@layout/realestate_details_fragment"
         android:id="@+id/realestateDetails"
         android:name="com.minipoly.android.ui.realestate_details.RealestateDetails"
         android:label="RealestateDetails">
         <argument
             android:name="realestate"
             app:argType="com.minipoly.android.entity.Realestate" />
+        <action
+            android:id="@+id/details_to_chat"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:defaultValue='""'
+                android:name="conversationId" />
+        </action>
     </fragment>
     <fragment
         tools:layout="@layout/edit_profile_fragment"
         android:id="@+id/editProfileFragment"
         android:name="com.minipoly.android.ui.edit_profile.EditProfileFragment"
         android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.minipoly.android.ui.login.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/login_to_home"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_login_to_map"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        tools:layout="@layout/chat_fragment"
+        android:name="com.minipoly.android.ui.chat.ChatFragment"
+        android:label="ChatFragment">
+        <argument
+            android:name="conversationId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

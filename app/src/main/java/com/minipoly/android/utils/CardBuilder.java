@@ -1,6 +1,5 @@
 package com.minipoly.android.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.view.LayoutInflater;
@@ -8,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.minipoly.android.R;
+import com.minipoly.android.databinding.AdMiniBinding;
 import com.minipoly.android.entity.Country;
+import com.minipoly.android.entity.Realestate;
 
 public class CardBuilder {
 
@@ -18,8 +19,10 @@ public class CardBuilder {
     private TextView txtRCount;
     private TextView txtMCount;
     private TextView txtSales;
+    private LayoutInflater inflater;
 
     public CardBuilder(LayoutInflater inflater) {
+        this.inflater = inflater;
         inflateCard(inflater);
 
     }
@@ -36,6 +39,19 @@ public class CardBuilder {
         card.draw(c);
         b = Bitmap.createScaledBitmap(b, (int) (b.getWidth()*zoom*0.05f),
                 (int) (b.getHeight()*zoom*0.05f),true);
+        return b;
+    }
+
+    public Bitmap generatePin(Realestate realestate) {
+        AdMiniBinding binding = AdMiniBinding.inflate(inflater);
+        binding.setI(realestate.getImages().get(0));
+        binding.setT(realestate.getPrice() + "");
+        View v = binding.getRoot();
+        v.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        Bitmap b = Bitmap.createBitmap(v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        v.draw(c);
         return b;
     }
 
