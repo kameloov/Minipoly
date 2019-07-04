@@ -6,7 +6,7 @@
 
         <variable
             name="manager"
-            type="com.minipoly.android.param_managers.CarManager" />
+            type="com.minipoly.android.param_managers.ComputerManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,10 +26,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text"
-            android:entries="@{manager.models}"
+            android:entries="@{manager.misc.graphic}"
             android:gravity="center"
             style="@style/MySpinnerLook"
-            android:selectedItemPosition="@={manager.modelIndex}"
+            android:selectedItemPosition="@={manager.graphicIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +45,8 @@
             android:background="@drawable/edit_text"
             style="@style/MySpinnerLook"
             android:gravity="center"
-            android:entries="@{manager.years}"
-            android:selectedItemPosition="@={manager.yearIndex}"
+            android:entries="@{manager.misc.ram}"
+            android:selectedItemPosition="@={manager.ramIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,20 +54,20 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner"
+            style="@style/MySpinnerLook"
             android:layout_width="0dp"
             android:layout_height="34dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/edit_text"
-            style="@style/MySpinnerLook"
+            android:entries="@{manager.misc.screen}"
             android:gravity="center"
-            android:entries="@{manager.brands}"
-            android:selectedItemPosition="@={manager.brandIndex}"
+            android:selectedItemPosition="@={manager.screenIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText14" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner6"
@@ -78,10 +78,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
-            android:entries="@{manager.colors}"
+            android:entries="@{manager.misc.storage}"
             android:gravity="center"
             style="@style/MySpinnerLook"
-            android:selectedItemPosition="@={manager.colorIndex}"
+            android:selectedItemPosition="@={manager.storageIndex}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/textView70"
@@ -96,10 +96,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
-            android:entries="@{manager.fuel}"
+            android:entries="@{manager.misc.processor}"
             android:gravity="center"
             style="@style/MySpinnerLook"
-            android:selectedItemPosition="@={manager.fuelIndex}"
+            android:selectedItemPosition="@={manager.processorIndex}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView70"
@@ -118,11 +118,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:text="@string/transmission"
             android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@+id/textView70"
-            app:layout_constraintTop_toBottomOf="@+id/editText14" />
+            app:layout_constraintTop_toTopOf="@+id/spinner" />
 
         <TextView
             android:id="@+id/textView70"
@@ -130,28 +129,10 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/line_color"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline37"
-            app:layout_constraintTop_toBottomOf="@+id/editText14" />
-
-        <EditText
-            android:id="@+id/editText14"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/kilometers"
-            android:inputType="number"
-            android:text="@={manager.kilometer}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/guideline37" />
 
 
         <include
@@ -164,8 +145,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView62"
-            app:layout_constraintTop_toBottomOf="@+id/textView62"
-            app:radio="@{manager.transmission}" />
+            app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

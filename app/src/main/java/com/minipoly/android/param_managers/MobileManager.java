@@ -2,100 +2,91 @@ package com.minipoly.android.param_managers;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.minipoly.android.entity.MobileInfo;
+import com.minipoly.android.entity.MobileMisc;
+import com.minipoly.android.livedata.FireLiveDocument;
+import com.minipoly.android.repository.MiscRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MobileManager {
-    private MutableLiveData<MobileInfo> mobileInfo = new MutableLiveData<>();
-    public MutableLiveData<Integer> storageIndex = new MutableLiveData<>(0);
-    public MutableLiveData<Integer> colorIndex = new MutableLiveData<>(0);
-    public MutableLiveData<Integer> ramIndex = new MutableLiveData<>(0);
-    public MutableLiveData<Integer> batteryIndex = new MutableLiveData<>(0);
-    public MutableLiveData<Integer> typeIndex = new MutableLiveData<>(0);
-    public List<String> ram = new ArrayList<>();
-    public List<String> storage = new ArrayList<>();
-    public List<String> colors = new ArrayList<>();
-    public List<String> battery = new ArrayList<>();
-    public List<String> type = new ArrayList<>();
+    private MobileInfo mobileInfo = new MobileInfo();
+    private MutableLiveData<Integer> storageIndex = new MutableLiveData<>(-1);
+    private MutableLiveData<Integer> colorIndex = new MutableLiveData<>(-1);
+    private MutableLiveData<Integer> ramIndex = new MutableLiveData<>(-1);
+    private MutableLiveData<Integer> batteryIndex = new MutableLiveData<>(-1);
+    private MutableLiveData<Integer> typeIndex = new MutableLiveData<>(-1);
+    public FireLiveDocument<MobileMisc> misc = MiscRepository.getMobileMisc();
+    public LiveData<List<String>> battery = Transformations.switchMap(misc, input -> {
+        MutableLiveData<List<String>> result = new MutableLiveData<>();
+        if (misc.getValue() != null) {
+            List<String> dest = new ArrayList<>();
+            List<Integer> src = misc.getValue().getBattery();
+            for (int i : src)
+                dest.add(i + " mAh");
+            result.setValue(dest);
+        }
+        return result;
 
-    public MobileManager() {
-        mobileInfo.setValue(new MobileInfo());
-        prepareStorage();
-        prepareColors();
-        prepareRam();
-        prepareBattery();
-        prepareType();
+    });
+
+    public Integer getStorageIndex() {
+        return storageIndex.getValue();
     }
 
-    public LiveData<MobileInfo> getMobileInfo() {
+    public void setStorageIndex(Integer storageIndex) {
+        this.storageIndex.setValue(storageIndex);
+        if (storageIndex > -1)
+            mobileInfo.setStorage(misc.getValue().getStorage().get(storageIndex));
+    }
+
+
+    public Integer getColorIndex() {
+        return colorIndex.getValue();
+    }
+
+    public void setColorIndex(Integer colorIndex) {
+        this.colorIndex.setValue(colorIndex);
+        if (colorIndex > -1)
+            mobileInfo.setColor(misc.getValue().getColors().get(colorIndex));
+    }
+
+
+    public Integer getRamIndex() {
+        return ramIndex.getValue();
+    }
+
+    public void setRamIndex(Integer ramIndex) {
+        this.ramIndex.setValue(ramIndex);
+        if (ramIndex > -1)
+            mobileInfo.setRam(misc.getValue().getRam().get(ramIndex));
+
+    }
+
+    public Integer getBatteryIndex() {
+        return batteryIndex.getValue();
+    }
+
+    public void setBatteryIndex(Integer batteryIndex) {
+        this.batteryIndex.setValue(batteryIndex);
+        if (batteryIndex > -1)
+            mobileInfo.setBattery(misc.getValue().getBattery().get(batteryIndex));
+    }
+
+    public Integer getTypeIndex() {
+        return typeIndex.getValue();
+    }
+
+    public void setTypeIndex(Integer typeIndex) {
+        this.typeIndex.setValue(typeIndex);
+        if (typeIndex > -1)
+            mobileInfo.setCategory(misc.getValue().getType().get(typeIndex));
+    }
+
+    public MobileInfo getMobileInfo() {
         return mobileInfo;
-    }
-
-
-    private void prepareStorage() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add(" Storage");
-        list.add("2 G");
-        list.add("4 G");
-        list.add("8 G");
-        list.add("16 G");
-        list.add("32 G");
-        list.add("64 G");
-        list.add("128 G");
-        list.add("256 G");
-        list.add("512 G");
-        storage = list;
-    }
-
-    private void prepareColors() {
-        ArrayList<String> c = new ArrayList<>();
-        c.add("Color");
-        c.add("White");
-        c.add("Black");
-        c.add("Blue");
-        c.add("Red");
-        c.add("Gray");
-        c.add("Silver");
-        colors = c;
-    }
-
-    private void prepareBattery() {
-        ArrayList<String> items = new ArrayList<>();
-        items.add("Battery");
-        items.add("1400 mAH");
-        items.add("1800 mAH");
-        items.add("2000 mAH");
-        items.add("2200 mAH");
-        items.add("2400 mAH");
-        items.add("2800 mAH");
-        items.add("3000 mAH");
-        items.add("4000 mAH");
-        battery = items;
-    }
-
-    private void prepareType() {
-        ArrayList<String> items = new ArrayList<>();
-        items.add("Type");
-        items.add("Tablet");
-        items.add("Mobile");
-        items.add("transformer");
-        type = items;
-    }
-
-    private void prepareRam() {
-        ArrayList<String> c = new ArrayList<>();
-        c.add("Ram");
-        c.add("1 G");
-        c.add("1.5 G");
-        c.add("2 G");
-        c.add("3 G");
-        c.add("4 G");
-        c.add("6 G");
-        c.add("8 G");
-        c.add("16 G");
-        ram = c;
     }
 }

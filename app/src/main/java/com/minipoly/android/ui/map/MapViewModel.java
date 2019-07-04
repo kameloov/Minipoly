@@ -48,7 +48,7 @@ public class MapViewModel extends ViewModel {
     public MutableLiveData<CustomRadio> realestate = new MutableLiveData<>();
 
     public MapViewModel() {
-        categories = CategoryRepository.getCategories();
+        categories = CategoryRepository.getCategories(false);
         filtersVisible.setValue(true);
         rent.setValue(new CustomRadio(false, "For Rent", "For Sale"));
         realestate.setValue(new CustomRadio(false, "Realestate", "Market"));

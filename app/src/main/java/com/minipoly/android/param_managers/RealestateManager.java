@@ -18,34 +18,38 @@ public class RealestateManager {
     }
 
     public void changeRooms(int i) {
-        Realestate r = realestate.getValue();
+        RealestateInfo r = info.getValue();
         r.setRoomCount(r.getRoomCount() + i);
-        realestate.postValue(r);
+        info.postValue(r);
     }
 
 
     public void changeFurnished(boolean furnished) {
-        Realestate r = realestate.getValue();
+        RealestateInfo r = info.getValue();
         r.setFurnished(furnished);
-        realestate.postValue(r);
+        info.postValue(r);
     }
 
     public void changeMonthlyRent(boolean b) {
-        Realestate r = realestate.getValue();
+        RealestateInfo r = info.getValue();
         r.setMonthlyRent(b);
-        realestate.postValue(r);
+        info.postValue(r);
     }
 
     public void changeYearlyRent(boolean b) {
-        Realestate r = realestate.getValue();
+        RealestateInfo r = info.getValue();
         r.setYearlyRent(b);
-        realestate.postValue(r);
+        info.postValue(r);
     }
 
     public void changebath(int i) {
-        Realestate r = realestate.getValue();
+        RealestateInfo r = info.getValue();
         r.setBathroomCount(r.getBathroomCount() + i);
-        realestate.postValue(r);
+        info.postValue(r);
+    }
+
+    public RealestateInfo getInfo() {
+        return info.getValue();
     }
 
     public MutableLiveData<Realestate> getRealestate() {

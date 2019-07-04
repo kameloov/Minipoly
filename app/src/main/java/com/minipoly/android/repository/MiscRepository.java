@@ -7,15 +7,21 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.minipoly.android.C;
 import com.minipoly.android.DataListener;
 import com.minipoly.android.entity.Car;
+import com.minipoly.android.entity.ComputerMisc;
 import com.minipoly.android.entity.Country;
+import com.minipoly.android.entity.MobileMisc;
 import com.minipoly.android.entity.ValueFilter;
+import com.minipoly.android.livedata.FireLiveDocument;
 import com.minipoly.android.utils.FireStoreUtils;
 
 import java.util.List;
 
 import static com.minipoly.android.References.cars;
+import static com.minipoly.android.References.computer;
+import static com.minipoly.android.References.mobile;
 
 public class MiscRepository {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,12 +58,21 @@ public class MiscRepository {
         });
     }
 
+    public static void setMobileMisc(MobileMisc misc) {
+        mobile.document(C.MISC).set(misc);
+    }
 
- /*   public static FireLiveQuery<Country> getCountries(ValueFilter<Double> lang) {
-        Log.e(TAG, "getCountries: getting countries");
-        Query query = FireStoreUtils.processFilter(countries, lang);
-        return new FireLiveQuery(query, Country.class);
-    }*/
+    public static void setComputerMisc(ComputerMisc misc) {
+        computer.document(C.MISC).set(misc);
+    }
+
+    public static FireLiveDocument<ComputerMisc> getComputerMisc() {
+        return new FireLiveDocument<>(computer.document(C.MISC).get(), ComputerMisc.class);
+    }
+
+    public static FireLiveDocument<MobileMisc> getMobileMisc() {
+        return new FireLiveDocument<>(mobile.document(C.MISC).get(), MobileMisc.class);
+    }
 
     public static void getCountries(ValueFilter<Double> lang, MutableLiveData liveData) {
         Query query = FireStoreUtils.processFilter(countries, lang);

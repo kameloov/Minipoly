@@ -14,6 +14,7 @@ import com.minipoly.android.utils.LocalData;
 
 import java.util.List;
 
+import static com.minipoly.android.References.auctions;
 import static com.minipoly.android.References.realestates;
 
 public class CommentRepository {
@@ -22,31 +23,22 @@ public class CommentRepository {
     private static int PAGE_SIZE = 10;
 
 
-    public static FireLiveQuery<Comment> laodComments(String id) {
+    public static FireLiveQuery<Comment> loadComments(String id) {
         return new FireLiveQuery<Comment>(realestates.document(id).collection(C.COMMENTS_COLLECTION)
                 .orderBy("date", Query.Direction.ASCENDING), Comment.class, false);
     }
 
-    public static void loadRealestateComments(String id, DataListener<List<Comment>> listener) {
+    public static FireLiveQuery<Comment> loadAuctionComments(String id) {
+        return new FireLiveQuery<Comment>(auctions.document(id).collection(C.COMMENTS_COLLECTION)
+                .orderBy("date", Query.Direction.ASCENDING), Comment.class, false);
+    }
 
-        /// reset every thing if we are getting commetns for new advrt
-        if (!id.equals(advrtId)) {
-            last = null;
-        }
-        // set advrtI  to the specified id so we can use it in next check
-        advrtId = id;
-        Query query = realestates.document(id).collection(C.COMMENTS_COLLECTION).orderBy("date", Query.Direction.DESCENDING)
-                .limit(PAGE_SIZE);
-        if (last != null)
-            query = query.startAfter(last);
-        query.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<DocumentSnapshot> docs = task.getResult().getDocuments();
-                if (docs.size() > 0)
-                    last = docs.get(docs.size() - 1);
-            }
-            listener.onComplete(task.isSuccessful(), task.getResult().toObjects(Comment.class));
-        });
+
+    public static void addAuctionComment(Comment comment, CompleteListener listener) {
+        DocumentReference reference = auctions.document(comment.getAdvrtId())
+                .collection(C.COMMENTS_COLLECTION).document();
+        comment.setId(reference.getId());
+        reference.set(comment).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
     }
 
     public static void addComment(Comment comment, CompleteListener listener) {

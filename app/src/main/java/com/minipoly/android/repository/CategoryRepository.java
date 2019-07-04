@@ -17,8 +17,8 @@ import static com.minipoly.android.References.relCat;
 public class CategoryRepository {
     private List<Category> categories;
 
-    public static FireLiveQuery<Category> getCategories(){
-        return new FireLiveQuery<>(relCat.get(), Category.class);
+    public static FireLiveQuery<Category> getCategories(boolean market) {
+        return new FireLiveQuery<>(relCat.whereEqualTo("market", market).get(), Category.class);
     }
 
     public static void getCategories(boolean market, DataListener<List<Category>> listener) {
@@ -31,9 +31,9 @@ public class CategoryRepository {
     }
 
     public static FireLiveDocument addCategory(Category category){
-        String id = relCat.document().getId();
+        String id = category.getId() != null ? category.getId() : relCat.document().getId();
         category.setId( id);
-        return new FireLiveDocument(relCat.add(category), Subcategory.class);
+        return new FireLiveDocument(relCat.add(category), Category.class);
     }
 
     public static FireLiveQuery<Category> getSubcategories(String categoryId) {

@@ -75,6 +75,16 @@ public class CustomAdapters {
         }
     }
 
+    @BindingAdapter("social")
+    public static void setSocial(TextView textView, int value) {
+        String s = String.valueOf(value);
+        if (value >= 1000)
+            s = value / 1000.0f + " K";
+        if (value >= 1000000)
+            s = value / 1000000.0f + " M";
+        textView.setText(s);
+    }
+
 
     @BindingAdapter("stars")
     public static void setStars(ImageView img, int stars) {

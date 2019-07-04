@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class RealestateInfo implements Serializable {
     private boolean isRent;
     private float area;
-    private float price;
     private int roomCount;
     private int bathroomCount;
     private boolean furnished;
@@ -29,13 +28,6 @@ public class RealestateInfo implements Serializable {
         this.area = area;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
 
     public int getRoomCount() {
         return roomCount;

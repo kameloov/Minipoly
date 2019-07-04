@@ -261,7 +261,7 @@
             android:gravity="center"
             android:hint="@string/area"
             android:inputType="number"
-            android:text="@={vm.area}"
+            android:text="@={vm.realestateManager.area}"
             android:visibility="@{vm.kindRadio.checked?View.VISIBLE:View.INVISIBLE}"
             android:textColor="@color/line_color"
             android:textSize="14sp"
@@ -385,27 +385,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline15"
             app:layout_constraintTop_toBottomOf="@+id/include5" />
 
-        <include
-            android:id="@+id/extra_realestate"
-            layout="@layout/realestate_extra"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="@{(vm.extraVisible &amp;&amp; vm.kindRadio.checked)? View.VISIBLE:View.INVISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/imageView28"
-            app:m="@{vm.realestateManager}" />
 
-        <include
-            android:id="@+id/extra_car"
-            layout="@layout/car_extra"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="@{(vm.extraVisible &amp;&amp; !vm.kindRadio.checked)? View.VISIBLE:View.INVISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintStart_toStartOf="@+id/guideline15"
-            app:layout_constraintTop_toBottomOf="@+id/imageView28"
-            app:m="@{vm.realestateManager}" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -458,6 +438,50 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.75" />
+
+        <include
+            android:id="@+id/extra_realestate"
+            layout="@layout/realestate_extra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{(vm.extraVisible &amp;&amp; vm.kindRadio.checked)? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:m="@{vm.realestateManager}" />
+
+        <include
+            android:id="@+id/extra_car"
+            layout="@layout/car_extra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{(vm.category.id.equals(`car`)  &amp;&amp; vm.extraVisible &amp;&amp; !vm.kindRadio.checked )? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:manager="@{vm.carManager}" />
+
+        <include
+            android:id="@+id/extra_mobile"
+            layout="@layout/mobile_extra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{(vm.category.id.equals(`mobile`)  &amp;&amp; vm.extraVisible &amp;&amp; !vm.kindRadio.checked )? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:manager="@{vm.mobileManager}" />
+
+        <include
+            android:id="@+id/extra_computer"
+            layout="@layout/computer_extra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{(vm.category.id.equals(`computer`)  &amp;&amp; vm.extraVisible &amp;&amp; !vm.kindRadio.checked )? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline16"
+            app:layout_constraintStart_toStartOf="@+id/guideline15"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:manager="@{vm.computerManager}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

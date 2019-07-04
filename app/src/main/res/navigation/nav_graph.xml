@@ -103,4 +103,13 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/auctionDetails"
+        tools:layout="@layout/auction_details_fragment"
+        android:name="com.minipoly.android.ui.auction_details.AuctionDetails"
+        android:label="AuctionDetails">
+        <argument
+            android:name="auction"
+            app:argType="com.minipoly.android.entity.Auction" />
+    </fragment>
 </navigation>

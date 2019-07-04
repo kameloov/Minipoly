@@ -25,11 +25,12 @@ public class CategoryDialog extends DialogFragment {
     private CategorySpinnerAdapter adapter = new CategorySpinnerAdapter();
     private static CategorySelectListener listener;
     private static String categoryId;
+    private static boolean market;
 
-    public static CategoryDialog newInstance(String categoryId, CategorySelectListener listener) {
-        CategoryDialog dialog = new CategoryDialog();
+    public static CategoryDialog newInstance(String categoryId, boolean market, CategorySelectListener listener) {
         CategoryDialog.listener = listener;
         CategoryDialog.categoryId = categoryId;
+        CategoryDialog.market = market;
         return new CategoryDialog();
     }
 
@@ -50,7 +51,7 @@ public class CategoryDialog extends DialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        model = ViewModelProviders.of(this, new CategoryViewModelFactory(categoryId)).get(CategoryDialogViewModel.class);
+        model = ViewModelProviders.of(this, new CategoryViewModelFactory(categoryId, market)).get(CategoryDialogViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setVm(model);
         prepareAdapter();

@@ -1,4 +1,4 @@
-package com.minipoly.android.ui.realestate_details;
+package com.minipoly.android.ui.auction_details;
 
 import android.view.View;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.Navigation;
 
+import com.minipoly.android.entity.Auction;
 import com.minipoly.android.entity.Comment;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.UserBrief;
@@ -15,13 +16,14 @@ import com.minipoly.android.repository.ChatRepository;
 import com.minipoly.android.repository.CommentRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.SocialRepository;
+import com.minipoly.android.ui.realestate_details.RealestateDetailsDirections;
 import com.minipoly.android.utils.LocalData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RealestateDetailsViewModel extends ViewModel {
-    private MutableLiveData<Realestate> relestate = new MutableLiveData<>();
+public class AuctionDetailsViewModel extends ViewModel {
+    private MutableLiveData<Auction> relestate = new MutableLiveData<>();
     public MutableLiveData<Integer> currentImage = new MutableLiveData<>();
     private FireLiveQuery<Comment> comments;
     public MutableLiveData<String> comment = new MutableLiveData<>();
@@ -33,9 +35,9 @@ public class RealestateDetailsViewModel extends ViewModel {
     public MutableLiveData<Boolean> watching = new MutableLiveData<>(false);
     public List<String> tags;
 
-    public RealestateDetailsViewModel(Realestate r) {
+    public AuctionDetailsViewModel(Auction r) {
         currentImage.setValue(0);
-        comments = CommentRepository.loadComments(r.getId());
+        comments = CommentRepository.loadAuctionComments(r.getId());
         loading.setValue(false);
         like.setValue(false);
         dislike.setValue(false);
@@ -114,7 +116,7 @@ public class RealestateDetailsViewModel extends ViewModel {
                     if (success) {
                         like.setValue(data);
                         int i = data ? 1 : -1;
-                        Realestate r = relestate.getValue();
+                        Auction r = relestate.getValue();
                         r.setLike(r.getLike() + i);
                         relestate.setValue(r);
                     }
@@ -149,7 +151,7 @@ public class RealestateDetailsViewModel extends ViewModel {
                     if (success) {
                         dislike.setValue(data);
                         int i = data ? 1 : -1;
-                        Realestate r = relestate.getValue();
+                        Auction r = relestate.getValue();
                         r.setDislike(r.getDislike() + i);
                         relestate.setValue(r);
                     }
@@ -165,13 +167,13 @@ public class RealestateDetailsViewModel extends ViewModel {
         c.setAdvrtId(relestate.getValue().getId());
         c.setText(comment.getValue());
         c.setUserBrief(new UserBrief(LocalData.getUserInfo()));
-        CommentRepository.addComment(c, success -> {
+        CommentRepository.addAuctionComment(c, success -> {
             adding.setValue(false);
             comment.setValue("");
         });
     }
 
-    public LiveData<Realestate> getRealestate() {
+    public LiveData<Auction> getRealestate() {
         return relestate;
     }
 }

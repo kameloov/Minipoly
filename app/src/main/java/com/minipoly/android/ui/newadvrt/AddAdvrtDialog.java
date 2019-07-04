@@ -56,12 +56,14 @@ public class AddAdvrtDialog extends DialogFragment {
     }
 
     private void addObservers() {
+        model.kindRadio.observe(this, customRadio -> model.extraVisible.setValue(false));
+
         model.command.observe(this, command -> {
             if (command == AddAdvrtDialogViewModel.Command.IDLE)
                 return;
             String id = command == AddAdvrtDialogViewModel.Command.SHOW_CATEGORY ?
                     null : model.category.getValue().getId();
-            CategoryDialog dialog = CategoryDialog.newInstance(id, (sub, category) -> model.setCatOrSubId(sub, category));
+            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.kindRadio.getValue().isChecked(), (sub, category) -> model.setCatOrSubId(sub, category));
 
             dialog.show(getFragmentManager(), "CAT");
             model.command.setValue(AddAdvrtDialogViewModel.Command.IDLE);

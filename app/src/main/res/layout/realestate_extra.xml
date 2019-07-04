@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:text="@{``+m.realestate.roomCount}" />
+                android:text="@{``+m.info.roomCount}" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:text="@{``+m.realestate.bathroomCount}" />
+                android:text="@{``+m.info.bathroomCount}" />
 
             <ImageView
                 android:id="@+id/imageView66"

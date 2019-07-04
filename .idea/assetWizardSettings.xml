@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/media/kamel/extra/android%20studio%20linux/android-studio-ide-191.5549111-linux/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_tune_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/media/kamel/extra/android%20studio%20linux/android-studio-ide-191.5549111-linux/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_group_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="9e1d17" />
-                            <entry key="outputName" value="ic_tune" />
+                            <entry key="outputName" value="ic_bidders" />
                             <entry key="sourceFile" value="$USER_HOME$/C:\Users\kameloov" />
                           </map>
                         </option>

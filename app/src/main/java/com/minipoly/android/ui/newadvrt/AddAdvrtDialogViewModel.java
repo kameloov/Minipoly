@@ -11,6 +11,8 @@ import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.Image;
 import com.minipoly.android.entity.Realestate;
+import com.minipoly.android.param_managers.CarManager;
+import com.minipoly.android.param_managers.ComputerManager;
 import com.minipoly.android.param_managers.MobileManager;
 import com.minipoly.android.param_managers.RealestateManager;
 import com.minipoly.android.repository.RealestateRepository;
@@ -41,6 +43,8 @@ public class AddAdvrtDialogViewModel extends ViewModel {
     public MobileManager mobileManager = new MobileManager();
     public MutableLiveData<Integer> old = new MutableLiveData<>(1);
     public RealestateManager realestateManager;
+    public CarManager carManager = new CarManager();
+    public ComputerManager computerManager = new ComputerManager();
     public MutableLiveData<Command> command = new MutableLiveData<>(Command.IDLE);
 
     public AddAdvrtDialogViewModel() {

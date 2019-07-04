@@ -12,11 +12,11 @@ public class CategoryDialogViewModel extends ViewModel {
     private FireLiveQuery<Category> categories;
     public MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
 
-    public CategoryDialogViewModel(String categoryId) {
+    public CategoryDialogViewModel(String categoryId, boolean market) {
         this.categoryId = categoryId;
         loading.setValue(true);
         if (categoryId == null)
-            categories = CategoryRepository.getCategories();
+            categories = CategoryRepository.getCategories(market);
         else
             categories = CategoryRepository.getSubcategories(categoryId);
     }

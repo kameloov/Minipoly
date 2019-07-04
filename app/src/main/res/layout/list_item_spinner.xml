@@ -28,8 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@{c.dealsCount+``,default=`4000`}"
-            android:textSize="18sp"
+            app:social="@{c.dealsCount}"
+            android:textColor="@color/line_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline51"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline50" />
@@ -40,7 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/dealsCount"
-            android:textSize="18sp"
+            android:textColor="@color/line_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline50"
             app:layout_constraintTop_toTopOf="@+id/guideline51" />
@@ -61,18 +65,38 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/frame" />
+            app:srcCompat="@drawable/badge" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
             android:text="@{c.title,default=`Title`}"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline51"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintVertical_bias="0.55" />
+
+        <ImageView
+            android:id="@+id/imageView44"
+            category="@{c.id}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="2dp"
+            android:rotationY="10"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/imageView41"
+            app:layout_constraintStart_toStartOf="@+id/imageView41"
+            app:layout_constraintTop_toTopOf="@+id/imageView41"
+            app:srcCompat="@drawable/messenger_bubble_large_blue" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

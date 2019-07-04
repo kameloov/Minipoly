@@ -14,4 +14,7 @@ public class References {
     public static CollectionReference conversations = db.collection(C.COLLECTION_CONVERSATION);
     public static CollectionReference currencies = db.collection(C.COLLECTION_CURRENCY);
     public static CollectionReference cars = db.collection(C.COLLECTION_CAR);
+    public static CollectionReference mobile = db.collection(C.COLLECTION_MOBILE);
+    public static CollectionReference computer = db.collection(C.COLLECTION_COMPUTER);
+    public static CollectionReference auctions = db.collection(C.COLLECTION_AUCTION);
 }

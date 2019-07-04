@@ -7,8 +7,8 @@ public interface C {
     String CONVERSATIONS = "conversations";
     String MESSAGES = "messages";
     String COLLECTION_USER = "user";
-    String COLLECTION_REALESTATE_CATEGORY = "realestate_category";
-    String COLLECTION_MARKET_CATEGORY = "realestate_category";
+    String COLLECTION_REALESTATE_CATEGORY = "category";
+    String COLLECTION_MARKET_CATEGORY = "category";
     String COLLECTION_SUBCATEGORY = "subcategory";
     String COMMENTS_COLLECTION = "comments";
     String COLLECTION_INTERACTION = "interactions";
@@ -21,4 +21,9 @@ public interface C {
     String COLLECTION_CAR = "car";
     String COLLECTION_CAR_MODELS = "models";
     String REPLIES = "replies";
+    String COLLECTION_MOBILE = "mobile";
+    String MISC = "misc";
+    String COLLECTION_COMPUTER = "computer";
+    String COLLECTION_AUCTION = "auction";
+    String COLLECTION_BIDS = "bids";
 }

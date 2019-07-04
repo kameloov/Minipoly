@@ -6,6 +6,33 @@ public class ComputerInfo extends Market implements Serializable {
     private int ram;
     private float screenSize;
     private String processor;
+    private int storage;
+    private boolean ssd;
+    private int graphic;
+
+    public int getStorage() {
+        return storage;
+    }
+
+    public void setStorage(int storage) {
+        this.storage = storage;
+    }
+
+    public boolean isSsd() {
+        return ssd;
+    }
+
+    public void setSsd(boolean ssd) {
+        this.ssd = ssd;
+    }
+
+    public int getGraphic() {
+        return graphic;
+    }
+
+    public void setGraphic(int graphic) {
+        this.graphic = graphic;
+    }
 
     public int getRam() {
         return ram;
