@@ -23,6 +23,7 @@ import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.ValueFilter;
 import com.minipoly.android.livedata.FireLiveQuery;
+import com.minipoly.android.repository.AuctionRepository;
 import com.minipoly.android.repository.CategoryRepository;
 import com.minipoly.android.repository.MiscRepository;
 import com.minipoly.android.repository.RealestateRepository;
@@ -114,6 +115,11 @@ public class MapViewModel extends ViewModel {
         Navigation.findNavController(view).navigate(addRealestate);
     }
 
+    public void addAuction(View view, LatLng latLng) {
+        MapFragmentDirections.ActionMapFragmentToAddAuctionDialog action = MapFragmentDirections
+                .actionMapFragmentToAddAuctionDialog(AuctionRepository.generateAuction(latLng.latitude, latLng.longitude, geocoder));
+        Navigation.findNavController(view).navigate(action);
+    }
 
     public void drawCountries(List<Country> countries) {
         if (googleMap == null)

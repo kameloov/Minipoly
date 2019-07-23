@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.StorageReference;
 import com.minipoly.android.C;
@@ -24,7 +25,7 @@ public class CustomAdapters {
     public static void setAvatar(ImageView view, String image) {
         if (image == null || image.isEmpty()) {
             GlideApp.with(view.getContext()).load(R.drawable.circle)
-
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(view);
             return;
         }

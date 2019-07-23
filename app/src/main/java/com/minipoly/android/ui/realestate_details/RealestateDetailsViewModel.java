@@ -44,6 +44,7 @@ public class RealestateDetailsViewModel extends ViewModel {
         sync();
         RealestateRepository.isFollowing(relestate.getValue().getId(), (success, data) -> watching.setValue(success && data));
         prepareTags();
+        RealestateRepository.updateViews(r.getId());
     }
 
 
@@ -61,26 +62,13 @@ public class RealestateDetailsViewModel extends ViewModel {
         });
     }
 
+
+    public void notifyFriends(View v) {
+        Navigation.findNavController(v).navigate(RealestateDetailsDirections.advrtUserList());
+    }
+
     private void prepareTags() {
         ArrayList<String> list = new ArrayList<>();
-        Realestate r = relestate.getValue();
-        list.add(r.isFurnished() ? "Furnished" : "Empty");
-        if (r.getRoomCount() > 0)
-            list.add(r.getRoomCount() + " Rooms");
-        if (r.getBathroomCount() > 0)
-            list.add(r.getBathroomCount() + " Bathrooms");
-        if (r.getArea() > 0)
-            list.add(r.getArea() + " M");
-        if (r.isYearlyRent())
-            list.add("Annual rent");
-        if (r.isMonthlyRent())
-            list.add("Monthly rent");
-        if (r.getOld() > 0)
-            list.add(r.getOld() + " Year");
-        if (list.size() < 7) {
-            for (int i = 0; i <= 7 - list.size(); i++)
-                list.add(null);
-        }
         tags = list;
 
     }

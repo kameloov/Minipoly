@@ -32,7 +32,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="@{ad.rent ? @string/rent : @string/sell}"
+                android:text="@{ad.realestateInfo.rent ? @string/rent : @string/sell}"
                 android:textColor="@color/line_color"
                 app:autoSizeMinTextSize="6sp"
                 app:autoSizeTextType="uniform"

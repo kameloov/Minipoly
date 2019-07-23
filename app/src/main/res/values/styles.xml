@@ -11,6 +11,7 @@
     <style name="Theme_Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="MySpinnerLook" parent="@android:style/Widget.TextView.SpinnerItem">

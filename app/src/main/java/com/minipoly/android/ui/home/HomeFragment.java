@@ -40,7 +40,9 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         model = ViewModelProviders.of(this).get(HomeViewModel.class);
+        binding.setVm(model);
         model.load();
+
         model.getRealestates().observe(this, realestates -> {
             if (adapter == null)
                 adapter = new RealestateAdapter(realestates, getContext());
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment {
 
         });
     }
+
 
     private void preparePager(ViewPager pager, List<Realestate> realestates) {
         pager.setOffscreenPageLimit(5);

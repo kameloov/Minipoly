@@ -1,16 +1,18 @@
 package com.minipoly.android.entity;
 
-public class Bid {
+import java.io.Serializable;
+
+public class Bid implements Serializable {
     private String id;
-    private float value;
+    private int value;
     private UserBrief bidder;
     private String advrtId;
 
-    public float getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(int value) {
         this.value = value;
     }
 

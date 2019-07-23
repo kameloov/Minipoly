@@ -28,7 +28,29 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="minipoly.page.link"
+                    android:scheme="app" />
+                <data
+                    android:host="minipoly.page.link"
+                    android:scheme="http" />
+                <data
+                    android:host="minipoly.page.link"
+                    android:scheme="https" />
+            </intent-filter>
         </activity>
+
+        <service android:name=".fcm.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

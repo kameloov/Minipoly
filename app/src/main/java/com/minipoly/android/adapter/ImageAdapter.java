@@ -6,47 +6,36 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.minipoly.android.R;
 import com.minipoly.android.entity.Image;
+import com.minipoly.android.utils.ImageBuffer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
-    private List<Image> images;
+public class ImageAdapter extends ListAdapter<Image, ImageAdapter.ImageViewHolder> {
     private Image current;
     private View.OnClickListener listener;
+    private static DiffUtil.ItemCallback<Image> DIFF_CALLBACK = new DiffUtil.ItemCallback<Image>() {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Image oldItem, @NonNull Image newItem) {
+            return oldItem.getId().equals(newItem.getId());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Image oldItem, @NonNull Image newItem) {
+            return oldItem.getId().equals(newItem.getId()) && oldItem.isUploaded() == newItem.isUploaded();
+        }
+    };
 
     public ImageAdapter(View.OnClickListener addListener) {
-        this.images = new ArrayList<>();
-        images.add(new Image());
+        super(DIFF_CALLBACK);
         this.listener = addListener;
     }
 
-    public List<Image> getImages() {
-        return images;
-    }
-
-
-    public void setImages(List<Image> images) {
-        this.images.addAll(images);
-        for (Image i : images)
-            if (i.isIcon())
-                current = i;
-    }
-
-    public void addImage(Image image) {
-        images.add(image);
-        // set the first added image as default image
-        if (images.size() == 2) {
-            current = image;
-            current.setIcon(true);
-        }
-        notifyItemInserted(images.size() - 1);
-    }
 
     @NonNull
     @Override
@@ -60,10 +49,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         holder.bind(position);
     }
 
-    @Override
-    public int getItemCount() {
-        return images.size();
-    }
 
     class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Image image;
@@ -84,7 +69,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
 
         public void bind(int index) {
-            this.image = images.get(index);
+            this.image = getItem(index);
             if (index == 0)
                 img.setImageResource(R.mipmap.add_image);
             else
@@ -113,7 +98,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                     notifyDataSetChanged();
                     break;
                 case R.id.btnDelete:
-                    images.remove(image);
+                    ImageBuffer.removeImage(image);
                     notifyDataSetChanged();
                     break;
                 case R.id.image:

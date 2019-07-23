@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.minipoly.android.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +33,30 @@
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.viewpager.widget.ViewPager>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Button"
+            android:onClick="@{(v)->vm.showAuctionDetails(v)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pager" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="@{(v)->vm.showEditProfile(v)}"
+            android:text="edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pager" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

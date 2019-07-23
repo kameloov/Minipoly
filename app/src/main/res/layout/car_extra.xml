@@ -13,22 +13,35 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:orientation="vertical"
         android:paddingBottom="16dp">
 
 
+        <ImageView
+            android:id="@+id/imageView47"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/extra_bg" />
+
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner4"
+            style="@style/MySpinnerLook"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.models}"
             android:gravity="center"
-            style="@style/MySpinnerLook"
             android:selectedItemPosition="@={manager.modelIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
@@ -37,16 +50,20 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner5"
+            style="@style/MySpinnerLook"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/edit_text"
-            style="@style/MySpinnerLook"
-            android:gravity="center"
             android:entries="@{manager.years}"
+            android:gravity="center"
             android:selectedItemPosition="@={manager.yearIndex}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,15 +71,17 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner"
+            style="@style/MySpinnerLook"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/edit_text"
-            style="@style/MySpinnerLook"
-            android:gravity="center"
             android:entries="@{manager.brands}"
+            android:gravity="center"
             android:selectedItemPosition="@={manager.brandIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
@@ -71,16 +90,16 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner6"
+            style="@style/MySpinnerLook"
             android:layout_width="0dp"
             android:layout_height="34dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.colors}"
             android:gravity="center"
-            style="@style/MySpinnerLook"
             android:selectedItemPosition="@={manager.colorIndex}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -89,16 +108,16 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner7"
+            style="@style/MySpinnerLook"
             android:layout_width="0dp"
             android:layout_height="34dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.fuel}"
             android:gravity="center"
-            style="@style/MySpinnerLook"
             android:selectedItemPosition="@={manager.fuelIndex}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -110,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.4" />
+            app:layout_constraintGuide_percent="0.43" />
 
         <TextView
             android:id="@+id/textView62"
@@ -151,7 +170,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/guideline62" />
 
 
         <include
@@ -159,13 +178,20 @@
             layout="@layout/radios_sm"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView62"
             app:layout_constraintTop_toBottomOf="@+id/textView62"
             app:radio="@{manager.transmission}" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline62"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.14" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

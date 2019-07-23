@@ -33,6 +33,31 @@ public class MobileManager {
 
     });
 
+
+    public static List<String> getTags(MobileInfo mobileInfo) {
+        ArrayList<String> list = new ArrayList<>();
+        if (mobileInfo != null) {
+            if (mobileInfo.getCategory() != null && !mobileInfo.getCategory().isEmpty())
+                list.add(mobileInfo.getCategory());
+            if (mobileInfo.getScreen() > 0)
+                list.add(mobileInfo.getScreen() + " inch");
+            if (mobileInfo.getBattery() > 0)
+                list.add(mobileInfo.getBattery() + " mAh");
+            if (mobileInfo.getRam() > 0)
+                list.add(mobileInfo.getRam() + " G Ram");
+            if (mobileInfo.getStorage() > 0)
+                list.add(mobileInfo.getStorage() + "G storage");
+            if (mobileInfo.getColor() != null)
+                list.add(mobileInfo.getColor());
+        }
+        if (list.size() < 7) {
+            for (int i = 0; i <= 7 - list.size(); i++)
+                list.add(null);
+        }
+        return list;
+    }
+
+
     public Integer getStorageIndex() {
         return storageIndex.getValue();
     }

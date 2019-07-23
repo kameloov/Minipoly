@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="bid"
+            type="com.minipoly.android.entity.Bid" />
+
+        <variable
+            name="index"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include13"
+            layout="@layout/user_brief_short"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:brief="@{bid.bidder}"
+            app:layout_constraintBottom_toTopOf="@+id/imageView49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/blue_button_round"
+            android:paddingLeft="12dp"
+            android:paddingTop="6dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="6dp"
+            android:text="@string/message"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/include13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/include13" />
+
+        <TextView
+            android:id="@+id/textView103"
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/line_color"
+            android:gravity="top"
+            android:text="____________"
+            app:layout_constraintBottom_toBottomOf="@+id/include13"
+            app:layout_constraintEnd_toStartOf="@+id/btnMessage"
+            app:layout_constraintStart_toEndOf="@+id/include13"
+            app:layout_constraintTop_toTopOf="@+id/include13"
+            app:layout_constraintVertical_bias="0.69" />
+
+        <ImageView
+            android:id="@+id/imageView48"
+            android:layout_width="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:adjustViewBounds="true"
+            android:visibility="@{index!=0? View.INVISIBLE:View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView103"
+            app:layout_constraintEnd_toEndOf="@+id/textView103"
+            app:layout_constraintStart_toStartOf="@+id/textView103"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/trophy" />
+
+        <TextView
+            android:id="@+id/textView104"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{bid.value+``}"
+            app:layout_constraintBottom_toTopOf="@+id/imageView49"
+            app:layout_constraintEnd_toEndOf="@+id/textView103"
+            app:layout_constraintStart_toStartOf="@+id/textView103"
+            app:layout_constraintTop_toBottomOf="@+id/textView103"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView105"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@{index+1+``}"
+            android:visibility="@{index==0? View.INVISIBLE:View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/textView104"
+            app:layout_constraintEnd_toEndOf="@+id/textView103"
+            app:layout_constraintStart_toStartOf="@+id/textView103" />
+
+        <ImageView
+            android:id="@+id/imageView49"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/line" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

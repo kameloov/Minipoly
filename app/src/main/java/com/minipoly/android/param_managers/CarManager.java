@@ -40,6 +40,7 @@ public class CarManager {
         return result;
     });
 
+
     public CarManager() {
         carInfo.setValue(new CarInfo());
         prepareYears();
@@ -49,11 +50,30 @@ public class CarManager {
         transmission.setValue(new CustomRadio(false, "auto", "manual"));
     }
 
-    public LiveData<CarInfo> getCarInfo() {
-        return carInfo;
+
+    public static List<String> getTags(CarInfo carInfo) {
+        ArrayList<String> list = new ArrayList<>();
+        if (carInfo != null) {
+            if (carInfo.getBrand() != null)
+                list.add(carInfo.getBrand());
+            if (carInfo.getType() != null)
+                list.add(carInfo.getType());
+            if (carInfo.getKilometres() > 0)
+                list.add(carInfo.getKilometres() + " km");
+            if (carInfo.getFuel() != null)
+                list.add(carInfo.getFuel());
+            if (carInfo.getColor() != null)
+                list.add(carInfo.getColor());
+        }
+        if (list.size() < 7) {
+            for (int i = 0; i <= 7 - list.size(); i++)
+                list.add(null);
+        }
+        return list;
     }
 
-    public CarInfo buildInfo() {
+
+    public CarInfo getCarInfo() {
         CarInfo info = new CarInfo();
         info.setAutomatic(transmission.getValue().isChecked());
         int bi = brandIndex.getValue();
@@ -75,7 +95,7 @@ public class CarManager {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         ArrayList<String> list = new ArrayList<>();
         list.add("Select Year");
-        for (int i = 1920; i <= year + 1; i++)
+        for (int i = year + 1; i > year - 100; i--)
             list.add(String.valueOf(i));
         years = list;
     }

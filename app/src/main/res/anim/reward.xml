@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true"
+    android:interpolator="@android:anim/linear_interpolator">
+
+    <!-- Move animation-->
+    <translate
+        android:duration="1000"
+        android:fillAfter="true"
+        android:fromYDelta="10%p"
+        android:toYDelta="0%p" />
+    <scale
+        android:duration="1000"
+        android:fromXScale="3"
+        android:fromYScale="3"
+        android:toXScale="1"
+        android:toYScale="1" />
+</set>

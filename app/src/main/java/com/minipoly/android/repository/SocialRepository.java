@@ -15,9 +15,9 @@ import com.minipoly.android.livedata.FireLiveDocument;
 import com.minipoly.android.livedata.FireLiveQuery;
 import com.minipoly.android.livedata.LiveWriteDocument;
 
+import static com.minipoly.android.References.auctions;
 import static com.minipoly.android.References.db;
 import static com.minipoly.android.References.interactions;
-import static com.minipoly.android.References.markets;
 import static com.minipoly.android.References.realestates;
 import static com.minipoly.android.References.users;
 
@@ -47,9 +47,9 @@ public class SocialRepository {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    public static FireLiveQuery<User> getFriends(String userId) {
+    public static FireLiveQuery<User> getFollowing(String userId) {
         return new FireLiveQuery<>(users.document(userId)
-                .collection("friends").get(), User.class);
+                .collection(C.COLLECTION_FOLLOWING).get(), User.class);
     }
 
 
@@ -105,10 +105,10 @@ public class SocialRepository {
     }
 
 
-    public static void like(String advrtId, boolean market, DataListener<Boolean>
+    public static void like(String advrtId, boolean auction, DataListener<Boolean>
             listener) {
         DocumentReference reference = interactions.document(getUserId());
-        DocumentReference advrtRef = market ? markets.document(advrtId) : realestates.document(advrtId);
+        DocumentReference advrtRef = auction ? auctions.document(advrtId) : realestates.document(advrtId);
         db.runTransaction(transaction -> {
             Interaction interaction = transaction.get(reference).toObject(Interaction.class);
             boolean liked = interaction != null && interaction.getLike().contains(advrtId);
@@ -132,9 +132,9 @@ public class SocialRepository {
     }
 
     public static void dislike(String advrtId,
-                               boolean market, DataListener<Boolean> listener) {
+                               boolean auction, DataListener<Boolean> listener) {
         DocumentReference reference = interactions.document(getUserId());
-        DocumentReference advrtRef = market ? markets.document(advrtId) : realestates.document(advrtId);
+        DocumentReference advrtRef = auction ? auctions.document(advrtId) : realestates.document(advrtId);
         db.runTransaction(transaction -> {
             Interaction interaction = transaction.get(reference).toObject(Interaction.class);
             boolean liked = interaction != null && interaction.getLike().contains(advrtId);

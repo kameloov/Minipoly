@@ -1,135 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout10"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
 
-        <RadioButton
-            android:id="@+id/radioButton8"
+        <variable
+            name="manager"
+            type="com.minipoly.android.param_managers.BidManager" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/radioButton8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bid_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="@{()->manager.setIndex(0)}"
+                android:padding="8dp"
+                android:text="@{manager.prices[0]+``}"
+                android:textColor="@drawable/bid_text_color"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bid_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="@{()->manager.setIndex(1)}"
+                android:padding="8dp"
+                android:text="@{manager.prices[1]+``}"
+                android:textColor="@drawable/bid_text_color"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bid_radio"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:onClick="@{()->manager.setIndex(2)}"
+                android:padding="8dp"
+                android:text="@{manager.prices[2]+``}"
+                android:textColor="@drawable/bid_text_color"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bid_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="@{()->manager.setIndex(3)}"
+                android:padding="8dp"
+                android:text="@{manager.prices[3]+``}"
+                android:textColor="@drawable/bid_text_color"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bid_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="@{()->manager.setIndex(4)}"
+                android:padding="8dp"
+                android:text="@{manager.prices[4]+``}"
+                android:textColor="@drawable/bid_text_color"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline60"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/bid_radio"
-            android:button="@null"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33" />
+
+        <TextView
+            android:id="@+id/textView93"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/blue_button_outline_rect"
+            android:gravity="center"
+            android:text="@{manager.prices[manager.index]+``}"
+            android:textColor="@color/text_blue"
+            app:layout_constraintBottom_toBottomOf="@+id/textView29"
+            app:layout_constraintEnd_toStartOf="@+id/guideline61"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView29" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/blue_button_rect"
             android:gravity="center"
             android:padding="8dp"
-            android:text="1100"
-            android:textColor="@drawable/bid_text_color"
-            android:textSize="14sp" />
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:onClick="@{()->manager.bid()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline60"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-        <RadioButton
-            android:id="@+id/radioButton7"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline61"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/bid_radio"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="1080"
-            android:textColor="@drawable/bid_text_color"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/bid_radio"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="1060"
-            android:textColor="@drawable/bid_text_color"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/bid_radio"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="1030"
-            android:textColor="@drawable/bid_text_color"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/bid_radio"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="1015"
-            android:textColor="@drawable/bid_text_color"
-            android:textSize="14sp" />
-
-    </RadioGroup>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline60"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
-
-    <TextView
-        android:id="@+id/textView93"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:background="@drawable/blue_button_outline_rect"
-        android:gravity="center"
-        android:text="1060"
-        android:textColor="@color/text_blue"
-        app:layout_constraintBottom_toBottomOf="@+id/textView29"
-        app:layout_constraintEnd_toStartOf="@+id/guideline61"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView29" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:background="@drawable/blue_button_rect"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/confirm"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline61"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.36" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.36" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

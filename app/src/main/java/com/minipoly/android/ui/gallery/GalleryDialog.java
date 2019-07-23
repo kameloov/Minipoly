@@ -18,9 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.ProgressInfo;
 import com.minipoly.android.R;
+import com.minipoly.android.adapter.ImageAdapter;
 import com.minipoly.android.databinding.GalleryDialogBinding;
+import com.minipoly.android.utils.ImageBuffer;
 import com.minipoly.android.utils.PermissionUtils;
-import com.minipoly.android.utils.Uploader;
 import com.minipoly.android.utils.UriUtils;
 
 public class GalleryDialog extends DialogFragment {
@@ -29,20 +30,17 @@ public class GalleryDialog extends DialogFragment {
     private int SELECT_IMAGE = 1000;
     private boolean afterKITKAT = Build.VERSION.SDK_INT > 19;
     private GalleryDialogBinding binding;
-    private Uploader uploader;
+    private ImageAdapter adapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_Dialog);
     }
 
-    public void setUploader(Uploader uploader) {
-        this.uploader = uploader;
-    }
 
-    public static GalleryDialog newInstance(Uploader uploader) {
+    public static GalleryDialog newInstance() {
         GalleryDialog dialog = new GalleryDialog();
-        dialog.setUploader(uploader);
         return dialog;
     }
 
@@ -57,7 +55,6 @@ public class GalleryDialog extends DialogFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         model = ViewModelProviders.of(this).get(GalleryDialogViewModel.class);
-        model.setUploader(uploader);
         binding.setLifecycleOwner(this);
         binding.setModel(model);
         binding.btnOk.setOnClickListener(v -> {
@@ -67,15 +64,19 @@ public class GalleryDialog extends DialogFragment {
                 model.Upload();
         });
         prepareRecycler();
-        //startGallery();
+        attachObservers();
+    }
+
+
+    private void attachObservers() {
+        model.getImages().observe(this, images -> adapter.submitList(images));
     }
 
     private void prepareRecycler() {
-        if (model.getAdapter() == null) ;
-        model.initAdapter(v -> startGallery());
+        adapter = new ImageAdapter(v -> startGallery());
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
         binding.recyclerView.setLayoutManager(manager);
-        binding.recyclerView.setAdapter(model.getAdapter());
+        binding.recyclerView.setAdapter(adapter);
     }
 
 
@@ -100,7 +101,7 @@ public class GalleryDialog extends DialogFragment {
                 } else {
                     selectedImageUri = data.getData();
                 }
-                model.addImage(selectedImageUri);
+                ImageBuffer.addImage(selectedImageUri);
             }
         }
     }

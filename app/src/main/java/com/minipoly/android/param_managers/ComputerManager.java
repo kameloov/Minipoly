@@ -4,8 +4,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.minipoly.android.entity.ComputerInfo;
 import com.minipoly.android.entity.ComputerMisc;
+import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.livedata.FireLiveDocument;
 import com.minipoly.android.repository.MiscRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComputerManager {
     private ComputerInfo info = new ComputerInfo();
@@ -15,10 +19,35 @@ public class ComputerManager {
     private MutableLiveData<Integer> StorageIndex = new MutableLiveData<>(0);
     private MutableLiveData<Integer> processorIndex = new MutableLiveData<>(0);
     private MutableLiveData<Integer> ramIndex = new MutableLiveData<>(0);
-
+    public MutableLiveData<CustomRadio> ssd = new MutableLiveData<>(new CustomRadio(false, "Yes", "No"));
     public MutableLiveData<Integer> getScreenIndex() {
         return screenIndex;
     }
+
+
+    public static List<String> getTags(ComputerInfo computerInfo) {
+        ArrayList<String> list = new ArrayList<>();
+        if (computerInfo != null) {
+            if (computerInfo.getProcessor() != null)
+                list.add(computerInfo.getProcessor());
+            if (computerInfo.getScreenSize() > 0)
+                list.add(computerInfo.getScreenSize() + " inch");
+            if (computerInfo.getGraphic() > 0)
+                list.add(computerInfo.getGraphic() + " graphic");
+            if (computerInfo.getRam() > 0)
+                list.add(computerInfo.getRam() + " GB Ram");
+            if (computerInfo.getStorage() > 0)
+                list.add(computerInfo.getStorage() + "GB storage");
+            if (computerInfo.isSsd())
+                list.add("SSD");
+        }
+        if (list.size() < 7) {
+            for (int i = 0; i <= 7 - list.size(); i++)
+                list.add(null);
+        }
+        return list;
+    }
+
 
     public void setScreenIndex(Integer screenIndex) {
         this.screenIndex.setValue(screenIndex);
@@ -59,5 +88,10 @@ public class ComputerManager {
     public void setRamIndex(Integer ramIndex) {
         this.ramIndex.setValue(ramIndex);
         info.setRam(misc.getValue().getRam().get(ramIndex));
+    }
+
+    public ComputerInfo getInfo() {
+        info.setSsd(ssd.getValue().isChecked());
+        return info;
     }
 }

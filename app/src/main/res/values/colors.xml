@@ -19,6 +19,7 @@
     <color name="green">#7CB342</color>
     <color name="text_secondary">#A7A7A7</color>
     <color name="black_transparent">#99000000</color>
+    <color name="bidders_bg_color">#E4000000</color>
     <color name="tag_bg_blue">#2C7EED</color>
     <color name="text_blue">#2C7EED</color>
     <color name="yellow_border">#F2C11D</color>

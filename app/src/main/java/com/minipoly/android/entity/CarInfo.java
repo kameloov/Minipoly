@@ -2,7 +2,7 @@ package com.minipoly.android.entity;
 
 import java.io.Serializable;
 
-public class CarInfo extends Market implements Serializable {
+public class CarInfo implements Serializable {
     private String type;
     private String brand;
     private String color;

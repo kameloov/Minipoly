@@ -10,32 +10,29 @@ public class Realestate extends Pin implements Serializable {
     private String id;
     private String title;
     private String text;
-    private boolean isRent;
     private String categoryId;
     private String subCategoryId;
     private List<Image> images;
     private String[] videos;
     private UserBrief userBrief;
-    private float area;
     private float price;
-    private int roomCount;
-    private int bathroomCount;
-    private boolean furnished;
     private int old;
     private String countryId;
     private String currency;
     private String cityId;
     private String cityName;
     private String cityNameAR;
-    private boolean monthlyRent;
-    private boolean yearlyRent;
     private int like;
     private int dislike;
     private int views;
-
+    private boolean market;
+    private boolean used;
     private CarInfo carInfo;
     private RealestateInfo realestateInfo;
     private MobileInfo mobileInfo;
+    private ComputerInfo computerInfo;
+    @ServerTimestamp
+    private Date publishDate;
 
 
     public String getSubCategoryId() {
@@ -53,8 +50,6 @@ public class Realestate extends Pin implements Serializable {
     public void setComputerInfo(ComputerInfo computerInfo) {
         this.computerInfo = computerInfo;
     }
-
-    private ComputerInfo computerInfo;
 
     public CarInfo getCarInfo() {
         return carInfo;
@@ -80,8 +75,13 @@ public class Realestate extends Pin implements Serializable {
         this.mobileInfo = mobileInfo;
     }
 
-    @ServerTimestamp
-    private Date publishDate;
+    public boolean isMarket() {
+        return market;
+    }
+
+    public void setMarket(boolean market) {
+        this.market = market;
+    }
 
     public Date getPublishDate() {
         return publishDate;
@@ -93,6 +93,14 @@ public class Realestate extends Pin implements Serializable {
 
     public int getViews() {
         return views;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
     }
 
     public void setViews(int views) {
@@ -137,30 +145,6 @@ public class Realestate extends Pin implements Serializable {
 
     public void setDislike(int dislike) {
         this.dislike = dislike;
-    }
-
-    public boolean isMonthlyRent() {
-        return monthlyRent;
-    }
-
-    public boolean isRent() {
-        return isRent;
-    }
-
-    public void setRent(boolean rent) {
-        isRent = rent;
-    }
-
-    public void setMonthlyRent(boolean monthlyRent) {
-        this.monthlyRent = monthlyRent;
-    }
-
-    public boolean isYearlyRent() {
-        return yearlyRent;
-    }
-
-    public void setYearlyRent(boolean yearlyRent) {
-        this.yearlyRent = yearlyRent;
     }
 
     public String getCountryId() {
@@ -235,14 +219,6 @@ public class Realestate extends Pin implements Serializable {
         this.userBrief = userBrief;
     }
 
-    public float getArea() {
-        return area;
-    }
-
-    public void setArea(float area) {
-        this.area = area;
-    }
-
     public float getPrice() {
         return price;
     }
@@ -251,29 +227,7 @@ public class Realestate extends Pin implements Serializable {
         this.price = price;
     }
 
-    public int getRoomCount() {
-        return roomCount;
-    }
 
-    public void setRoomCount(int roomCount) {
-        this.roomCount = roomCount;
-    }
-
-    public int getBathroomCount() {
-        return bathroomCount;
-    }
-
-    public void setBathroomCount(int bathroomCount) {
-        this.bathroomCount = bathroomCount;
-    }
-
-    public boolean isFurnished() {
-        return furnished;
-    }
-
-    public void setFurnished(boolean furnished) {
-        this.furnished = furnished;
-    }
 
     public int getOld() {
         return old;

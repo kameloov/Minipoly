@@ -28,6 +28,7 @@ public class LoginViewModel extends ViewModel {
             if (success) {
                 User u = user.getValue();
                 u.setId(UserManager.getUserID());
+                u.setToken(LocalData.getDeviceToken());
                 SocialRepository.addUser(u, success1 -> {
                     registered.setValue(success1);
                     LocalData.saveUserInfo(u);

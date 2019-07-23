@@ -115,7 +115,6 @@
             android:entries="@{vm.currencies}"
             android:selectedItemPosition="@={vm.index}"
             android:paddingRight="8dp"
-            android:textColor="@color/line_color"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toStartOf="@id/guideline52"
@@ -355,7 +354,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline19"
             app:layout_constraintStart_toEndOf="@+id/textView68"
             app:layout_constraintTop_toBottomOf="@+id/include"
-            bind:radio="@{vm.typeRadio}" />
+            bind:radio="@{vm.realestateManager.typeRadio}" />
 
 
         <include

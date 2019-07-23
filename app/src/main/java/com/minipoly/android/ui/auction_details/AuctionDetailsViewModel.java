@@ -7,23 +7,30 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.Navigation;
 
+import com.minipoly.android.UserManager;
 import com.minipoly.android.entity.Auction;
 import com.minipoly.android.entity.Comment;
-import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.UserBrief;
+import com.minipoly.android.livedata.FireLiveDocument;
 import com.minipoly.android.livedata.FireLiveQuery;
-import com.minipoly.android.repository.ChatRepository;
+import com.minipoly.android.param_managers.BidManager;
+import com.minipoly.android.param_managers.CarManager;
+import com.minipoly.android.param_managers.ComputerManager;
+import com.minipoly.android.param_managers.MobileManager;
+import com.minipoly.android.param_managers.RealestateManager;
+import com.minipoly.android.repository.AuctionRepository;
 import com.minipoly.android.repository.CommentRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.SocialRepository;
-import com.minipoly.android.ui.realestate_details.RealestateDetailsDirections;
+import com.minipoly.android.utils.CountDown;
 import com.minipoly.android.utils.LocalData;
 
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AuctionDetailsViewModel extends ViewModel {
-    private MutableLiveData<Auction> relestate = new MutableLiveData<>();
+    private FireLiveDocument<Auction> relestate;
     public MutableLiveData<Integer> currentImage = new MutableLiveData<>();
     private FireLiveQuery<Comment> comments;
     public MutableLiveData<String> comment = new MutableLiveData<>();
@@ -34,6 +41,12 @@ public class AuctionDetailsViewModel extends ViewModel {
     public MutableLiveData<Boolean> following = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> watching = new MutableLiveData<>(false);
     public List<String> tags;
+    public BidManager bidManager;
+    public CountDown countDown;
+
+    public enum Command {IDLE, BLOCKED, LAST_BIDDER}
+
+    public MutableLiveData<Command> command = new MutableLiveData<>(Command.IDLE);
 
     public AuctionDetailsViewModel(Auction r) {
         currentImage.setValue(0);
@@ -41,49 +54,51 @@ public class AuctionDetailsViewModel extends ViewModel {
         loading.setValue(false);
         like.setValue(false);
         dislike.setValue(false);
-        this.relestate.setValue(r);
+        this.relestate = AuctionRepository.watchAuction(r.getId());
         SocialRepository.following(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
-        sync();
-        RealestateRepository.isFollowing(relestate.getValue().getId(), (success, data) -> watching.setValue(success && data));
-        prepareTags();
+        sync(r.getId());
+        RealestateRepository.isFollowing(r.getId(), (success, data) -> watching.setValue(success && data));
+        prepareTags(r);
+        bidManager = new BidManager(r.getId());
+        AuctionRepository.updateViews(r.getId());
+        countDown = new CountDown(getRemaingingTime(r.getStartTime()));
     }
 
+
+    public void bid() {
+        Auction a = relestate.getValue();
+        if (a.getBlocked() != null && a.getBlocked().contains(UserManager.getUserID())) {
+            command.setValue(Command.BLOCKED);
+            return;
+        }
+        if (a.getLastBid().getBidder().getId().equals(UserManager.getUserID())) {
+            command.setValue(Command.LAST_BIDDER);
+            return;
+        }
+        bidManager.bid();
+    }
 
     public LiveData<List<Comment>> getComments() {
         return comments;
     }
 
-    public void order(View v) {
-        ChatRepository.openConversation(relestate.getValue(), (success, id) -> {
-            if (success) {
-                RealestateDetailsDirections.DetailsToChat detailsToChat = RealestateDetailsDirections.detailsToChat();
-                detailsToChat.setConversationId(id);
-                Navigation.findNavController(v).navigate(detailsToChat);
-            }
-        });
+    public void notifyFriends(View v) {
+        Navigation.findNavController(v).navigate(AuctionDetailsDirections.auctionUserList());
     }
 
-    private void prepareTags() {
-        ArrayList<String> list = new ArrayList<>();
-        Realestate r = relestate.getValue();
-        list.add(r.isFurnished() ? "Furnished" : "Empty");
-        if (r.getRoomCount() > 0)
-            list.add(r.getRoomCount() + " Rooms");
-        if (r.getBathroomCount() > 0)
-            list.add(r.getBathroomCount() + " Bathrooms");
-        if (r.getArea() > 0)
-            list.add(r.getArea() + " M");
-        if (r.isYearlyRent())
-            list.add("Annual rent");
-        if (r.isMonthlyRent())
-            list.add("Monthly rent");
-        if (r.getOld() > 0)
-            list.add(r.getOld() + " Year");
-        if (list.size() < 7) {
-            for (int i = 0; i <= 7 - list.size(); i++)
-                list.add(null);
+    private void prepareTags(Auction auction) {
+        if (!auction.isMarket())
+            tags = RealestateManager.getTags(auction.getRealestateInfo());
+        else {
+            if (auction.getCategoryId().equals("car"))
+                tags = CarManager.getTags(auction.getCarInfo());
+            if (auction.getCategoryId().equals("computer"))
+                tags = ComputerManager.getTags(auction.getComputerInfo());
+            if (auction.getCategoryId().equals("mobile"))
+                tags = MobileManager.getTags(auction.getMobileInfo());
+
+
         }
-        tags = list;
 
     }
 
@@ -102,26 +117,37 @@ public class AuctionDetailsViewModel extends ViewModel {
 
     }
 
-    private void sync() {
-        SocialRepository.liked(getRealestate().getValue().getId(),
-                (success, data) -> like.setValue(success && data));
-        SocialRepository.disliked(getRealestate().getValue().getId(),
-                (success, data) -> dislike.setValue(success && data));
+
+    private long getRemaingingTime(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, 2);
+        Date end = calendar.getTime();
+        if (end.getTime() > now.getTime())
+            return end.getTime() - now.getTime();
+        else
+            return 0;
+    }
+
+    private void sync(String id) {
+        SocialRepository.liked(id, (success, data) -> like.setValue(success && data));
+        SocialRepository.disliked(id, (success, data) -> dislike.setValue(success && data));
     }
 
 
     public void like() {
-        SocialRepository.like(relestate.getValue().getId(), false,
+        SocialRepository.like(relestate.getValue().getId(), true,
                 (success, data) -> {
-                    if (success) {
+                    if (success)
                         like.setValue(data);
-                        int i = data ? 1 : -1;
-                        Auction r = relestate.getValue();
-                        r.setLike(r.getLike() + i);
-                        relestate.setValue(r);
-                    }
-                    sync();
+                    sync(relestate.getValue().getId());
                 });
+    }
+
+    public void showBidders(View v) {
+        AuctionDetailsDirections.Bidders acion = AuctionDetailsDirections.bidders(relestate.getValue().getId());
+        Navigation.findNavController(v).navigate(acion);
     }
 
     private void toggleFollow() {
@@ -146,16 +172,11 @@ public class AuctionDetailsViewModel extends ViewModel {
     }
 
     public void dislike() {
-        SocialRepository.dislike(relestate.getValue().getId(), false,
+        SocialRepository.dislike(relestate.getValue().getId(), true,
                 (success, data) -> {
-                    if (success) {
+                    if (success)
                         dislike.setValue(data);
-                        int i = data ? 1 : -1;
-                        Auction r = relestate.getValue();
-                        r.setDislike(r.getDislike() + i);
-                        relestate.setValue(r);
-                    }
-                    sync();
+                    sync(relestate.getValue().getId());
                 });
     }
 

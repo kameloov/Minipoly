@@ -69,9 +69,9 @@ public class AddAdvrtDialog extends DialogFragment {
             model.command.setValue(AddAdvrtDialogViewModel.Command.IDLE);
         });
 
-        model.getDefaultImage().observe(this, image -> {
-            if (image != null)
-                Glide.with(this).load(image.getUri()).into(binding.imgGallery);
+        model.images.observe(this, images -> {
+            if (images != null && images.size() > 0)
+                Glide.with(this).load(images.get(0).getUri()).into(binding.imgGallery);
         });
         model.getSuccess().observe(this, a -> {
             Log.e("add", "addRealestate: " + a);
@@ -96,7 +96,7 @@ public class AddAdvrtDialog extends DialogFragment {
 
 
     private void showGallery() {
-        GalleryDialog dialog = GalleryDialog.newInstance(AddAdvrtDialogViewModel.getUploader());
+        GalleryDialog dialog = GalleryDialog.newInstance();
         dialog.show(getFragmentManager(), "gallery");
     }
 

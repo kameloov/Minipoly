@@ -10,6 +10,9 @@
         <import type="android.view.View" />
 
         <variable
+            name="userId"
+            type="String" />
+        <variable
             name="m"
             type="com.minipoly.android.ui.auction_details.AuctionDetailsViewModel" />
 
@@ -22,6 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:orientation="vertical">
 
             <ImageView
@@ -30,7 +34,7 @@
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView42"
-                app:layout_constraintStart_toStartOf="@+id/guideline59"
+                app:layout_constraintEnd_toStartOf="@+id/guideline24"
                 app:layout_constraintTop_toTopOf="@+id/imageView42"
                 app:srcCompat="@drawable/views" />
 
@@ -96,7 +100,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
-                app:image="@{m.realestate.images.size()>0?m.realestate.images.get(m.currentImage):null}"
+                app:image="@{m.realestate.images.size()>0?m.realestate.images.get(0):null}"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@+id/guideline59"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -116,7 +120,7 @@
                 android:text="@{m.realestate.title,default =`title`}"
                 android:textColor="@color/text_blue"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/imgBell"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline59"
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
@@ -148,6 +152,7 @@
                 android:adjustViewBounds="true"
                 android:onClick="@{()->m.toggleWatch()}"
                 android:src="@{m.watching? @drawable/bell_selected: @drawable/bell_normal}"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
@@ -159,7 +164,10 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/tag_rect_empty"
-                android:padding="6dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="6dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="6dp"
                 android:text="@{m.realestate.categoryId,default = `used`}"
                 android:textColor="@color/text_secondary"
                 android:textSize="10sp"
@@ -173,8 +181,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/button_blue"
-                android:padding="6dp"
-                android:text="@{m.realestate.rent? `For rent`:`For buy`,default = `for rent`}"
+                android:paddingLeft="10dp"
+                android:paddingTop="6dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="6dp"
+                android:text="@{m.realestate.used? `Used`:`New`,default=`New`}"
                 android:textColor="@android:color/white"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -231,7 +242,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:adjustViewBounds="true"
@@ -320,6 +331,8 @@
                 android:id="@+id/imageView15"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginBottom="1dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@+id/textView40"
@@ -349,6 +362,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView34"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.37"
                 app:layout_constraintStart_toStartOf="@+id/guideline25"
                 app:layout_constraintTop_toTopOf="@+id/textView34" />
 
@@ -383,7 +397,8 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView94" />
+                app:layout_constraintTop_toBottomOf="@+id/textView94"
+                tools:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/imageView16"
@@ -419,7 +434,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lstComments" />
+                app:layout_constraintTop_toTopOf="@+id/lstComments"
+                tools:visibility="invisible" />
 
             <ProgressBar
                 android:id="@+id/progressBar6"
@@ -448,7 +464,7 @@
                 android:id="@+id/us"
                 layout="@layout/user_brief_short"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="34dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
@@ -460,12 +476,27 @@
                 android:id="@+id/topbidder"
                 layout="@layout/user_brief_short"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="34dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 app:brief="@{m.realestate.lastBid.bidder}"
+                android:visibility="@{m.realestate.lastBid==null?View.INVISIBLE:View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView75" />
+
+            <TextView
+                android:id="@+id/nobid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/no_bids"
+                android:textColor="@color/text_blue"
+                android:visibility="@{m.realestate.lastBid!=null?View.INVISIBLE:View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="@+id/txttop"
+                app:layout_constraintStart_toStartOf="@+id/txttop"
                 app:layout_constraintTop_toBottomOf="@+id/textView75" />
 
             <include
@@ -540,7 +571,8 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="36 : 44 : 13"
+                android:text="@{m.countDown.time}"
+                android:textColor="@color/text_blue"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView42"
                 app:layout_constraintStart_toEndOf="@+id/imageView42"
                 app:layout_constraintTop_toTopOf="@+id/imageView42" />
@@ -549,9 +581,10 @@
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:text="248"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="@{m.realestate.views+``}"
+                android:textColor="@color/text_blue"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView45"
                 app:layout_constraintStart_toEndOf="@+id/imageView45"
                 app:layout_constraintTop_toTopOf="@+id/imageView45" />
@@ -570,7 +603,8 @@
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="980"
+                android:text="@{m.realestate.lastBid.value+``,default = `No bid`}"
+                android:textColor="@color/text_blue"
                 app:layout_constraintEnd_toEndOf="@+id/textView23"
                 app:layout_constraintStart_toStartOf="@+id/textView23"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -583,6 +617,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:onClick="@{(v)->m.showBidders(v)}"
                 app:layout_constraintBottom_toTopOf="@+id/textView27"
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toEndOf="@+id/textView27"
@@ -593,6 +628,7 @@
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{(v)->m.showBidders(v)}"
                 android:text="@string/view_all"
                 app:layout_constraintBottom_toBottomOf="@+id/us"
                 app:layout_constraintEnd_toStartOf="@+id/topbidder"
@@ -604,17 +640,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:visibility="@{m.realestate.userBrief.id.equals(userId)? View.INVISIBLE:View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include133" />
+                app:layout_constraintTop_toBottomOf="@+id/textView97"
+                app:manager="@{m.bidManager}" />
 
             <TextView
                 android:id="@+id/textView94"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/blue_button_round"
                 android:gravity="center"
+                android:onClick="@{(v)->m.notifyFriends(v)}"
                 android:text="@string/notify_friends"
                 android:textColor="@color/white"
                 app:layout_constraintDimensionRatio="w,1:4"
@@ -630,6 +673,18 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="imageView5,editText4"
                 tools:layout_editor_absoluteY="1014dp" />
+
+            <TextView
+                android:id="@+id/textView97"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_auction"
+                android:textColor="@color/text_blue"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include133" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

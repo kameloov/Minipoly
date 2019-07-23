@@ -21,6 +21,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mapFragment_to_addAuctionDialog"
+            app:destination="@id/addAuctionDialog" />
     </fragment>
     <dialog
         android:id="@+id/addAdvrtDialog"
@@ -57,6 +60,15 @@
         <action
             android:id="@+id/realestateDetails"
             app:destination="@id/realestateDetails" />
+        <action
+            android:id="@+id/action_homeFragment_to_auctionDetails"
+            app:destination="@id/auctionDetails" />
+        <action
+            android:id="@+id/action_homeFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/auction_end"
+            app:destination="@id/auctionEndFragment" />
     </fragment>
     <fragment
         android:id="@+id/realestateDetails"
@@ -76,6 +88,9 @@
                 android:defaultValue='""'
                 android:name="conversationId" />
         </action>
+        <action
+            android:id="@+id/advrt_user_list"
+            app:destination="@id/userListFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/edit_profile_fragment"
@@ -111,5 +126,43 @@
         <argument
             android:name="auction"
             app:argType="com.minipoly.android.entity.Auction" />
+        <action
+            android:id="@+id/bidders"
+            app:destination="@id/biddersDialog" />
+        <action
+            android:id="@+id/auction_user_list"
+            app:destination="@id/userListFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/addAuctionDialog"
+        android:name="com.minipoly.android.ui.add_auction.AddAuctionDialog"
+        android:label="AddAuctionDialog">
+        <argument
+            android:name="auction"
+            app:argType="com.minipoly.android.entity.Auction" />
+    </dialog>
+    <dialog
+        android:id="@+id/biddersDialog"
+        android:name="com.minipoly.android.ui.bidders.BiddersDialog"
+        android:label="BiddersDialog">
+        <argument
+            android:name="auctionId"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/auctionEndFragment"
+        android:name="com.minipoly.android.ui.auction_end.AuctionEndFragment"
+        android:label="aution_end_fragment"
+        tools:layout="@layout/aution_end_fragment">
+        <argument
+            android:name="auctionId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.minipoly.android.ui.users_list.UserListFragment"
+        android:label="UserListFragment" />
+    <action
+        android:id="@+id/action_global_realestateDetails"
+        app:destination="@id/realestateDetails" />
 </navigation>

@@ -1,24 +1,22 @@
 package com.minipoly.android;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.minipoly.android.databinding.MainActivityBinding;
-import com.minipoly.android.entity.Car;
-import com.minipoly.android.entity.Category;
-import com.minipoly.android.entity.ComputerMisc;
-import com.minipoly.android.repository.CategoryRepository;
-import com.minipoly.android.repository.MiscRepository;
+import com.minipoly.android.repository.RealestateRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityBinding binding;
@@ -35,71 +33,35 @@ public class MainActivity extends AppCompatActivity {
         model.setNavController(Navigation.findNavController(this, R.id.fragment));
         binding.setLifecycleOwner(this);
         binding.setVm(model);
-        // addCars();
-        addMobileMisc();
+        handleLink();
     }
 
-
-    private void addMobileMisc() {
-        ComputerMisc misc = new ComputerMisc();
-        ArrayList<String> type = new ArrayList<>();
-        type.add("intel HD 5000");
-        type.add("Nvidia Gtx ");
-        type.add("AMD Radeon ");
-        misc.setGraphic(type);
-        ArrayList<String> color = new ArrayList<>();
-        color.add("core i3");
-        color.add("core i5");
-        color.add("core i7");
-        color.add("AMD Rayzen");
-        color.add("atom");
-        misc.setProcessor(color);
-        ArrayList<Integer> ram = new ArrayList<>();
-        ram.add(1);
-        ram.add(2);
-        ram.add(4);
-        ram.add(8);
-        ram.add(16);
-        misc.setRam(ram);
-        misc.setStorage(ram);
-        ArrayList<Float> batt = new ArrayList<>();
-        batt.add(11.0f);
-        batt.add(13.2f);
-        batt.add(15.7f);
-        batt.add(17f);
-        misc.setScreen(batt);
-        MiscRepository.setComputerMisc(misc);
-
+    private void handleLink() {
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, pendingDynamicLinkData -> {
+                    // Get deep link from result (may be null if no link is found)
+                    Uri deepLink = null;
+                    if (pendingDynamicLinkData != null) {
+                        deepLink = pendingDynamicLinkData.getLink();
+                        Log.e("Link from activity ", deepLink.getPath());
+                    }
+                    if (deepLink != null) {
+                        List<String> segments = deepLink.getPathSegments();
+                        if (segments.get(0).equals("1"))
+                            openRealestate(segments.get(1));
+                    }
+                })
+                .addOnFailureListener(this, e -> Log.e("LINK", "getDynamicLink:onFailure", e));
     }
 
-    private void addCars() {
-        String[] cars = new String[]{"Ford", "Chevrolet", "Hyundai", "Kia", "Porsche", "Honda", "Mazda"};
-        String[][] models = new String[][]{{"Focus", "Fiesta", "Ranger"}, {"Camaro", "cruze"},
-                {"Accent", "Verna", "Azera"}, {"Optima", "Rio", "Picanto"}, {"Boxter", "911 Turbo", "Carera"},
-                {"Civic", "Accord"}, {"MX5", "M3", "Rx5"}};
-        for (int i = 0; i < cars.length; i++) {
-            Car c = new Car();
-            c.setName(cars[i]);
-            c.setModels(Arrays.asList(models[i]));
-            MiscRepository.addCar(c);
-        }
+    private void openRealestate(String id) {
+        RealestateRepository.getRealestate(id, (success, data) -> {
+            if (success && data != null) {
+                NavGraphDirections.ActionGlobalRealestateDetails action = NavGraphDirections.actionGlobalRealestateDetails(data);
+                Navigation.findNavController(this, R.id.fragment).navigate(action);
+            } else
+                Toast.makeText(this, getString(R.string.realestate_not_found), Toast.LENGTH_SHORT).show();
+        });
     }
-
-    private void addCategories() {
-        String[] names = {"car", "mobile", "computer", "flat", "Land", "Studio", "Building", "Office", "Shop", "Villa"};
-        String[] namesAr = {"سيارة", "موبايل", "كمبيوتر", "شقة", "أرض", "ستوديو", "عمارة", "مكتب", "متجر", "فيلا"};
-        int i = 0;
-        Random r = new Random();
-        for (String s : names) {
-            Category c = new Category();
-            c.setTitle(s);
-            c.setId(s);
-            c.setMarket(i < 3);
-            c.setTitleAr(namesAr[i]);
-            c.setDealsCount(r.nextInt());
-            CategoryRepository.addCategory(c);
-            i++;
-        }
-    }
-
 }

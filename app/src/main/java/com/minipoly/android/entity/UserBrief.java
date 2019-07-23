@@ -9,6 +9,7 @@ public class UserBrief implements Serializable {
     private String picture;
     private int deals;
     private String token;
+    private String phone;
 
     public UserBrief(User user) {
         id = user.getId();
@@ -17,9 +18,26 @@ public class UserBrief implements Serializable {
         picture = user.getPicture();
         deals = user.getDealCount();
         token = user.getToken();
+        phone = user.getPhone();
     }
 
     public UserBrief() {
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getId() {

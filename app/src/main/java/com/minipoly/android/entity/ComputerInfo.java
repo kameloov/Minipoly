@@ -2,7 +2,7 @@ package com.minipoly.android.entity;
 
 import java.io.Serializable;
 
-public class ComputerInfo extends Market implements Serializable {
+public class ComputerInfo implements Serializable {
     private int ram;
     private float screenSize;
     private String processor;

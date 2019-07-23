@@ -91,8 +91,9 @@
                     android:drawableLeft="@android:drawable/ic_input_add"
                     android:gravity="center"
                     android:paddingLeft="8dp"
+                    android:onClick="@{(v)->vm.addAuction(v,latlng)}"
                     android:paddingRight="8dp"
-                    android:text="@string/add_market"
+                    android:text="@string/add_auction"
                     android:textColor="@color/design_default_color_primary" />
 
                 <TextView

@@ -20,7 +20,8 @@ public class RemoteImageAdapter extends RecyclerView.Adapter<RemoteImageAdapter.
     public RemoteImageAdapter(List<Image> images, MutableLiveData<Integer> currentIndex) {
         this.images = images;
         this.currentIndex = currentIndex;
-        this.current.setValue(images.get(currentIndex.getValue()));
+        if (currentIndex.getValue() < images.size())
+            this.current.setValue(images.get(currentIndex.getValue()));
 
     }
 

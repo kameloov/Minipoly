@@ -25,6 +25,10 @@ public class RealestateRepository {
         realestates.document(id).set(realestate);
     }
 
+    public static void updateViews(String id) {
+        realestates.document(id).update("views", FieldValue.increment(1));
+    }
+
     public static void addRealestate(Realestate realestate, CompleteListener listener) {
         String id = realestates.document().getId();
         realestate.setId(id);
@@ -55,6 +59,15 @@ public class RealestateRepository {
     public static void getRealestates(DataListener<List<Realestate>> listener) {
         realestates.get().addOnCompleteListener(task -> listener.onComplete(task.isSuccessful(),
                 task.isSuccessful() ? task.getResult().toObjects(Realestate.class) : null));
+    }
+
+    public static void getRealestate(String id, DataListener<Realestate> listener) {
+        realestates.document(id).get().addOnCompleteListener(task -> {
+            Realestate realestate = null;
+            if (task.getResult() != null)
+                realestate = task.getResult().toObject(Realestate.class);
+            listener.onComplete(task.isSuccessful(), realestate);
+        });
     }
 
     public static LiveWriteDocument addView(String id) {
