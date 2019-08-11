@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.minipoly.android.ui.profile.UserAboutViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout14"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.profile.UserAboutFragment">
+
+        <TextView
+            android:id="@+id/textView129"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/gradiant_start"
+            android:onClick="@{()->vm.setSection(3)}"
+            android:visibility="@{vm.section==3? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline69"
+            app:layout_constraintTop_toBottomOf="@+id/textView127" />
+
+        <TextView
+            android:id="@+id/textView130"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/gradiant_start"
+            android:onClick="@{()->vm.setSection(2)}"
+            android:visibility="@{vm.section==2? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline69"
+            app:layout_constraintStart_toStartOf="@+id/guideline70"
+            app:layout_constraintTop_toBottomOf="@+id/textView125" />
+
+        <TextView
+            android:id="@+id/textView131"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/gradiant_start"
+            android:onClick="@{()->vm.setSection(0)}"
+            android:visibility="@{vm.section==0? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline71"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView121" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline69"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline71"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView115"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(0)}"
+            android:paddingBottom="4dp"
+            android:text="@string/reviewes"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline71"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView121"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(0)}"
+            android:paddingBottom="4dp"
+            android:text="21 k"
+            app:layout_constraintEnd_toStartOf="@+id/guideline71"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView115" />
+
+        <TextView
+            android:id="@+id/textView122"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(1)}"
+            android:paddingBottom="4dp"
+            android:text="@string/following"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline70"
+            app:layout_constraintStart_toEndOf="@+id/textView115"
+            app:layout_constraintTop_toTopOf="@+id/textView115" />
+
+        <TextView
+            android:id="@+id/textView123"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(1)}"
+            android:paddingBottom="4dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline70"
+            app:layout_constraintStart_toStartOf="@+id/guideline71"
+            app:layout_constraintTop_toBottomOf="@+id/textView122" />
+
+        <TextView
+            android:id="@+id/textView124"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(2)}"
+            android:paddingBottom="4dp"
+            android:text="@string/followers"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline69"
+            app:layout_constraintStart_toStartOf="@+id/guideline70"
+            app:layout_constraintTop_toTopOf="@+id/textView122" />
+
+        <TextView
+            android:id="@+id/textView125"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(2)}"
+            android:paddingBottom="4dp"
+            android:text="450 k"
+            app:layout_constraintEnd_toStartOf="@+id/guideline69"
+            app:layout_constraintStart_toStartOf="@+id/guideline70"
+            app:layout_constraintTop_toBottomOf="@+id/textView124" />
+
+        <TextView
+            android:id="@+id/textView126"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(3)}"
+            android:paddingBottom="4dp"
+            android:text="@string/brokerage"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline69"
+            app:layout_constraintTop_toTopOf="@+id/textView124" />
+
+        <TextView
+            android:id="@+id/textView127"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->vm.setSection(3)}"
+            android:paddingBottom="4dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline69"
+            app:layout_constraintTop_toBottomOf="@+id/textView126" />
+
+        <TextView
+            android:id="@+id/textView128"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/gradiant_start"
+            android:onClick="@{()->vm.setSection(1)}"
+            android:visibility="@{vm.section==1? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline70"
+            app:layout_constraintStart_toStartOf="@+id/guideline71"
+            app:layout_constraintTop_toBottomOf="@+id/textView123" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstReviews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.section==0? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView128" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstUsers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.section==1 || vm.section ==2? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView128" />
+
+        <TextView
+            android:id="@+id/textView134"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.section==1? @string/not_following : @string/no_followers}"
+            android:textColor="@color/chart2"
+            android:visibility="@{vm.section !=1 || vm.section !=2 ||vm.users.size()>0 ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/lstUsers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lstUsers" />
+
+        <TextView
+            android:id="@+id/textView135"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_reviews"
+            android:textColor="@color/chart2"
+            android:visibility="@{vm.section !=0 ||vm.reviews.size()>0 ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/lstUsers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lstUsers" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

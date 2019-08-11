@@ -1,17 +1,20 @@
 package com.minipoly.android.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.databinding.ListItemCommentBinding;
+import com.minipoly.android.databinding.ListItemReplyBinding;
 import com.minipoly.android.entity.Comment;
+import com.minipoly.android.entity.Reply;
+import com.minipoly.android.popup.PopupInput;
 import com.minipoly.android.repository.CommentRepository;
 
 public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentHolder> {
@@ -48,21 +51,36 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
     public class CommentHolder extends RecyclerView.ViewHolder {
         private ListItemCommentBinding binding;
         public MutableLiveData<Boolean> showReplies = new MutableLiveData<>(false);
-        private ReplyAdapter adapter = new ReplyAdapter();
-
+        public Comment c;
         public CommentHolder(@NonNull ListItemCommentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            binding.lstReplies.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         }
 
-        public void loadReolies(Comment c) {
-            showReplies.setValue(true);
+        public void loadReplies(Comment c) {
             CommentRepository.loadReplies(c, (success, data) -> {
-                if (success)
-                    adapter.submitList(data);
-                notifyDataSetChanged();
+                if (success && data != null) {
+                    LayoutInflater inflater = LayoutInflater.from(binding.getRoot().getContext());
+                    for (Reply r : data) {
+                        ListItemReplyBinding b = ListItemReplyBinding.inflate(inflater);
+                        b.setR(r);
+                        binding.lstReplies.addView(b.getRoot());
+                    }
+                }
             });
+        }
+
+        public void setShowReplies() {
+            showReplies.setValue(true);
+            notifyItemChanged(getAdapterPosition());
+        }
+
+        public void showReply(View v) {
+            PopupInput input = new PopupInput(binding.getRoot(), (positive, text) -> {
+                if (positive && text.length() > 0)
+                    reply(text, c);
+            });
+            input.show();
         }
 
         public void reply(String text, Comment c) {
@@ -71,7 +89,10 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
         }
 
         public void bind(Comment comment) {
-            binding.setC(comment);
+            this.c = comment;
+            binding.setCh(this);
+            binding.lstReplies.removeAllViews();
+            loadReplies(comment);
 
         }
     }

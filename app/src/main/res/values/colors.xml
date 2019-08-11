@@ -14,6 +14,7 @@
     <color name="gray">#7A7A7A</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="gradiant_start">#FF4D4D</color>
+    <color name="image_frame">#FA2C2C</color>
     <color name="gradiant_end">#990000</color>
     <color name="radio_incative">#46FF5722</color>
     <color name="green">#7CB342</color>
@@ -25,4 +26,8 @@
     <color name="yellow_border">#F2C11D</color>
     <color name="blue_gradiant_end">#243E5F</color>
     <color name="blue_gradiant_start">#2A7BE4</color>
+    <color name="chart1">#FF3F4B</color>
+    <color name="chart2">#F0BD22</color>
+    <color name="chart3">#00D06D</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

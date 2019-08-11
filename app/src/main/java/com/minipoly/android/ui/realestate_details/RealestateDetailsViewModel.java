@@ -11,11 +11,12 @@ import com.minipoly.android.entity.Comment;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.UserBrief;
 import com.minipoly.android.livedata.FireLiveQuery;
-import com.minipoly.android.repository.ChatRepository;
 import com.minipoly.android.repository.CommentRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.SocialRepository;
+import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.utils.LocalData;
+import com.minipoly.android.utils.SocialUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class RealestateDetailsViewModel extends ViewModel {
         like.setValue(false);
         dislike.setValue(false);
         this.relestate.setValue(r);
-        SocialRepository.following(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
+        SocialRepository.isFollowing(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
         sync();
         RealestateRepository.isFollowing(relestate.getValue().getId(), (success, data) -> watching.setValue(success && data));
         prepareTags();
@@ -53,13 +54,16 @@ public class RealestateDetailsViewModel extends ViewModel {
     }
 
     public void order(View v) {
-        ChatRepository.openConversation(relestate.getValue(), (success, id) -> {
+        String name = UserRepository.getBrief().getName();
+        String msg = "Hello am " + name + " i wnat to talk to you about " + getRealestate().getValue().getTitle();
+        SocialUtils.whatsappMsg(v.getContext(), "966559563649", msg);
+    /*    ChatRepository.openConversation(relestate.getValue(), (success, id) -> {
             if (success) {
                 RealestateDetailsDirections.DetailsToChat detailsToChat = RealestateDetailsDirections.detailsToChat();
                 detailsToChat.setConversationId(id);
                 Navigation.findNavController(v).navigate(detailsToChat);
             }
-        });
+        });*/
     }
 
 
@@ -97,8 +101,7 @@ public class RealestateDetailsViewModel extends ViewModel {
 
 
     public void like() {
-        SocialRepository.like(relestate.getValue().getId(), false,
-                (success, data) -> {
+        RealestateRepository.like(relestate.getValue().getId(), (success, data) -> {
                     if (success) {
                         like.setValue(data);
                         int i = data ? 1 : -1;
@@ -115,15 +118,15 @@ public class RealestateDetailsViewModel extends ViewModel {
         following.setValue(!a);
     }
 
-    public void changeFollow(String id) {
+    public void changeFollow(UserBrief brief) {
 
         if (following.getValue())
-            SocialRepository.unFollow(id, success -> {
+            SocialRepository.unFollow(brief.getId(), success -> {
                 if (success)
                     toggleFollow();
             });
         else {
-            SocialRepository.follow(id, success -> {
+            SocialRepository.follow(brief, success -> {
                 if (success)
                     toggleFollow();
             });
@@ -132,8 +135,7 @@ public class RealestateDetailsViewModel extends ViewModel {
     }
 
     public void dislike() {
-        SocialRepository.dislike(relestate.getValue().getId(), false,
-                (success, data) -> {
+        RealestateRepository.dislike(relestate.getValue().getId(), (success, data) -> {
                     if (success) {
                         dislike.setValue(data);
                         int i = data ? 1 : -1;

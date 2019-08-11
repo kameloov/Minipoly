@@ -64,11 +64,18 @@ public class EditProfileViewModel extends ViewModel {
             u.setPhone(phone);
         if (!brief.isEmpty())
             u.setBio(brief);
-        SocialRepository.updateUser(u, s -> success.setValue(s));
+        SocialRepository.updateUser(u, s -> {
+            success.setValue(s);
+            LocalData.saveUserInfo(u);
+        });
     }
 
 
     public void upload(Uri uri) {
         MediaRepository.updateAvatar(LocalData.getUserInfo().getId(), uri, uploader);
+    }
+
+    public void uploadWall(Uri uri) {
+        MediaRepository.updateWall(LocalData.getUserInfo().getId(), uri, uploader);
     }
 }

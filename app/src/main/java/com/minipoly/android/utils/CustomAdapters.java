@@ -1,6 +1,9 @@
 package com.minipoly.android.utils;
 
 import android.text.format.DateFormat;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,8 +34,38 @@ public class CustomAdapters {
         }
         StorageReference reference = StorageManager.getRoot().child(C.AVATARS_FOLDER).child(image);
         GlideApp.with(view.getContext())
-                .load(reference).apply(new RequestOptions().circleCrop().error(R.drawable.circle))
+                .load(reference).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .apply(new RequestOptions().circleCrop().error(R.drawable.circle))
                 .into(view);
+    }
+
+
+    @BindingAdapter("wall")
+    public static void setWall(ImageView view, String image) {
+        if (image == null || image.isEmpty()) {
+            GlideApp.with(view.getContext()).load(R.drawable.circle)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(view);
+            return;
+        }
+        StorageReference reference = StorageManager.getRoot().child(C.WALLS_FOLDER).child(image);
+        GlideApp.with(view.getContext())
+                .load(reference).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+    }
+
+    @BindingAdapter("glow")
+    public static void setGlow(View v, boolean glow) {
+        Animation a = v.getAnimation();
+        if (glow) {
+            if (a == null)
+                a = AnimationUtils.loadAnimation(v.getContext(), R.anim.fade);
+            v.startAnimation(a);
+        } else {
+            if (a != null)
+                a.cancel();
+            v.clearAnimation();
+        }
+        v.setVisibility(glow ? View.VISIBLE : View.INVISIBLE);
     }
 
     @BindingAdapter("image")
@@ -40,8 +73,7 @@ public class CustomAdapters {
         if (image == null)
             return;
         StorageReference reference = StorageManager.getRoot().child(image.getUserId()).child(image.getId());
-        GlideApp.with(view.getContext())
-                .load(reference).into(view);
+        GlideApp.with(view.getContext()).load(reference).into(view);
     }
 
     @BindingAdapter("category")
@@ -63,13 +95,13 @@ public class CustomAdapters {
     }
 
     @BindingAdapter({"advrt", "mode"})
-    public static void setLiked(ImageView view, String id, String mode) {
+    public static void setLiked(ImageView view, String advrt, String mode) {
         if (mode.equals("like")) {
-            SocialRepository.liked(id, (success, data) -> {
+            SocialRepository.liked(advrt, (success, data) -> {
                 view.setImageResource(data ? R.drawable.like_selected : R.drawable.like);
             });
         } else if (mode.equals("dislike")) {
-            SocialRepository.disliked(id, (success, data) -> {
+            SocialRepository.disliked(advrt, (success, data) -> {
                 view.setImageResource(data ? R.drawable.dislike_selected : R.drawable.dislike);
 
             });

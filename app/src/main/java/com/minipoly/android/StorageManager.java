@@ -25,4 +25,5 @@ public class StorageManager {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         return root.child(uid);
     }
+
 }

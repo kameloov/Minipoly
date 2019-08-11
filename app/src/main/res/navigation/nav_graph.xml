@@ -162,7 +162,25 @@
         android:id="@+id/userListFragment"
         android:name="com.minipoly.android.ui.users_list.UserListFragment"
         android:label="UserListFragment" />
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.minipoly.android.ui.profile.ProfileFragment"
+        android:label="UserProfileFragment">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
     <action
         android:id="@+id/action_global_realestateDetails"
         app:destination="@id/realestateDetails" />
+
+    <action
+        android:id="@+id/action_global_profile"
+        app:destination="@id/userProfileFragment" />
+
 </navigation>

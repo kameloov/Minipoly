@@ -7,6 +7,7 @@ import android.os.Build;
 import androidx.multidex.MultiDexApplication;
 
 import com.google.android.libraries.places.api.Places;
+import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.utils.LocalData;
 
 public class MinipolyApplication extends MultiDexApplication {
@@ -18,6 +19,7 @@ public class MinipolyApplication extends MultiDexApplication {
         UserManager.init(this);
         LocalData.init(this);
         createNotificationChannel();
+        UserRepository.refreshUser();
     }
 
     private void createNotificationChannel() {

@@ -1,5 +1,7 @@
 package com.minipoly.android.param_managers;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.minipoly.android.entity.CustomRadio;
@@ -18,13 +20,14 @@ public class RealestateManager {
     public void changeRooms(int i) {
         RealestateInfo r = info.getValue();
         r.setRoomCount(r.getRoomCount() + i);
-        info.postValue(r);
+        info.setValue(r);
+        Log.e("changeRooms: ", "room count is " + r.getRoomCount());
     }
 
     public void changeFurnished(boolean furnished) {
         RealestateInfo r = info.getValue();
         r.setFurnished(furnished);
-        info.postValue(r);
+        info.setValue(r);
     }
 
     public void changeMonthlyRent(boolean b) {

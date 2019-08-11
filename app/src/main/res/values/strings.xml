@@ -88,6 +88,7 @@
     <string name="notify">Notify</string>
     <string name="default_notification_channel_id">Minipoly channel</string>
     <string name="realestate_not_found">Couldn\'t  open link</string>
+    <string name="web_client_id">408452374408-l5445sn63oa81hh5spq67j42u0e87av5.apps.googleusercontent.com</string>
     <string-array name="colors">
         <item>Black</item>
         <item>White</item>
@@ -114,4 +115,14 @@
         <item>Ferrari</item>
         <item>Mazda</item>
     </string-array>
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="reviewes">Reviewes</string>
+    <string name="no_followers">No followers</string>
+    <string name="not_following">Not following any one yet</string>
+    <string name="no_reviews">No reviews yet !</string>
+    <string name="categories">Categories</string>
 </resources>

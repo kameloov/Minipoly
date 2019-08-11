@@ -20,6 +20,21 @@
         android:layout_height="match_parent"
         tools:context=".ui.edit_profile.EditProfileFragment">
 
+        <ImageView
+            android:id="@+id/imgWall"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:background="#E2E2E2"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guideline67"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:wall="@{m.user.id}"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
         <TextView
             android:id="@+id/textView52"
             android:layout_width="wrap_content"
@@ -127,16 +142,17 @@
 
         <ImageView
             android:id="@+id/imgProfile"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
             app:avatar="@{m.user.id}"
-            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView59"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline27"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline26"
-            app:layout_constraintTop_toBottomOf="@+id/textView32"
+            app:layout_constraintTop_toTopOf="@+id/imageView59"
             app:srcCompat="@drawable/circle"
             tools:src="@tools:sample/avatars" />
 
@@ -179,8 +195,8 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
-            android:onTextChanged="@{(s,a,b,c)->m.setUserName(s)}"
             android:inputType="textPersonName"
+            android:onTextChanged="@{(s,a,b,c)->m.setUserName(s)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline26"
             app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
@@ -193,9 +209,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
-            android:onTextChanged="@{(s,a,b,c)->m.setEmail(s)}"
             android:ems="10"
             android:inputType="textEmailAddress"
+            android:onTextChanged="@{(s,a,b,c)->m.setEmail(s)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="@+id/guideline26"
@@ -210,8 +226,8 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
-            android:onTextChanged="@{(s,a,b,c)->m.setPhone(s)}"
             android:inputType="phone"
+            android:onTextChanged="@{(s,a,b,c)->m.setPhone(s)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="@+id/guideline26"
@@ -226,10 +242,10 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
-            android:onTextChanged="@{(s,a,b,c)->m.setBrief(s)}"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:minLines="4"
+            android:onTextChanged="@{(s,a,b,c)->m.setBrief(s)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline26"
             app:layout_constraintTop_toBottomOf="@+id/textView48" />
@@ -298,8 +314,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/upload_error"
             android:textColor="@color/colorAccent"
-            android:visibility="@{m.uploader.status==ProgressInfo.FAIL? View.VISIBLE:View.INVISIBLE}"
             android:textSize="12sp"
+            android:visibility="@{m.uploader.status==ProgressInfo.FAIL? View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -312,13 +328,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:visibility="@{m.uploader.status==ProgressInfo.PROGRESS? View.VISIBLE:View.INVISIBLE}"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:visibility="@{m.uploader.status==ProgressInfo.PROGRESS? View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
-            app:layout_constraintEnd_toStartOf="@+id/guideline27"
+            app:layout_constraintEnd_toEndOf="@+id/imgProfile"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/imgProfile"
             app:layout_constraintTop_toTopOf="@+id/imgProfile" />
 
@@ -331,11 +348,28 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:visibility="@{m.user.picture.length()==0? View.VISIBLE:View.INVISIBLE}"
-            app:srcCompat="@drawable/ic_camera"
             app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
             app:layout_constraintEnd_toStartOf="@+id/guideline27"
             app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="@+id/guideline26" />
+            app:layout_constraintStart_toStartOf="@+id/guideline26"
+            app:srcCompat="@drawable/ic_camera" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline67"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <ImageView
+            android:id="@+id/imageView59"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline67"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_camera" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

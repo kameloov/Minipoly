@@ -28,4 +28,15 @@ public class MediaRepository {
         uploader.setUploadTask(root.child(C.AVATARS_FOLDER).child(userId).putFile(uri));
     }
 
+    public static void updateWall(String userId, Uri uri, FireLiveUpload uploader) {
+        uploader.setUploadTask(root.child(C.WALLS_FOLDER).child(userId).putFile(uri));
+    }
+
+    public static void updateAvatar(String userId, byte[] bytes, FireLiveUpload uploader) {
+        uploader.setUploadTask(root.child(C.AVATARS_FOLDER).child(userId).putBytes(bytes));
+    }
+
+    public static void updateWall(String userId, byte[] bytes, FireLiveUpload uploader) {
+        uploader.setUploadTask(root.child(C.WALLS_FOLDER).child(userId).putBytes(bytes));
+    }
 }

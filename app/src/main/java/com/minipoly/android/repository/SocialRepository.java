@@ -9,13 +9,14 @@ import com.minipoly.android.DataListener;
 import com.minipoly.android.entity.Conversation;
 import com.minipoly.android.entity.Interaction;
 import com.minipoly.android.entity.Message;
+import com.minipoly.android.entity.Review;
 import com.minipoly.android.entity.User;
 import com.minipoly.android.entity.UserBrief;
-import com.minipoly.android.livedata.FireLiveDocument;
 import com.minipoly.android.livedata.FireLiveQuery;
 import com.minipoly.android.livedata.LiveWriteDocument;
 
-import static com.minipoly.android.References.auctions;
+import java.util.List;
+
 import static com.minipoly.android.References.db;
 import static com.minipoly.android.References.interactions;
 import static com.minipoly.android.References.realestates;
@@ -23,9 +24,6 @@ import static com.minipoly.android.References.users;
 
 public class SocialRepository {
 
-    public static FireLiveDocument<User> getUser(String userId) {
-        return new FireLiveDocument<>(users.document(userId).get(), User.class);
-    }
 
     public static void updateUser(User user, CompleteListener listener) {
         users.document(user.getId()).set(user).addOnCompleteListener(task -> {
@@ -52,8 +50,16 @@ public class SocialRepository {
                 .collection(C.COLLECTION_FOLLOWING).get(), User.class);
     }
 
+    public static void getFollowing(String userId, DataListener<List<UserBrief>> listener) {
+        users.document(userId).collection(C.COLLECTION_FOLLOWING).get().addOnCompleteListener(task -> {
+            List<UserBrief> users = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                users = task.getResult().toObjects(UserBrief.class);
+            listener.onComplete(task.isSuccessful(), users);
+        });
+    }
 
-    public static void following(String userId, DataListener<Boolean> listener) {
+    public static void isFollowing(String userId, DataListener<Boolean> listener) {
         users.document(userId).collection(C.COLLECTION_FOLLOWING).document(getUserId())
                 .get().addOnCompleteListener(task -> {
             listener.onComplete(task.isSuccessful(), task.isSuccessful() && task.getResult().exists());
@@ -70,45 +76,59 @@ public class SocialRepository {
         });
     }
 
-    public static void follow(String userId, CompleteListener listener) {
-        users.document(userId).collection(C.COLLECTION_FOLLOWING).document(getUserId())
-                .set(getDemoBrief()).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
+    public static void follow(UserBrief brief, CompleteListener listener) {
+        users.document(brief.getId()).collection(C.COLLECTION_FOLLOWERS).document(getUserId())
+                .set(UserRepository.getBrief()).addOnCompleteListener(task -> {
+            users.document(getUserId()).collection(C.COLLECTION_FOLLOWING).document(brief.getId()).set(brief);
+            listener.onComplete(task.isSuccessful());
+        });
     }
 
     public static void unFollow(String userId, CompleteListener listener) {
         users.document(userId).collection(C.COLLECTION_FOLLOWERS).document(getUserId())
-                .delete().addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
+                .delete().addOnCompleteListener(task -> {
+            listener.onComplete(task.isSuccessful());
+            users.document(getUserId()).collection(C.COLLECTION_FOLLOWING).document(userId).delete();
+        });
     }
 
-    public static void liked(String advrtId, DataListener<Boolean> listener) {
+    public static void getFollowers(String userId, DataListener<List<UserBrief>> listener) {
+        users.document(userId).collection(C.COLLECTION_FOLLOWERS).get().addOnCompleteListener(task -> {
+            List<UserBrief> users = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                users = task.getResult().toObjects(UserBrief.class);
+            listener.onComplete(task.isSuccessful(), users);
+        });
+    }
+
+    public static void liked(String id, DataListener<Boolean> listener) {
         interactions.document(getUserId()).get().addOnCompleteListener(task -> {
             boolean liked = false;
             if (task.isSuccessful()) {
                 Interaction interaction = task.getResult().toObject(Interaction.class);
                 if (interaction != null)
-                    liked = interaction.getLike() != null && interaction.getLike().contains(advrtId);
+                    liked = interaction.getLike() != null && interaction.getLike().contains(id);
             }
             listener.onComplete(task.isSuccessful(), liked);
         });
     }
 
-    public static void disliked(String advrtId, DataListener<Boolean> listener) {
+    public static void disliked(String id, DataListener<Boolean> listener) {
         interactions.document(getUserId()).get().addOnCompleteListener(task -> {
             boolean disliked = false;
             if (task.isSuccessful() && task.getResult() != null) {
                 Interaction interaction = task.getResult().toObject(Interaction.class);
                 if (interaction != null)
-                    disliked = interaction.getDislike() != null && interaction.getDislike().contains(advrtId);
+                    disliked = interaction.getDislike() != null && interaction.getDislike().contains(id);
             }
             listener.onComplete(task.isSuccessful(), disliked);
         });
     }
 
 
-    public static void like(String advrtId, boolean auction, DataListener<Boolean>
-            listener) {
+    public static void like(DocumentReference itemRef, DataListener<Boolean> listener) {
         DocumentReference reference = interactions.document(getUserId());
-        DocumentReference advrtRef = auction ? auctions.document(advrtId) : realestates.document(advrtId);
+        String advrtId = itemRef.getId();
         db.runTransaction(transaction -> {
             Interaction interaction = transaction.get(reference).toObject(Interaction.class);
             boolean liked = interaction != null && interaction.getLike().contains(advrtId);
@@ -116,25 +136,24 @@ public class SocialRepository {
             // if disliked before remove from dislike list and remove from advrt dislikes
             if (disliked) {
                 transaction.update(reference, "dislike", FieldValue.arrayRemove(advrtId));
-                transaction.update(advrtRef, "dislike", FieldValue.increment(-1));
+                transaction.update(itemRef, "dislike", FieldValue.increment(-1));
             }
             if (liked) {
                 transaction.update(reference, "like", FieldValue.arrayRemove(advrtId));
-                transaction.update(advrtRef, "like", FieldValue.increment(-1));
+                transaction.update(itemRef, "like", FieldValue.increment(-1));
                 return false;
             } else {
                 transaction.update(reference, "like", FieldValue.arrayUnion(advrtId));
-                transaction.update(advrtRef, "like", FieldValue.increment(1));
+                transaction.update(itemRef, "like", FieldValue.increment(1));
                 return true;
             }
         }).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful(), task.getResult()));
 
     }
 
-    public static void dislike(String advrtId,
-                               boolean auction, DataListener<Boolean> listener) {
+    public static void dislike(DocumentReference itemRef, DataListener<Boolean> listener) {
         DocumentReference reference = interactions.document(getUserId());
-        DocumentReference advrtRef = auction ? auctions.document(advrtId) : realestates.document(advrtId);
+        String advrtId = itemRef.getId();
         db.runTransaction(transaction -> {
             Interaction interaction = transaction.get(reference).toObject(Interaction.class);
             boolean liked = interaction != null && interaction.getLike().contains(advrtId);
@@ -142,16 +161,16 @@ public class SocialRepository {
             // if liked remove the like
             if (liked) {
                 transaction.update(reference, "like", FieldValue.arrayRemove(advrtId));
-                transaction.update(advrtRef, "like", FieldValue.increment(-1));
+                transaction.update(itemRef, "like", FieldValue.increment(-1));
             }
             // if disliked before remove from dislike list and remove from advrt dislikes
             if (disliked) {
                 transaction.update(reference, "dislike", FieldValue.arrayRemove(advrtId));
-                transaction.update(advrtRef, "dislike", FieldValue.increment(-1));
+                transaction.update(itemRef, "dislike", FieldValue.increment(-1));
                 return false;
             } else {
                 transaction.update(reference, "dislike", FieldValue.arrayUnion(advrtId));
-                transaction.update(advrtRef, "dislike", FieldValue.increment(1));
+                transaction.update(itemRef, "dislike", FieldValue.increment(1));
                 return true;
             }
         }).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful(), task.getResult()));
@@ -166,23 +185,19 @@ public class SocialRepository {
     }
 
 
-    public static User getdemoUser() {
-        User user = new User();
-        user.setId(getUserId());
-        user.setName("kamel");
-        user.setPicture(getUserId());
-        user.setEmail("kameloov@gmail.com");
-        user.setPhone("0201123758139");
-        return user;
+    public static void addReview(String userId, Review review, CompleteListener listener) {
+        DocumentReference reference = users.document(userId).collection(C.COLLECTION_REVIEWS).document();
+        review.setId(reference.getId());
+        reference.set(review).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
     }
 
-    public static UserBrief getDemoBrief() {
-        UserBrief user = new UserBrief();
-        user.setId(getUserId());
-        user.setName("user" + getUserId());
-        user.setDeals(12);
-        user.setStars(4);
-        user.setPicture(getUserId());
-        return user;
+    public static void getReviews(String userId, DataListener<List<Review>> listener) {
+        users.document(userId).collection(C.COLLECTION_REVIEWS).get().addOnCompleteListener(task -> {
+            List<Review> reviews = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                reviews = task.getResult().toObjects(Review.class);
+            listener.onComplete(task.isSuccessful(), reviews);
+        });
     }
+
 }

@@ -1,6 +1,5 @@
 package com.minipoly.android.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,9 @@ import java.util.List;
 public class RealestateAdapter extends PagerAdapter {
 
     private List<Realestate> realestates;
-    private Context context;
 
-    public RealestateAdapter(List<Realestate> realestates, Context context) {
+    public RealestateAdapter(List<Realestate> realestates) {
         this.realestates = realestates;
-        this.context = context;
     }
 
     public List<Realestate> getRealestates() {
@@ -43,7 +40,7 @@ public class RealestateAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(container.getContext());
         ListItemAdvrtBinding binding = ListItemAdvrtBinding.inflate(inflater, container, false);
         binding.setAd(realestates.get(position));
         // todo make the language dynamic

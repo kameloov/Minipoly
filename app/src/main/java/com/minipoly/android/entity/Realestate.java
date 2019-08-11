@@ -31,9 +31,35 @@ public class Realestate extends Pin implements Serializable {
     private RealestateInfo realestateInfo;
     private MobileInfo mobileInfo;
     private ComputerInfo computerInfo;
+    private boolean rented;
+    private int offerPercent;
+    private Date offerEnd;
     @ServerTimestamp
     private Date publishDate;
 
+    public boolean isRented() {
+        return rented;
+    }
+
+    public void setRented(boolean rented) {
+        this.rented = rented;
+    }
+
+    public int getOfferPercent() {
+        return offerPercent;
+    }
+
+    public void setOfferPercent(int offerPercent) {
+        this.offerPercent = offerPercent;
+    }
+
+    public Date getOfferEnd() {
+        return offerEnd;
+    }
+
+    public void setOfferEnd(Date offerEnd) {
+        this.offerEnd = offerEnd;
+    }
 
     public String getSubCategoryId() {
         return subCategoryId;

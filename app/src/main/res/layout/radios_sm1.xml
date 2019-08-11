@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/radio"
-            android:button="@color/fui_transparent"
+            android:button="@color/transparent"
             android:checked="@{!radio.checked}"
             android:gravity="center"
             android:onClick="@{()->radio.setChecked(false)}"

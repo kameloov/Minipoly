@@ -7,6 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.minipoly.android.entity.User;
+import com.minipoly.android.repository.UserRepository;
+import com.minipoly.android.utils.LocalData;
+
 public class ActivityViewModel extends ViewModel {
 
     private MutableLiveData<Integer> section = new MutableLiveData<>();
@@ -37,6 +42,15 @@ public class ActivityViewModel extends ViewModel {
 
     public void hideSections() {
         sectionsVisible.setValue(false);
+    }
+
+    public void registerGmail(GoogleSignInAccount account) {
+        User user = new User();
+        user.setId(UserManager.getUserID());
+        user.setName(account.getGivenName());
+        user.setToken(LocalData.getDeviceToken());
+        UserRepository.addUser(user, success -> {
+        });
     }
 
     private void refresh(View v) {

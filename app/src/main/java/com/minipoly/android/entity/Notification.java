@@ -3,11 +3,11 @@ package com.minipoly.android.entity;
 public class Notification {
     private String id;
     private String text;
-    private NotificationType type;
-    private String senderId;
-    private String enderName;
+    private int type;
     private String itemId;
-    private String itemTitle;
+    private String link;
+    private UserBrief user;
+    private int actionType; /// 1 like , 2 dislike ,3 comment , 4  bid ,5 notify
 
     public String getId() {
         return id;
@@ -25,28 +25,20 @@ public class Notification {
         this.text = text;
     }
 
-    public NotificationType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(NotificationType type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public String getSenderId() {
-        return senderId;
+    public int getActionType() {
+        return actionType;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
-    public String getEnderName() {
-        return enderName;
-    }
-
-    public void setEnderName(String enderName) {
-        this.enderName = enderName;
+    public void setActionType(int actionType) {
+        this.actionType = actionType;
     }
 
     public String getItemId() {
@@ -57,13 +49,20 @@ public class Notification {
         this.itemId = itemId;
     }
 
-    public String getItemTitle() {
-        return itemTitle;
+    public String getLink() {
+        return link;
     }
 
-    public void setItemTitle(String itemTitle) {
-        this.itemTitle = itemTitle;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    enum NotificationType {AUCTION, Advrt}
+    public UserBrief getUser() {
+        return user;
+    }
+
+    public void setUser(UserBrief user) {
+        this.user = user;
+    }
+
 }

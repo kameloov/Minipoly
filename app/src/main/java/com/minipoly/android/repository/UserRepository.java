@@ -1,11 +1,18 @@
 package com.minipoly.android.repository;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.minipoly.android.C;
 import com.minipoly.android.CompleteListener;
+import com.minipoly.android.DataListener;
 import com.minipoly.android.entity.Interaction;
+import com.minipoly.android.entity.Notification;
 import com.minipoly.android.entity.User;
 import com.minipoly.android.entity.UserBrief;
+import com.minipoly.android.livedata.FireLiveDocument;
+import com.minipoly.android.livedata.FireLiveQuery;
 import com.minipoly.android.utils.LocalData;
+
+import java.util.List;
 
 import static com.minipoly.android.References.interactions;
 import static com.minipoly.android.References.users;
@@ -32,6 +39,22 @@ public class UserRepository {
         return user;
     }
 
+    public static void getUerNotification(String userId, int limit, DataListener<List<Notification>> listener) {
+        users.document(userId).collection(C.COLLECTION_NOTIFICATION).limit(limit).get()
+                .addOnCompleteListener(task -> {
+                    List<Notification> list = null;
+                    if (task.getResult() != null)
+                        list = task.getResult().toObjects(Notification.class);
+                    listener.onComplete(task.isSuccessful(), list);
+                });
+    }
+
+
+    public static FireLiveQuery<Notification> getUserNotifications(String userId, int limit) {
+        return new FireLiveQuery<Notification>(users.document(userId)
+                .collection(C.COLLECTION_NOTIFICATION).limit(limit).get(), Notification.class);
+    }
+
     public static void updateUser(User user, CompleteListener listener) {
         users.document(user.getId()).set(user).addOnCompleteListener(task -> {
             if (listener != null)
@@ -48,7 +71,29 @@ public class UserRepository {
 
     }
 
+    public static FireLiveDocument<User> getUser(String userId) {
+        return new FireLiveDocument<User>(users.document(userId).get(), User.class);
+    }
+
+    public static void getUser(String userId, DataListener<User> listener) {
+        users.document(userId).get().addOnCompleteListener(task -> {
+            User user = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                user = task.getResult().toObject(User.class);
+            listener.onComplete(task.isSuccessful(), user);
+        });
+    }
+
     public static String getUserId() {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
+
+    public static void refreshUser() {
+        users.document(getUserId()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                User user = task.getResult().toObject(User.class);
+                LocalData.saveUserInfo(user);
+            }
+        });
     }
 }

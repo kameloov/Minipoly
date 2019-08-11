@@ -84,7 +84,7 @@ public class BidAdapter extends ListAdapter<Bid, BidAdapter.BidHolder> {
                             }
                             break;
                         case R.id.follow:
-                            SocialRepository.follow(bid.getBidder().getId(), success -> {
+                            SocialRepository.follow(bid.getBidder(), success -> {
                                 showMsg(v.getContext(), "followed");
                             });
                             break;

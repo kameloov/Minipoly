@@ -525,7 +525,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:onClick="@{()->m.changeFollow(m.realestate.userBrief.id)}"
+                    android:onClick="@{()->m.changeFollow(m.realestate.userBrief)}"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="@{m.following ?@string/following:@string/follow,default = `follow`}" />

@@ -55,7 +55,7 @@ public class AuctionDetailsViewModel extends ViewModel {
         like.setValue(false);
         dislike.setValue(false);
         this.relestate = AuctionRepository.watchAuction(r.getId());
-        SocialRepository.following(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
+        SocialRepository.isFollowing(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
         sync(r.getId());
         RealestateRepository.isFollowing(r.getId(), (success, data) -> watching.setValue(success && data));
         prepareTags(r);
@@ -137,12 +137,11 @@ public class AuctionDetailsViewModel extends ViewModel {
 
 
     public void like() {
-        SocialRepository.like(relestate.getValue().getId(), true,
-                (success, data) -> {
-                    if (success)
-                        like.setValue(data);
-                    sync(relestate.getValue().getId());
-                });
+        AuctionRepository.like(relestate.getValue().getId(), (success, data) -> {
+            if (success)
+                like.setValue(data);
+            sync(relestate.getValue().getId());
+        });
     }
 
     public void showBidders(View v) {
@@ -150,34 +149,13 @@ public class AuctionDetailsViewModel extends ViewModel {
         Navigation.findNavController(v).navigate(acion);
     }
 
-    private void toggleFollow() {
-        boolean a = following.getValue();
-        following.setValue(!a);
-    }
-
-    public void changeFollow(String id) {
-
-        if (following.getValue())
-            SocialRepository.unFollow(id, success -> {
-                if (success)
-                    toggleFollow();
-            });
-        else {
-            SocialRepository.follow(id, success -> {
-                if (success)
-                    toggleFollow();
-            });
-        }
-
-    }
 
     public void dislike() {
-        SocialRepository.dislike(relestate.getValue().getId(), true,
-                (success, data) -> {
-                    if (success)
-                        dislike.setValue(data);
-                    sync(relestate.getValue().getId());
-                });
+        AuctionRepository.dislike(relestate.getValue().getId(), (success, data) -> {
+            if (success)
+                dislike.setValue(data);
+            sync(relestate.getValue().getId());
+        });
     }
 
     public void addComment() {

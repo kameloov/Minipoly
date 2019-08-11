@@ -14,6 +14,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         tools:context=".MainActivity">
 
         <fragment
@@ -33,8 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:visibility="invisible"
+            android:scaleType="fitXY"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,49 +71,48 @@
 
         <ImageView
             android:id="@+id/imageView32"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:adjustViewBounds="true"
+            android:alpha="0.8"
             android:onClick="@{(v)->vm.setSection(v,0)}"
             android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline40"
             app:layout_constraintStart_toStartOf="@+id/guideline39"
             app:layout_constraintTop_toTopOf="@+id/imageView31"
-            app:srcCompat="@mipmap/home" />
+            app:srcCompat="@drawable/home_inactive" />
 
         <ImageView
             android:id="@+id/imageView33"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:adjustViewBounds="true"
+            android:alpha="1"
             android:onClick="@{(v)->vm.setSection(v,-1)}"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/guideline39"
-            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView31"
             app:layout_constraintTop_toTopOf="@+id/imageView32"
-            app:srcCompat="@mipmap/dice" />
+            app:srcCompat="@drawable/ads" />
 
         <ImageView
             android:id="@+id/imageView35"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
             android:onClick="@{(v)->vm.setSection(v,1)}"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline41"
-            app:layout_constraintStart_toStartOf="@+id/guideline40"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView32"
-            app:srcCompat="@mipmap/home" />
+            app:srcCompat="@drawable/auction_inactive" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline43"

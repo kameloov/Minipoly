@@ -3,13 +3,13 @@ package com.minipoly.android.repository;
 import android.location.Address;
 import android.location.Geocoder;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.minipoly.android.C;
 import com.minipoly.android.CompleteListener;
 import com.minipoly.android.DataListener;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.UserBrief;
-import com.minipoly.android.livedata.LiveWriteDocument;
 import com.minipoly.android.utils.LocalData;
 
 import java.util.List;
@@ -61,6 +61,15 @@ public class RealestateRepository {
                 task.isSuccessful() ? task.getResult().toObjects(Realestate.class) : null));
     }
 
+    public static void getUserRealestates(String userId, DataListener<List<Realestate>> listener) {
+        realestates.whereEqualTo("userBrief.id", userId).get().addOnCompleteListener(task -> {
+            List<Realestate> realestates = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                realestates = task.getResult().toObjects(Realestate.class);
+            listener.onComplete(task.isSuccessful(), realestates);
+        });
+    }
+
     public static void getRealestate(String id, DataListener<Realestate> listener) {
         realestates.document(id).get().addOnCompleteListener(task -> {
             Realestate realestate = null;
@@ -70,18 +79,15 @@ public class RealestateRepository {
         });
     }
 
-    public static LiveWriteDocument addView(String id) {
-        return new LiveWriteDocument(realestates.document(id).update("views", FieldValue.increment(1)));
+    public static void like(String id, DataListener<Boolean> listener) {
+        DocumentReference reference = realestates.document(id);
+        SocialRepository.like(reference, listener);
     }
 
-    public static void like(String id) {
-        realestates.document(id).update("like", FieldValue.increment(1));
+    public static void dislike(String id, DataListener<Boolean> listener) {
+        DocumentReference reference = realestates.document(id);
+        SocialRepository.dislike(reference, listener);
     }
-
-    public static void dislike(String id) {
-        realestates.document(id).update("dislike", FieldValue.increment(1));
-    }
-
 
     public static Realestate generateRealestate(double lat, double lng, Geocoder geocoder) {
         Realestate realestate = new Realestate();

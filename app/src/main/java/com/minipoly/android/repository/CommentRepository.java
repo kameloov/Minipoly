@@ -1,5 +1,6 @@
 package com.minipoly.android.repository;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
@@ -34,6 +35,18 @@ public class CommentRepository {
     }
 
 
+    public static void likeComment(String itemId, String commentId, boolean auction, DataListener<Boolean> listener) {
+        CollectionReference collection = auction ? auctions : realestates;
+        DocumentReference reference = collection.document(itemId).collection(C.COMMENTS_COLLECTION).document(commentId);
+        SocialRepository.like(reference, listener);
+    }
+
+    public static void dislikeComment(String itemId, String commentId, boolean auction, DataListener<Boolean> listener) {
+        CollectionReference collection = auction ? auctions : realestates;
+        DocumentReference reference = collection.document(itemId).collection(C.COMMENTS_COLLECTION).document(commentId);
+        SocialRepository.dislike(reference, listener);
+    }
+
     public static void addAuctionComment(Comment comment, CompleteListener listener) {
         DocumentReference reference = auctions.document(comment.getAdvrtId())
                 .collection(C.COMMENTS_COLLECTION).document();
@@ -56,7 +69,9 @@ public class CommentRepository {
         reply.setId(reference.getId());
         reply.setText(text);
         reply.setUserBrief(new UserBrief(LocalData.getUserInfo()));
-        reference.set(reply).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
+        reference.set(reply).addOnCompleteListener(task -> {
+            listener.onComplete(task.isSuccessful());
+        });
     }
 
     public static void loadReplies(Comment comment, DataListener<List<Reply>> listener) {

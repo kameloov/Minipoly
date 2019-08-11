@@ -2,6 +2,7 @@ package com.minipoly.android;
 
 public interface C {
     String AVATARS_FOLDER = "avatars";
+    String WALLS_FOLDER = "walls";
     String IMAGES_COLLECTION = "images";
     String COLLECTION_REALESTATE = "realestate";
     String CONVERSATIONS = "conversations";
@@ -26,4 +27,6 @@ public interface C {
     String COLLECTION_COMPUTER = "computer";
     String COLLECTION_AUCTION = "auction";
     String COLLECTION_BIDS = "bids";
+    String COLLECTION_NOTIFICATION = "notification";
+    String COLLECTION_REVIEWS = "reviews";
 }

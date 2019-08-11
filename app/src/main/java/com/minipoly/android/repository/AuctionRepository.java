@@ -31,6 +31,15 @@ public class AuctionRepository {
         return new FireLiveDocument<Auction>(auctions.document(auctionId).get(), Auction.class);
     }
 
+    public static void getAuction(String auctionId, DataListener<Auction> listener) {
+        auctions.document(auctionId).get().addOnCompleteListener(task -> {
+            Auction auction = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                auction = task.getResult().toObject(Auction.class);
+            listener.onComplete(task.isSuccessful(), auction);
+        });
+    }
+
     public static FireLiveQuery<Auction> getAuctions(boolean active) {
         return new FireLiveQuery<>(auctions.whereEqualTo("active", active).get(), Auction.class);
     }
@@ -43,6 +52,16 @@ public class AuctionRepository {
             listener.onComplete(task.isSuccessful(), auctions);
         });
 
+    }
+
+    public static void like(String id, DataListener<Boolean> listener) {
+        DocumentReference reference = auctions.document(id);
+        SocialRepository.like(reference, listener);
+    }
+
+    public static void dislike(String id, DataListener<Boolean> listener) {
+        DocumentReference reference = auctions.document(id);
+        SocialRepository.dislike(reference, listener);
     }
 
     public static void block(String auctionId, String userId) {
