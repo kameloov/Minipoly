@@ -8,15 +8,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.minipoly.android.R;
+import com.minipoly.android.RootFragment;
 import com.minipoly.android.UserManager;
 import com.minipoly.android.databinding.LoginFragmentBinding;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends RootFragment {
 
     private LoginViewModel model;
     private LoginFragmentBinding binding;
@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment {
         model = ViewModelProviders.of(this).get(LoginViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setM(model);
+        binding.imgGoogle.setOnClickListener(v -> UserManager.loginGoogle(getActivity()));
         if (UserManager.isLogged())
             showMap();
         model.isRegistered().observe(this, aBoolean -> {

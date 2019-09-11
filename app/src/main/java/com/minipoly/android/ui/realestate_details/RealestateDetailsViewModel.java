@@ -1,16 +1,29 @@
 package com.minipoly.android.ui.realestate_details;
 
+import android.content.Context;
+import android.net.Uri;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.minipoly.android.R;
 import com.minipoly.android.entity.Comment;
 import com.minipoly.android.entity.Realestate;
+import com.minipoly.android.entity.Report;
 import com.minipoly.android.entity.UserBrief;
 import com.minipoly.android.livedata.FireLiveQuery;
+import com.minipoly.android.param_managers.CarManager;
+import com.minipoly.android.param_managers.ComputerManager;
+import com.minipoly.android.param_managers.MobileManager;
+import com.minipoly.android.param_managers.RealestateManager;
+import com.minipoly.android.popup.PopupInput;
 import com.minipoly.android.repository.CommentRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.SocialRepository;
@@ -18,7 +31,6 @@ import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.utils.LocalData;
 import com.minipoly.android.utils.SocialUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RealestateDetailsViewModel extends ViewModel {
@@ -44,7 +56,7 @@ public class RealestateDetailsViewModel extends ViewModel {
         SocialRepository.isFollowing(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
         sync();
         RealestateRepository.isFollowing(relestate.getValue().getId(), (success, data) -> watching.setValue(success && data));
-        prepareTags();
+        prepareTags(r);
         RealestateRepository.updateViews(r.getId());
     }
 
@@ -66,17 +78,84 @@ public class RealestateDetailsViewModel extends ViewModel {
         });*/
     }
 
+    public boolean isAdvrtOwner() {
+        return relestate.getValue().getUserBrief().getId().equals(UserRepository.getUserId());
+    }
+
+    public void showEdit(View v) {
+        RealestateDetailsDirections.ActionRealestateDetailsToEditAdvrtDialog action =
+                RealestateDetailsDirections.actionRealestateDetailsToEditAdvrtDialog(relestate.getValue());
+        Navigation.findNavController(v).navigate(action);
+    }
+
+    public void share(View v) {
+        String link = generateLink(v.getContext());
+        SocialUtils.shareLink(v.getContext(), link);
+    }
+
+    public void showMenu(View v) {
+        Context context = v.getContext();
+        PopupMenu menu = new PopupMenu(v.getContext(), v);
+        menu.inflate(R.menu.advrt_pop);
+        menu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_transfer:
+
+                    return true;
+                case R.id.menu_report:
+                    PopupInput popupInput = new PopupInput(v, (positive, text) -> {
+                        if (positive) {
+                            Report report = new Report();
+                            report.setReported(relestate.getValue().getUserBrief());
+                            report.setReporter(UserRepository.getBrief());
+                            report.setText(text);
+                            UserRepository.reportUser(report, success -> {
+                                Toast.makeText(context, context.getString(R.string.reported), Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    });
+                    popupInput.show();
+                    return true;
+            }
+            return false;
+        });
+        menu.show();
+    }
+
+
+    private String generateLink(Context context) {
+        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://minipoly.page.link/1/" + relestate.getValue().getId()))
+                .setDomainUriPrefix("https://minipoly.page.link")
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .setSocialMetaTagParameters(
+                        new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle(relestate.getValue().getTitle())
+                                .setDescription(context.getResources().getString(R.string.check_deal))
+                                .build())
+                .buildDynamicLink();
+        return dynamicLink.getUri().toString();
+    }
 
     public void notifyFriends(View v) {
         Navigation.findNavController(v).navigate(RealestateDetailsDirections.advrtUserList());
     }
 
-    private void prepareTags() {
-        ArrayList<String> list = new ArrayList<>();
-        tags = list;
+    private void prepareTags(Realestate r) {
+        if (!r.isMarket())
+            tags = RealestateManager.getTags(r.getRealestateInfo());
+        else {
+            if (r.getCategoryId().equals("car"))
+                tags = CarManager.getTags(r.getCarInfo());
+            if (r.getCategoryId().equals("computer"))
+                tags = ComputerManager.getTags(r.getComputerInfo());
+            if (r.getCategoryId().equals("mobile"))
+                tags = MobileManager.getTags(r.getMobileInfo());
+
+
+        }
 
     }
-
     public void toggleWatch() {
         if (watching.getValue()) {
             RealestateRepository.unfollow(relestate.getValue().getId(), success -> {

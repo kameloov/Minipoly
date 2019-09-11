@@ -4,6 +4,7 @@
     <stroke
         android:color="@color/editborder"
         android:width="1px" />
+
     <gradient
         android:startColor="@color/blue_gradiant_start"
         android:endColor="@color/blue_gradiant_end"

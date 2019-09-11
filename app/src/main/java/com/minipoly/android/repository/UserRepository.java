@@ -1,11 +1,13 @@
 package com.minipoly.android.repository;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.minipoly.android.C;
 import com.minipoly.android.CompleteListener;
 import com.minipoly.android.DataListener;
+import com.minipoly.android.UserManager;
 import com.minipoly.android.entity.Interaction;
 import com.minipoly.android.entity.Notification;
+import com.minipoly.android.entity.Report;
 import com.minipoly.android.entity.User;
 import com.minipoly.android.entity.UserBrief;
 import com.minipoly.android.livedata.FireLiveDocument;
@@ -15,6 +17,7 @@ import com.minipoly.android.utils.LocalData;
 import java.util.List;
 
 import static com.minipoly.android.References.interactions;
+import static com.minipoly.android.References.reports;
 import static com.minipoly.android.References.users;
 
 public class UserRepository {
@@ -85,15 +88,27 @@ public class UserRepository {
     }
 
     public static String getUserId() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        return UserManager.getUserID();
     }
 
     public static void refreshUser() {
+        if (getUserId() == null)
+            return;
         users.document(getUserId()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 User user = task.getResult().toObject(User.class);
                 LocalData.saveUserInfo(user);
             }
+        });
+    }
+
+    public static void reportUser(Report report, CompleteListener listener) {
+        DocumentReference reference = reports.document();
+        report.setId(reference.getId());
+        reference.set(report).addOnCompleteListener(task -> {
+            if (listener != null)
+                listener.onComplete(task.isSuccessful());
+
         });
     }
 }

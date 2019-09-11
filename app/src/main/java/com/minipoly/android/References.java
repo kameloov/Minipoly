@@ -17,4 +17,7 @@ public class References {
     public static CollectionReference mobile = db.collection(C.COLLECTION_MOBILE);
     public static CollectionReference computer = db.collection(C.COLLECTION_COMPUTER);
     public static CollectionReference auctions = db.collection(C.COLLECTION_AUCTION);
+    public static CollectionReference reports = db.collection(C.COLLECTION_REPORT);
+    public static CollectionReference promotedAds = db.collection(C.COLLECTION_PROMOTED_ADS);
+    public static CollectionReference countries = db.collection(C.COLLECTION_COUNTRY);
 }

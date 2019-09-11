@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,10 @@ import com.minipoly.android.entity.Reply;
 import com.minipoly.android.utils.LocalData;
 
 public class ReplyAdapter extends ListAdapter<Reply, ReplyAdapter.ReplyHolder> {
+
     private String userId = LocalData.getUserInfo().getId();
+    private LifecycleOwner owner;
+
     private static final DiffUtil.ItemCallback<Reply> DIFF_CALLBACK = new DiffUtil.ItemCallback<Reply>() {
 
         @Override
@@ -27,8 +31,9 @@ public class ReplyAdapter extends ListAdapter<Reply, ReplyAdapter.ReplyHolder> {
         }
     };
 
-    public ReplyAdapter() {
+    public ReplyAdapter(LifecycleOwner owner) {
         super(DIFF_CALLBACK);
+        this.owner = owner;
     }
 
 
@@ -37,6 +42,7 @@ public class ReplyAdapter extends ListAdapter<Reply, ReplyAdapter.ReplyHolder> {
     public ReplyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ListItemReplyBinding binding = ListItemReplyBinding.inflate(inflater);
+        binding.setLifecycleOwner(owner);
         return new ReplyHolder(binding);
     }
 

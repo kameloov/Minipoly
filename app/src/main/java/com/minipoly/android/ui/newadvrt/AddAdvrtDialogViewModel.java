@@ -24,7 +24,7 @@ import java.util.List;
 public class AddAdvrtDialogViewModel extends ViewModel {
     public enum Command {IDLE, SHOW_CATEGORY, SHOW_SUBCATEGORY}
 
-    public MutableLiveData<CustomRadio> kindRadio = new MutableLiveData<>();
+    public CustomRadio kindRadio;
     public MutableLiveData<CustomRadio> usedRadio = new MutableLiveData<>();
     private MutableLiveData<Realestate> realestate = new MutableLiveData<>();
     public MutableLiveData<Category> category = new MutableLiveData<>();
@@ -37,7 +37,7 @@ public class AddAdvrtDialogViewModel extends ViewModel {
     public MutableLiveData<Integer> selectedCategory = new MutableLiveData<>();
     public MobileManager mobileManager = new MobileManager();
     public MutableLiveData<Integer> old = new MutableLiveData<>(1);
-    public RealestateManager realestateManager = new RealestateManager();
+    public MutableLiveData<RealestateManager> realestateManager = new MutableLiveData<>(new RealestateManager());
     public CarManager carManager = new CarManager();
     public ComputerManager computerManager = new ComputerManager();
     public MutableLiveData<Command> command = new MutableLiveData<>(Command.IDLE);
@@ -45,7 +45,7 @@ public class AddAdvrtDialogViewModel extends ViewModel {
 
     public AddAdvrtDialogViewModel() {
         selectedCategory.setValue(0);
-        kindRadio.setValue(new CustomRadio(false, "Add Realestate", "Add Market"));
+        kindRadio = new CustomRadio(false, "Add Realestate", "Add Market");
         usedRadio.setValue(new CustomRadio(false, "New", "Used"));
     }
 
@@ -83,7 +83,6 @@ public class AddAdvrtDialogViewModel extends ViewModel {
     }
 
     public void addRealestate() {
-        // todo missing values like category and subcategory
         Realestate r = realestate.getValue();
         r.setPrice(Float.parseFloat(price.getValue()));
         r.setUserBrief(new UserBrief(LocalData.getUserInfo()));
@@ -91,15 +90,15 @@ public class AddAdvrtDialogViewModel extends ViewModel {
         r.setUsed(!usedRadio.getValue().isChecked());
         r.setOld(old.getValue());
         r.setCurrency(currencies[index.getValue()]);
-        boolean isMarket = !kindRadio.getValue().isChecked();
+        boolean isMarket = !kindRadio.isChecked();
         r.setMarket(isMarket);
-        r.setCategoryId(category.getValue().getId());
+        r.setCategoryId(category.getValue() == null ? null : category.getValue().getId());
         if (subCategory.getValue() != null)
             r.setSubCategoryId(subCategory.getValue().getId());
         if (!isMarket)
-            r.setRealestateInfo(realestateManager.getInfo());
+            r.setRealestateInfo(realestateManager.getValue().getInfo());
         else {
-            String catId = category.getValue().getId();
+            String catId = category.getValue() == null ? "" : category.getValue().getId();
             if (catId.equals("car"))
                 r.setCarInfo(carManager.getCarInfo());
             if (catId.equals("computer"))
@@ -109,6 +108,7 @@ public class AddAdvrtDialogViewModel extends ViewModel {
         }
         RealestateRepository.addRealestate(r, (s) -> {
             success.setValue(s);
+            ImageBuffer.reset();
             Log.e("add", "addRealestate: " + s);
         });
     }

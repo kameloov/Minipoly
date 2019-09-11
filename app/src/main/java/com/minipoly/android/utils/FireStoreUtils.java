@@ -9,6 +9,8 @@ import java.util.List;
 public class FireStoreUtils {
 
     public static Query buildQuery(CollectionReference reference, List<ValueFilter> filters) {
+        if (filters == null || filters.size() == 0)
+            return null;
         Query query = processFilter(reference,filters.get(0));
         filters.remove(0);
         for (ValueFilter filter : filters) {
@@ -44,6 +46,8 @@ public class FireStoreUtils {
 
     public static Query processFilter(CollectionReference reference, ValueFilter filter) {
         Query query = null;
+        if (filter == null)
+            return null;
         switch (filter.getType()) {
             case LESS:
                 query = reference.whereLessThan(filter.getField(), filter.getValue1());

@@ -8,6 +8,26 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="action_global_add_auction">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_global_add_promoted">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_global_add_realestate">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_global_locationDialog">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                   <entry key="action_global_profile">
                     <value>
                       <LayoutPositions />
@@ -46,6 +66,18 @@
                           <Point>
                             <option name="x" value="-937" />
                             <option name="y" value="11" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addPromotedDialog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -113,6 +145,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="editAdvrtDialog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1252" />
+                            <option name="y" value="-924" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="editProfileFragment">
                     <value>
                       <LayoutPositions>
@@ -169,6 +213,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="locationDialog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-2333" />
+                            <option name="y" value="-2067" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -253,6 +309,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_realestateDetails_to_editAdvrtDialog">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="advrt_user_list">
                               <value>
                                 <LayoutPositions />

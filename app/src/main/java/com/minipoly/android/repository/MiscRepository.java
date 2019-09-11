@@ -2,10 +2,8 @@ package com.minipoly.android.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.minipoly.android.C;
 import com.minipoly.android.DataListener;
@@ -15,22 +13,20 @@ import com.minipoly.android.entity.Country;
 import com.minipoly.android.entity.MobileMisc;
 import com.minipoly.android.entity.ValueFilter;
 import com.minipoly.android.livedata.FireLiveDocument;
+import com.minipoly.android.livedata.FireLiveQuery;
 import com.minipoly.android.utils.FireStoreUtils;
 
 import java.util.List;
 
 import static com.minipoly.android.References.cars;
 import static com.minipoly.android.References.computer;
+import static com.minipoly.android.References.countries;
 import static com.minipoly.android.References.mobile;
 
 public class MiscRepository {
-    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static CollectionReference countries = db.collection("country");
-    private static MutableLiveData<List<Country>> countryList;
-    private static final String TAG = "MiscRepository";
 
     public static void addCountry(Country country) {
-        countries.document(country.getId()).set(country);
+
     }
 
     public static void addCountries(List<Country> countries) {
@@ -74,12 +70,21 @@ public class MiscRepository {
         return new FireLiveDocument<>(mobile.document(C.MISC).get(), MobileMisc.class);
     }
 
+    public static FireLiveQuery<Country> getCountries() {
+        return new FireLiveQuery<Country>(countries.orderBy("name").get(), Country.class);
+    }
     public static void getCountries(ValueFilter<Double> lang, MutableLiveData liveData) {
         Query query = FireStoreUtils.processFilter(countries, lang);
+        if (query == null)
+            query = countries;
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null)
                 liveData.setValue(task.getResult().toObjects(Country.class));
         });
+    }
+
+    public static FireLiveQuery<Country> getCities(String countryId) {
+        return new FireLiveQuery<Country>(countries.document(countryId).collection(C.COLLECTION_CITY).orderBy("name").get(), Country.class);
     }
 
 }

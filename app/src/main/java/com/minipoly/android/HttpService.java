@@ -37,7 +37,7 @@ public class HttpService {
         StringRequest request = new StringRequest(Request.Method.GET,
                 buildUrl(min, max, minPrice, maxPrice, rent, category),
                 response -> {
-                    Log.e(TAG, "getRealestates: " + response);
+                    Log.e(TAG, "getAds: " + response);
                     if (response != null && !response.isEmpty()) {
                         Gson gson = new Gson();
                         Type type = new TypeToken<List<Realestate>>() {
@@ -46,7 +46,7 @@ public class HttpService {
                     }
                 },
                 error -> {
-                    Log.e(TAG, "getRealestates: error");
+                    Log.e(TAG, "getAds: error");
                 });
         queue.add(request);
     }

@@ -13,19 +13,58 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/extra_bg"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
+
+        <TextView
+            android:id="@+id/textView158"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/ram"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/spinner5"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+        <TextView
+            android:id="@+id/textView159"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/category"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editText14"
+            app:layout_constraintEnd_toStartOf="@+id/guideline53"
+            app:layout_constraintTop_toTopOf="@+id/editText14" />
+
+        <TextView
+            android:id="@+id/textView161"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/spinner6"
+            app:layout_constraintTop_toTopOf="@+id/textView158" />
+
+        <TextView
+            android:id="@+id/textView162"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/storage"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/spinner"
+            app:layout_constraintTop_toBottomOf="@+id/editText14" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner8"
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="30dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.battery}"
             android:selectedItemPosition="@={manager.batteryIndex}"
@@ -37,41 +76,37 @@
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner5"
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="30dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.misc.ram}"
             android:selectedItemPosition="@={manager.ramIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/textView158" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner"
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="30dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.misc.storage}"
             android:selectedItemPosition="@={manager.storageIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText14" />
+            app:layout_constraintTop_toBottomOf="@+id/textView162" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner6"
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="30dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:background="@drawable/edit_text"
             android:entries="@{manager.misc.colors}"
             android:selectedItemPosition="@={manager.colorIndex}"
@@ -103,12 +138,12 @@
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/editText14"
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="30dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text"
             android:ems="10"
-            android:gravity="center"
             android:entries="@{manager.misc.type}"
+            android:gravity="center"
             android:selectedItemPosition="@={manager.typeIndex}"
             app:layout_constraintEnd_toStartOf="@+id/guideline54"
             app:layout_constraintHorizontal_bias="0.5"
@@ -128,6 +163,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.75" />
+
+        <TextView
+            android:id="@+id/textView157"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/battery"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/spinner8"
+            app:layout_constraintTop_toTopOf="@+id/textView162" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

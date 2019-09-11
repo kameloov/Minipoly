@@ -19,6 +19,13 @@ public class SocialUtils {
         context.startActivity(intent);
     }
 
+    public static void shareLink(Context c, String link) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, link);
+        c.startActivity(Intent.createChooser(sharingIntent, ""));
+    }
+
     public static boolean whatsappMsg(Context c, String number, String msg) {
         if (appInstalledOrNot(c, "com.whatsapp")) {
             Intent intent = new Intent();

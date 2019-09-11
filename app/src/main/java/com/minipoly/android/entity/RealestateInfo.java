@@ -1,8 +1,12 @@
 package com.minipoly.android.entity;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
+
 import java.io.Serializable;
 
-public class RealestateInfo implements Serializable {
+public class RealestateInfo extends BaseObservable implements Serializable {
     private boolean isRent;
     private float area;
     private int roomCount;
@@ -28,21 +32,24 @@ public class RealestateInfo implements Serializable {
         this.area = area;
     }
 
-
+    @Bindable
     public int getRoomCount() {
         return roomCount;
     }
 
     public void setRoomCount(int roomCount) {
         this.roomCount = roomCount;
+        notifyPropertyChanged(BR.roomCount);
     }
 
+    @Bindable
     public int getBathroomCount() {
         return bathroomCount;
     }
 
     public void setBathroomCount(int bathroomCount) {
         this.bathroomCount = bathroomCount;
+        notifyPropertyChanged(BR.bathroomCount);
     }
 
     public boolean isFurnished() {

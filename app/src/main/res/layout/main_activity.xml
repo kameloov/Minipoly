@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="android.view.View" />
         <variable
             name="vm"
             type="com.minipoly.android.ActivityViewModel" />
@@ -32,13 +33,14 @@
         <ImageView
             android:id="@+id/imageView31"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:visibility="visible"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline78"
             app:srcCompat="@mipmap/bar" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -77,42 +79,42 @@
             android:adjustViewBounds="true"
             android:alpha="0.8"
             android:onClick="@{(v)->vm.setSection(v,0)}"
-            android:visibility="visible"
+            android:src="@{vm.section==0? @drawable/home_selected : @drawable/home_normal}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline40"
             app:layout_constraintStart_toStartOf="@+id/guideline39"
-            app:layout_constraintTop_toTopOf="@+id/imageView31"
-            app:srcCompat="@drawable/home_inactive" />
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
+            app:layout_constraintTop_toTopOf="@+id/guideline78" />
 
         <ImageView
             android:id="@+id/imageView33"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
             android:layout_marginBottom="4dp"
             android:adjustViewBounds="true"
             android:alpha="1"
-            android:onClick="@{(v)->vm.setSection(v,-1)}"
-            android:visibility="visible"
+            android:onClick="@{(v)->vm.setSection(v,-2)}"
+            android:src="@{vm.section==-2?@drawable/offers_selected: @drawable/offers_normal}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView31"
-            app:layout_constraintTop_toTopOf="@+id/imageView32"
-            app:srcCompat="@drawable/ads" />
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
+            app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
         <ImageView
             android:id="@+id/imageView35"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:adjustViewBounds="true"
             android:alpha="0.7"
-            android:onClick="@{(v)->vm.setSection(v,1)}"
-            android:visibility="visible"
+            android:onClick="@{(v)->vm.setSection(v,2)}"
+            android:src="@{vm.section==2?@drawable/auction_selected:@drawable/auction_normal}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView32"
-            app:srcCompat="@drawable/auction_inactive" />
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
+            app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline43"
@@ -120,6 +122,54 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.93" />
+
+        <ImageView
+            android:id="@+id/imageView84"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{()->vm.showNew(popup)}"
+            android:src="@{vm.section==-1 ? @drawable/dice_selected : @drawable/dice_normal}"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView32"
+            app:layout_constraintStart_toEndOf="@+id/imageView33"
+            app:layout_constraintTop_toTopOf="@+id/guideline43" />
+
+        <ImageView
+            android:id="@+id/imageView87"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{(v)->vm.setSection(v,1)}"
+            android:src="@{vm.section==1 ? @drawable/explore_selected : @drawable/explore_normal}"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView35"
+            app:layout_constraintStart_toEndOf="@+id/imageView32"
+            app:layout_constraintTop_toTopOf="@+id/guideline43" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline78"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <LinearLayout
+            android:id="@+id/popup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="bottom"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/guideline78"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

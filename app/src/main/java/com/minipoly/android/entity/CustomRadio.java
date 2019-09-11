@@ -2,8 +2,7 @@ package com.minipoly.android.entity;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-
-import com.minipoly.android.BR;
+import androidx.databinding.library.baseAdapters.BR;
 
 public class CustomRadio extends BaseObservable {
     private boolean checked;
@@ -34,7 +33,7 @@ public class CustomRadio extends BaseObservable {
 
     public void setName1(String name1) {
         this.name1 = name1;
-        notifyPropertyChanged(BR.name1);
+        notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.name1);
     }
 
     @Bindable
@@ -44,6 +43,6 @@ public class CustomRadio extends BaseObservable {
 
     public void setName2(String name2) {
         this.name2 = name2;
-        notifyPropertyChanged(BR.name2);
+        notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.name2);
     }
 }

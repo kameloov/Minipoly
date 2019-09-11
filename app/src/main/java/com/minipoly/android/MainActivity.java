@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -48,7 +49,22 @@ public class MainActivity extends AppCompatActivity {
         model.setNavController(Navigation.findNavController(this, R.id.fragment));
         binding.setLifecycleOwner(this);
         binding.setVm(model);
+        prepareGooglesignin();
         handleLink();
+    }
+
+    private void prepareGooglesignin() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+    }
+
+    public void setNavvisibility(boolean visible) {
+        if (visible)
+            model.showSections();
+        else
+            model.hideSections();
     }
 
     private void handleLink() {

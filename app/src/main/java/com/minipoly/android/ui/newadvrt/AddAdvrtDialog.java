@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.Observable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -56,14 +57,21 @@ public class AddAdvrtDialog extends DialogFragment {
     }
 
     private void addObservers() {
-        model.kindRadio.observe(this, customRadio -> model.extraVisible.setValue(false));
+        model.kindRadio.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                model.category.setValue(null);
+                model.subCategory.setValue(null);
+                model.extraVisible.setValue(false);
+            }
+        });
 
         model.command.observe(this, command -> {
             if (command == AddAdvrtDialogViewModel.Command.IDLE)
                 return;
             String id = command == AddAdvrtDialogViewModel.Command.SHOW_CATEGORY ?
                     null : model.category.getValue().getId();
-            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.kindRadio.getValue().isChecked(), (sub, category) -> model.setCatOrSubId(sub, category));
+            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.kindRadio.isChecked(), (sub, category) -> model.setCatOrSubId(sub, category));
 
             dialog.show(getFragmentManager(), "CAT");
             model.command.setValue(AddAdvrtDialogViewModel.Command.IDLE);

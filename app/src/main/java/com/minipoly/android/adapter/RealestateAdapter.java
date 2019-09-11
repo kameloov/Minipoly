@@ -12,6 +12,7 @@ import com.minipoly.android.databinding.ListItemAdvrtBinding;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.ui.home.HomeFragmentDirections;
 
+import java.util.Date;
 import java.util.List;
 
 public class RealestateAdapter extends PagerAdapter {
@@ -45,6 +46,7 @@ public class RealestateAdapter extends PagerAdapter {
         binding.setAd(realestates.get(position));
         // todo make the language dynamic
         binding.setArabic(false);
+        binding.setNow(new Date());
         View v = binding.getRoot();
         v.setOnClickListener(v1 -> {
             HomeFragmentDirections.RealestateDetails realestateDetails =

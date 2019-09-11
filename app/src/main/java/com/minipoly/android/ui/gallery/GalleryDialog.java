@@ -1,6 +1,7 @@
 package com.minipoly.android.ui.gallery;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -30,7 +31,7 @@ public class GalleryDialog extends DialogFragment {
     private int SELECT_IMAGE = 1000;
     private boolean afterKITKAT = Build.VERSION.SDK_INT > 19;
     private GalleryDialogBinding binding;
-    private ImageAdapter adapter;
+    private ImageAdapter adapter = new ImageAdapter();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,10 +71,15 @@ public class GalleryDialog extends DialogFragment {
 
     private void attachObservers() {
         model.getImages().observe(this, images -> adapter.submitList(images));
+        model.command.observe(this, vmCommand -> {
+            if (vmCommand == GalleryDialogViewModel.VMCommand.ADD_IMAGE) {
+                startGallery();
+                model.command.setValue(GalleryDialogViewModel.VMCommand.IDLE);
+            }
+        });
     }
 
     private void prepareRecycler() {
-        adapter = new ImageAdapter(v -> startGallery());
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
         binding.recyclerView.setLayoutManager(manager);
         binding.recyclerView.setAdapter(adapter);
@@ -95,13 +101,21 @@ public class GalleryDialog extends DialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_IMAGE) {
-                Uri selectedImageUri = null;
-                if (afterKITKAT) {
-                    selectedImageUri = Uri.parse("file://" + UriUtils.getPath(getActivity(), data.getData()));
+
+                ClipData clipData = data.getClipData();
+                if (clipData != null && clipData.getItemCount() > 0) {
+                    for (int i = 0; i < clipData.getItemCount(); i++)
+                        ImageBuffer.addImage(clipData.getItemAt(i).getUri());
+
                 } else {
-                    selectedImageUri = data.getData();
+                    Uri selectedImageUri = null;
+                    if (afterKITKAT) {
+                        selectedImageUri = Uri.parse("file://" + UriUtils.getPath(getActivity(), data.getData()));
+                    } else {
+                        selectedImageUri = data.getData();
+                    }
+                    ImageBuffer.addImage(selectedImageUri);
                 }
-                ImageBuffer.addImage(selectedImageUri);
             }
         }
     }

@@ -24,8 +24,11 @@
     <color name="tag_bg_blue">#2C7EED</color>
     <color name="text_blue">#2C7EED</color>
     <color name="yellow_border">#F2C11D</color>
+    <color name="gold_bg">#FFFDE7</color>
     <color name="blue_gradiant_end">#243E5F</color>
     <color name="blue_gradiant_start">#2A7BE4</color>
+    <color name="green_gradiant_end">#315F24</color>
+    <color name="green_gradiant_start">#77E42A</color>
     <color name="chart1">#FF3F4B</color>
     <color name="chart2">#F0BD22</color>
     <color name="chart3">#00D06D</color>

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -19,6 +20,8 @@ import com.minipoly.android.repository.CommentRepository;
 
 public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentHolder> {
 
+    private LifecycleOwner owner;
+
     private static final DiffUtil.ItemCallback<Comment> ITEM_CALLBACK = new DiffUtil.ItemCallback<Comment>() {
         @Override
         public boolean areItemsTheSame(@NonNull Comment oldItem, @NonNull Comment newItem) {
@@ -31,8 +34,9 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
         }
     };
 
-    public CommentAdapter() {
+    public CommentAdapter(LifecycleOwner owner) {
         super(ITEM_CALLBACK);
+        this.owner = owner;
     }
 
     @NonNull
@@ -40,6 +44,7 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
     public CommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ListItemCommentBinding binding = ListItemCommentBinding.inflate(inflater);
+        binding.setLifecycleOwner(owner);
         return new CommentHolder(binding);
     }
 
@@ -52,6 +57,7 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
         private ListItemCommentBinding binding;
         public MutableLiveData<Boolean> showReplies = new MutableLiveData<>(false);
         public Comment c;
+
         public CommentHolder(@NonNull ListItemCommentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
@@ -61,18 +67,15 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
             CommentRepository.loadReplies(c, (success, data) -> {
                 if (success && data != null) {
                     LayoutInflater inflater = LayoutInflater.from(binding.getRoot().getContext());
+                    binding.lstReplies.removeAllViews();
                     for (Reply r : data) {
                         ListItemReplyBinding b = ListItemReplyBinding.inflate(inflater);
                         b.setR(r);
                         binding.lstReplies.addView(b.getRoot());
                     }
+                    showReplies.setValue(true);
                 }
             });
-        }
-
-        public void setShowReplies() {
-            showReplies.setValue(true);
-            notifyItemChanged(getAdapterPosition());
         }
 
         public void showReply(View v) {
@@ -85,15 +88,14 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
 
         public void reply(String text, Comment c) {
             CommentRepository.addReply(text, c, success -> {
+                loadReplies(c);
             });
         }
 
         public void bind(Comment comment) {
             this.c = comment;
             binding.setCh(this);
-            binding.lstReplies.removeAllViews();
-            loadReplies(comment);
-
+            binding.txtShow.setOnClickListener(v -> loadReplies(c));
         }
     }
 }

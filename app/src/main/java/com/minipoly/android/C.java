@@ -29,4 +29,9 @@ public interface C {
     String COLLECTION_BIDS = "bids";
     String COLLECTION_NOTIFICATION = "notification";
     String COLLECTION_REVIEWS = "reviews";
+    int PROMOTE_PRICE = 10;
+    String COLLECTION_REPORT = "report";
+    String COLLECTION_PROMOTED_ADS = "promoted_ads";
+    String COLLECTION_COUNTRY = "country";
+    String COLLECTION_CITY = "city";
 }

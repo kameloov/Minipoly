@@ -28,7 +28,6 @@ public class UserManager {
 
     public static void init(Context context) {
         mauth = FirebaseAuth.getInstance();
-        initGoogleSignIn(context);
         if (getUserID() != null)
             getInteractions(null);
 
@@ -102,7 +101,7 @@ public class UserManager {
         }
     }
 
-    private static void initGoogleSignIn(Context context) {
+    public static void initGoogleSignIn(Context context) {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(context.getString(R.string.web_client_id))
                 .requestEmail()
@@ -111,7 +110,8 @@ public class UserManager {
     }
 
     public static String getUserID() {
-        return mauth.getCurrentUser().getUid();
+
+        return mauth.getCurrentUser() == null ? null : mauth.getCurrentUser().getUid();
     }
 
     public static void loginGoogle(Activity ac) {

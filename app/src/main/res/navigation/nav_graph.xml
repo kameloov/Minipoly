@@ -91,6 +91,9 @@
         <action
             android:id="@+id/advrt_user_list"
             app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_realestateDetails_to_editAdvrtDialog"
+            app:destination="@id/editAdvrtDialog" />
     </fragment>
     <fragment
         tools:layout="@layout/edit_profile_fragment"
@@ -141,6 +144,11 @@
             android:name="auction"
             app:argType="com.minipoly.android.entity.Auction" />
     </dialog>
+
+    <dialog
+        android:id="@+id/addPromotedDialog"
+        android:name="com.minipoly.android.ui.add_ad.AddAdFragment"
+        android:label="addPromotedAdDialog" />
     <dialog
         android:id="@+id/biddersDialog"
         android:name="com.minipoly.android.ui.bidders.BiddersDialog"
@@ -175,6 +183,15 @@
             app:destination="@id/editProfileFragment" />
     </fragment>
 
+    <dialog
+        android:id="@+id/editAdvrtDialog"
+        android:name="com.minipoly.android.ui.edit_advrt.EditAdvrtDialog"
+        android:label="EditAdvrtDialog">
+        <argument
+            android:name="realestate"
+            app:argType="com.minipoly.android.entity.Realestate" />
+    </dialog>
+
     <action
         android:id="@+id/action_global_realestateDetails"
         app:destination="@id/realestateDetails" />
@@ -182,5 +199,35 @@
     <action
         android:id="@+id/action_global_profile"
         app:destination="@id/userProfileFragment" />
+
+    <action
+        android:id="@+id/action_global_add_realestate"
+        app:destination="@id/addAdvrtDialog"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
+
+    <action
+        android:id="@+id/action_global_add_auction"
+        app:destination="@id/addAuctionDialog"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
+
+    <action
+        android:id="@+id/action_global_add_promoted"
+        app:destination="@id/addPromotedDialog"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
+    <dialog
+        android:id="@+id/locationDialog"
+        android:name="com.minipoly.android.ui.location_dialog.LocationDialog"
+        android:label="LocationDialog" />
+    <action
+        android:id="@+id/action_global_locationDialog"
+        app:destination="@id/locationDialog"
+        app:enterAnim="@anim/fade"
+        app:exitAnim="@anim/fade"
+        app:popEnterAnim="@anim/fade"
+        app:popExitAnim="@anim/fade" />
+
 
 </navigation>

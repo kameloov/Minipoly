@@ -1,7 +1,5 @@
 package com.minipoly.android.param_managers;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.minipoly.android.entity.CustomRadio;
@@ -11,47 +9,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RealestateManager {
-    public MutableLiveData<RealestateInfo> info = new MutableLiveData<>(new RealestateInfo());
-    public MutableLiveData<String> area = new MutableLiveData<>();
+    public RealestateInfo info = new RealestateInfo();
+    public String area = "0";
     public String[] olds = new String[]{"0 - 2", "3 - 5", "6 - 10", "11 -20 ", "21 -50 ", " more"};
     public MutableLiveData<Integer> oldIndex = new MutableLiveData<>(0);
     public MutableLiveData<CustomRadio> typeRadio = new MutableLiveData<>(new CustomRadio(false, "For Rent", "For Sale"));
 
     public void changeRooms(int i) {
-        RealestateInfo r = info.getValue();
-        r.setRoomCount(r.getRoomCount() + i);
-        info.setValue(r);
-        Log.e("changeRooms: ", "room count is " + r.getRoomCount());
+        info.setRoomCount(info.getRoomCount() + i);
+
     }
 
     public void changeFurnished(boolean furnished) {
-        RealestateInfo r = info.getValue();
-        r.setFurnished(furnished);
-        info.setValue(r);
+        info.setFurnished(furnished);
     }
 
     public void changeMonthlyRent(boolean b) {
-        RealestateInfo r = info.getValue();
-        r.setMonthlyRent(b);
-        info.postValue(r);
+        info.setMonthlyRent(b);
     }
 
     public void changeYearlyRent(boolean b) {
-        RealestateInfo r = info.getValue();
-        r.setYearlyRent(b);
-        info.postValue(r);
+
+        info.setYearlyRent(b);
     }
 
     public void changebath(int i) {
-        RealestateInfo r = info.getValue();
-        r.setBathroomCount(r.getBathroomCount() + i);
-        info.postValue(r);
+
+        info.setBathroomCount(info.getBathroomCount() + i);
     }
 
     public RealestateInfo getInfo() {
-        RealestateInfo ri = info.getValue();
-        ri.setRent(typeRadio.getValue().isChecked());
-        return ri;
+        info.setArea(Float.parseFloat(area));
+        info.setRent(typeRadio.getValue().isChecked());
+        return info;
     }
 
     public static List<String> getTags(RealestateInfo r) {

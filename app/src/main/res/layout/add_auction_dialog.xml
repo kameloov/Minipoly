@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -240,7 +239,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/blue_gradiant_end"
+            android:background="@drawable/blue_button_rect"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="14sp"
@@ -249,7 +248,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline16"
             app:layout_constraintStart_toStartOf="@+id/guideline15"
             app:layout_constraintTop_toBottomOf="@+id/editText2"
-            tools:text="Add" />
+            android:text="@string/add" />
 
         <EditText
             android:id="@+id/editText3"
@@ -413,7 +412,7 @@
                 app:srcCompat="@mipmap/dec" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/txtDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"

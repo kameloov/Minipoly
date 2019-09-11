@@ -1,4 +1,4 @@
-package com.minipoly.android.ui.top_bar;
+package com.minipoly.android.ui.bars.top_bar;
 
 import android.view.View;
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.StorageReference;
 import com.minipoly.android.C;
@@ -38,7 +39,6 @@ public class CustomAdapters {
                 .apply(new RequestOptions().circleCrop().error(R.drawable.circle))
                 .into(view);
     }
-
 
     @BindingAdapter("wall")
     public static void setWall(ImageView view, String image) {
@@ -74,6 +74,16 @@ public class CustomAdapters {
             return;
         StorageReference reference = StorageManager.getRoot().child(image.getUserId()).child(image.getId());
         GlideApp.with(view.getContext()).load(reference).into(view);
+    }
+
+
+    @BindingAdapter("roundedImage")
+    public static void setRoundedImage(ImageView view, Image image) {
+        if (image == null)
+            return;
+        StorageReference reference = StorageManager.getRoot().child(image.getUserId()).child(image.getId());
+        GlideApp.with(view.getContext()).load(reference)
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(14))).into(view);
     }
 
     @BindingAdapter("category")

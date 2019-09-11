@@ -17,7 +17,6 @@ import com.minipoly.android.utils.ImageBuffer;
 
 public class ImageAdapter extends ListAdapter<Image, ImageAdapter.ImageViewHolder> {
     private Image current;
-    private View.OnClickListener listener;
     private static DiffUtil.ItemCallback<Image> DIFF_CALLBACK = new DiffUtil.ItemCallback<Image>() {
 
         @Override
@@ -31,9 +30,9 @@ public class ImageAdapter extends ListAdapter<Image, ImageAdapter.ImageViewHolde
         }
     };
 
-    public ImageAdapter(View.OnClickListener addListener) {
+    public ImageAdapter() {
         super(DIFF_CALLBACK);
-        this.listener = addListener;
+
     }
 
 
@@ -70,15 +69,11 @@ public class ImageAdapter extends ListAdapter<Image, ImageAdapter.ImageViewHolde
 
         public void bind(int index) {
             this.image = getItem(index);
-            if (index == 0)
-                img.setImageResource(R.mipmap.add_image);
-            else
-                Glide.with(img.getContext()).load(image.getUri()).into(img);
+            Glide.with(img.getContext()).load(image.getUri()).into(img);
             imgUpload.setVisibility(image.isUploaded() ? View.VISIBLE : View.GONE);
             bg.setBackgroundResource(image.isIcon() ? R.color.country_bg : R.color.white);
             txtDefault.setOnClickListener(this);
             txtDel.setOnClickListener(this);
-            img.setOnClickListener(index == 0 ? listener : this);
             setVisibility();
         }
 

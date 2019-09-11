@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "408452374408-eqk8di0ve6j3hk299i5p3sq9dm7cgf6c.apps.googleusercontent.com",
+          "client_id": "408452374408-1ju1j15rf4absp39ftith1g1bkrg3uu4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.minipoly.android",
-            "certificate_hash": "66cb2c173cfa03274ef0c61467bf99bc69ebea91"
+            "certificate_hash": "54194f7d198671c00ae21bce57c6a5dcc579ae05"
           }
         },
         {

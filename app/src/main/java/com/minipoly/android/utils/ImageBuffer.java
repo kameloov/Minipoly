@@ -13,7 +13,6 @@ import java.util.List;
 
 public class ImageBuffer {
 
-
     private static MutableLiveData<List<Image>> images = new MutableLiveData<>(new ArrayList<>());
 
     public static void reset() {

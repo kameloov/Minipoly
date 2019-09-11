@@ -12,19 +12,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.minipoly.android.ProgressInfo;
 import com.minipoly.android.R;
+import com.minipoly.android.RootFragment;
 import com.minipoly.android.databinding.EditProfileFragmentBinding;
 import com.minipoly.android.utils.GlideApp;
 import com.minipoly.android.utils.LocalData;
 import com.minipoly.android.utils.PermissionUtils;
 import com.minipoly.android.utils.UriUtils;
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends RootFragment {
 
     private EditProfileViewModel model;
     private int SELECT_AVATAR = 1100;

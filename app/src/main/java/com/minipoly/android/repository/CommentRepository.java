@@ -76,7 +76,7 @@ public class CommentRepository {
 
     public static void loadReplies(Comment comment, DataListener<List<Reply>> listener) {
         realestates.document(comment.getAdvrtId()).collection(C.COMMENTS_COLLECTION)
-                .document(comment.getId()).collection(C.REPLIES).get().addOnCompleteListener(task -> {
+                .document(comment.getId()).collection(C.REPLIES).orderBy("date").get().addOnCompleteListener(task -> {
             List<Reply> replies = null;
             if (task.isSuccessful())
                 replies = task.getResult().toObjects(Reply.class);

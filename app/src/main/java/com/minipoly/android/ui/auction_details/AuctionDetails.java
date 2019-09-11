@@ -10,22 +10,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.R;
+import com.minipoly.android.RootFragment;
 import com.minipoly.android.UserManager;
 import com.minipoly.android.adapter.CommentAdapter;
 import com.minipoly.android.databinding.AuctionDetailsFragmentBinding;
 import com.minipoly.android.entity.Auction;
 
-public class AuctionDetails extends Fragment {
+public class AuctionDetails extends RootFragment {
 
     private AuctionDetailsViewModel model;
     private AuctionDetailsFragmentBinding binding;
-    private CommentAdapter commentAdapter = new CommentAdapter();
+    private CommentAdapter commentAdapter = new CommentAdapter(this);
     private float oldPrice = 0;
 
     public static AuctionDetails newInstance() {

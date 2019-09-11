@@ -6,23 +6,61 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="ad"
             type="com.minipoly.android.entity.Realestate" />
+
+        <variable
+            name="now"
+            type="java.util.Date" />
 
         <variable
             name="arabic"
             type="boolean" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <TextView
+            android:id="@+id/textView149"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="end|top"
+            android:gravity="center"
+            android:rotation="45"
+            android:text="@{ad.offerPercent+`%`, default = `20%`}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:translationZ="650dp"
+            android:visibility="@{ad.offerEnd==null || ad.offerEnd.before(now)? View.INVISIBLE:View.VISIBLE}" />
+
+        <ImageView
+            android:id="@+id/imageView71"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="end|top"
+            android:adjustViewBounds="true"
+            android:translationZ="500dp"
+            android:visibility="@{ad.offerEnd==null || ad.offerEnd.before(now)? View.INVISIBLE:View.VISIBLE}"
+            app:srcCompat="@drawable/offer_tag" />
+
+
+        <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+            android:layout_margin="8dp"
         android:layout_height="wrap_content"
         app:cardElevation="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@{ad.promoteEnd==null || ad.promoteEnd.before(now)? @color/transparent:@color/gold_bg}"
             android:padding="8dp">
 
             <TextView
@@ -139,7 +177,24 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="@{ad.price+` $`}"
+                android:text="@{ad.price+` `+ ad.currency}"
+                android:textColor="@color/priceText"
+                android:visibility="@{ad.offerEnd==null || ad.offerEnd.before(now)?View.VISIBLE:View.INVISIBLE}"
+                app:autoSizeMinTextSize="6sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/guideline46"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+            <TextView
+                android:id="@+id/txtPriceDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@{(ad.price *(100- ad.offerPercent)/100.0f)+` `+ ad.currency}"
+                android:visibility="@{ad.offerEnd==null || ad.offerEnd.before(now)?View.INVISIBLE:View.VISIBLE}"
                 android:textColor="@color/priceText"
                 app:autoSizeMinTextSize="6sp"
                 app:autoSizeTextType="uniform"
@@ -191,6 +246,7 @@
                 android:text="@{ad.text}"
                 app:autoSizeMinTextSize="6sp"
                 app:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
@@ -259,6 +315,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toTopOf="@+id/txtTitle"
@@ -269,8 +326,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginEnd="2dp"
-                android:layout_marginRight="2dp"
                 android:adjustViewBounds="true"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
                 app:layout_constraintEnd_toStartOf="@+id/imageView19"
                 app:layout_constraintTop_toTopOf="@+id/txtTitle"
@@ -339,6 +396,8 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.65" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+    </FrameLayout>
 </layout>

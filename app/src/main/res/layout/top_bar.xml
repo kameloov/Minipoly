@@ -9,7 +9,7 @@
 
         <variable
             name="c"
-            type="com.minipoly.android.ui.top_bar.TopBarController" />
+            type="com.minipoly.android.ui.bars.top_bar.TopBarController" />
 
     </data>
 

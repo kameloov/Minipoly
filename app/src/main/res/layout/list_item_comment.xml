@@ -103,16 +103,41 @@
             app:layout_constraintGuide_percent="0.24" />
 
         <TextView
+            android:id="@+id/txtback2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/reply_bg"
+            android:visibility="@{ch.showReplies || ch.c.reply == null || ch.c.replyCount &lt; 2 ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline35"
+            app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+        <TextView
+            android:id="@+id/txtback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/reply_bg"
+            android:visibility="@{ch.showReplies|| ch.c.reply == null || ch.c.replyCount &lt; 2 ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline35"
+            app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+        <TextView
             android:id="@+id/textView55"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/reply_bg"
             android:gravity="center"
             android:text="@{ch.c.reply.text}"
-            android:visibility="@{ch.c.reply == null ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility="@{ch.c.reply == null || ch.showReplies ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
             app:layout_constraintStart_toStartOf="@+id/guideline35"
             app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline33"
@@ -126,7 +151,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginTop="2dp"
-            android:visibility="@{ch.c.reply==null?View.INVISIBLE:View.VISIBLE}"
+            android:visibility="@{ch.c.reply==null || ch.showReplies ?View.INVISIBLE:View.VISIBLE}"
             app:avatar="@{ch.c.reply.userBrief.id}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
@@ -162,15 +187,13 @@
             android:id="@+id/textView59"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:background="@drawable/button"
+            android:onClick="@{(v)->ch.showReply(v)}"
             android:paddingLeft="12dp"
             android:paddingTop="4dp"
             android:paddingRight="12dp"
             android:paddingBottom="4dp"
             android:text="Reply"
-            android:onClick="@{(v)->ch.showReply(v)}"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView23"
@@ -188,13 +211,12 @@
             app:layout_constraintStart_toStartOf="@+id/imageView22" />
 
         <TextView
-            android:id="@+id/textView85"
+            android:id="@+id/txtShow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->holder.setShowReplies()}"
             android:text="@{ch.c.replyCount+` replies`}"
             android:textColor="@color/blue_gradiant_start"
-            android:visibility="@{ch.c.reply==null?View.INVISIBLE:View.VISIBLE}"
+            android:visibility="@{ch.c.reply==null || ch.showReplies ?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
             app:layout_constraintTop_toBottomOf="@+id/imageView25" />
 
@@ -202,10 +224,11 @@
             android:id="@+id/lst_replies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:orientation="vertical"
             android:visibility="@{ch.showReplies? View.VISIBLE:View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView85" />
+            app:layout_constraintTop_toTopOf="@+id/imageView22" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

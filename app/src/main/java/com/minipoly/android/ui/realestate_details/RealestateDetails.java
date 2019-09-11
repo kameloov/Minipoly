@@ -9,22 +9,25 @@ import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.R;
+import com.minipoly.android.RootFragment;
 import com.minipoly.android.adapter.CommentAdapter;
 import com.minipoly.android.adapter.RemoteImageAdapter;
 import com.minipoly.android.databinding.RealestateDetailsFragmentBinding;
 import com.minipoly.android.entity.Realestate;
+import com.minipoly.android.repository.UserRepository;
 
-public class RealestateDetails extends Fragment {
+import java.util.Date;
+
+public class RealestateDetails extends RootFragment {
 
     private RealestateDetailsViewModel model;
     private RealestateDetailsFragmentBinding binding;
-    private CommentAdapter commentAdapter = new CommentAdapter();
+    private CommentAdapter commentAdapter = new CommentAdapter(this);
     private RemoteImageAdapter remoteImageAdapter;
 
 
@@ -49,12 +52,16 @@ public class RealestateDetails extends Fragment {
         prepareCommentsAdapter();
         binding.setLifecycleOwner(this);
         binding.setM(model);
+        binding.setMyId(UserRepository.getUserId());
+        binding.setNow(new Date());
         attachObservers();
     }
 
     private void attachObservers() {
         model.getComments().observe(this, comments -> commentAdapter.submitList(comments));
         model.watching.observe(this, aBoolean -> {
+            if (model.isAdvrtOwner())
+                return;
             Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
             binding.imgBell.startAnimation(a);
         });
