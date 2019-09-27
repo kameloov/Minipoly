@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="java.util.List" />
+
+        <variable
+            name="ad"
+            type="com.minipoly.android.entity.Auction" />
+
+        <variable
+            name="arabic"
+            type="boolean" />
+
+        <variable
+            name="lst"
+            type="List&lt;String>" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/imageView94"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="w,1.5:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedImage="@{ad.images.size()>0?ad.images.get(0): null}"
+            tools:srcCompat="@drawable/badge" />
+
+        <TextView
+            android:id="@+id/textView199"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/toe_blue_reverse"
+            android:gravity="center"
+
+            android:text="@{lst[0],default=`Red`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="@{lst[0]==null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/textView197"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline89"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView196"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/toe_blue_reverse"
+            android:gravity="center"
+            android:text="@{lst[2],default=`Red`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="@{lst[2]==null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/imageView95"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline89"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView197"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/toe_blue_reverse"
+            android:gravity="center"
+            android:text="@{lst[1],default=`Red`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="@{lst[1]==null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/textView196"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline89"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView55"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/toe_blue"
+            android:drawableEnd="@drawable/ic_location_white"
+            android:gravity="center_vertical|end"
+            android:text="@{arabic?ad.cityName:ad.cityNameAR,default=`Riyadh`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline82"
+            app:layout_constraintTop_toBottomOf="@+id/textView168" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <ImageView
+            android:id="@+id/imageView95"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView94"
+            app:layout_constraintDimensionRatio="w,1:3.5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline85"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_bottom_bar_blue" />
+
+        <TextView
+            android:id="@+id/textView170"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/toe_white"
+            android:gravity="center"
+            android:text="@{ad.categoryId,default= `Building`}"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline86"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView168"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/toe_blue"
+            android:gravity="center"
+            android:text="@{ad.used? @string/used_tag:@string/new_tag,default=`For sale`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline86"
+            app:layout_constraintTop_toBottomOf="@+id/textView170" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline85"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.81" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline84"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline86"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <TextView
+            android:id="@+id/textView60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/last_price"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="@{ad.lastBid== null?View.INVISIBLE: View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="@+id/imageView95"
+            app:layout_constraintTop_toTopOf="@+id/imageView95" />
+
+        <TextView
+            android:id="@+id/textView61"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{ad.price+``,default = `1000`}"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="@{ad.lastBid== null?View.INVISIBLE: View.VISIBLE}"
+            app:layout_constraintStart_toEndOf="@+id/textView60"
+            app:layout_constraintTop_toTopOf="@+id/textView60" />
+
+        <ImageView
+            android:id="@+id/imageView25"
+            avatar="@{ad.lastBid.bidder.id}"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:adjustViewBounds="true"
+            android:visibility="@{ad.lastBid== null?View.INVISIBLE: View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView94"
+            app:layout_constraintStart_toStartOf="@+id/imageView95"
+            app:layout_constraintTop_toBottomOf="@+id/textView61"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView194"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{ad.lastBid.bidder.name,default=`user name`}"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+
+            android:visibility="@{ad.lastBid== null?View.INVISIBLE: View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView25"
+            app:layout_constraintStart_toEndOf="@+id/imageView25"
+            app:layout_constraintTop_toTopOf="@+id/imageView25" />
+
+        <TextView
+            android:id="@+id/textView195"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_first_bid"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="@{ad.lastBid != null?View.INVISIBLE: View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView95"
+            app:layout_constraintStart_toStartOf="@+id/imageView95"
+            app:layout_constraintTop_toTopOf="@+id/imageView95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline89"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

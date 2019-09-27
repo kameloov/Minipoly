@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="text"
+            type="String" />
+
+        <variable
+            name="bedroom"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout26"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/toe_white_reverse"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/textView181"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{text,default=`4`}"
+            android:textColor="@color/border"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView97"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:adjustViewBounds="true"
+            android:visibility="@{bedroom? View.INVISIBLE:View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView181"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView181"
+            app:layout_constraintTop_toTopOf="@+id/textView181"
+            app:srcCompat="@drawable/ic_shower" />
+
+        <ImageView
+            android:id="@+id/imageView98"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:padding="4dp"
+            android:visibility="@{bedroom? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_bedroom" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

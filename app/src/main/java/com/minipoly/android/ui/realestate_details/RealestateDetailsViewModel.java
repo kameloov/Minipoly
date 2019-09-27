@@ -82,10 +82,14 @@ public class RealestateDetailsViewModel extends ViewModel {
         return relestate.getValue().getUserBrief().getId().equals(UserRepository.getUserId());
     }
 
-    public void showEdit(View v) {
-        RealestateDetailsDirections.ActionRealestateDetailsToEditAdvrtDialog action =
-                RealestateDetailsDirections.actionRealestateDetailsToEditAdvrtDialog(relestate.getValue());
-        Navigation.findNavController(v).navigate(action);
+    public void doAction(View v) {
+        if (!isAdvrtOwner())
+            order(v);
+        else {
+            RealestateDetailsDirections.ActionRealestateDetailsToEditAdvrtDialog action =
+                    RealestateDetailsDirections.actionRealestateDetailsToEditAdvrtDialog(relestate.getValue());
+            Navigation.findNavController(v).navigate(action);
+        }
     }
 
     public void share(View v) {
@@ -156,6 +160,7 @@ public class RealestateDetailsViewModel extends ViewModel {
         }
 
     }
+
     public void toggleWatch() {
         if (watching.getValue()) {
             RealestateRepository.unfollow(relestate.getValue().getId(), success -> {
@@ -181,15 +186,15 @@ public class RealestateDetailsViewModel extends ViewModel {
 
     public void like() {
         RealestateRepository.like(relestate.getValue().getId(), (success, data) -> {
-                    if (success) {
-                        like.setValue(data);
-                        int i = data ? 1 : -1;
-                        Realestate r = relestate.getValue();
-                        r.setLike(r.getLike() + i);
-                        relestate.setValue(r);
-                    }
-                    sync();
-                });
+            if (success) {
+                like.setValue(data);
+                int i = data ? 1 : -1;
+                Realestate r = relestate.getValue();
+                r.setLike(r.getLike() + i);
+                relestate.setValue(r);
+            }
+            sync();
+        });
     }
 
     private void toggleFollow() {
@@ -213,17 +218,23 @@ public class RealestateDetailsViewModel extends ViewModel {
 
     }
 
+    public void showComments(View v) {
+        RealestateDetailsDirections.ActionRealestateDetailsToCommentsFragment action =
+                RealestateDetailsDirections.actionRealestateDetailsToCommentsFragment(relestate.getValue());
+        Navigation.findNavController(v).navigate(action);
+    }
+
     public void dislike() {
         RealestateRepository.dislike(relestate.getValue().getId(), (success, data) -> {
-                    if (success) {
-                        dislike.setValue(data);
-                        int i = data ? 1 : -1;
-                        Realestate r = relestate.getValue();
-                        r.setDislike(r.getDislike() + i);
-                        relestate.setValue(r);
-                    }
-                    sync();
-                });
+            if (success) {
+                dislike.setValue(data);
+                int i = data ? 1 : -1;
+                Realestate r = relestate.getValue();
+                r.setDislike(r.getDislike() + i);
+                relestate.setValue(r);
+            }
+            sync();
+        });
     }
 
     public void addComment() {

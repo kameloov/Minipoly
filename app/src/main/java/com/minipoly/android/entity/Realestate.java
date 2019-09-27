@@ -34,6 +34,7 @@ public class Realestate extends Pin implements Serializable {
     private boolean rented;
     private int offerPercent;
     private Date offerEnd;
+    private int commentCount = 0;
     private Date promoteEnd;
     @ServerTimestamp
     private Date publishDate;
@@ -52,6 +53,14 @@ public class Realestate extends Pin implements Serializable {
 
     public void setRented(boolean rented) {
         this.rented = rented;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     public int getOfferPercent() {

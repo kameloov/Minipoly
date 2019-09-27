@@ -57,6 +57,8 @@ public class AuctionDetails extends RootFragment {
     }
     private void attachObservers() {
         model.command.observe(this, command -> {
+            if (command == AuctionDetailsViewModel.Command.IDLE)
+                return;
             if (command == AuctionDetailsViewModel.Command.BLOCKED)
                 toast(getString(R.string.blocked));
             if (command == AuctionDetailsViewModel.Command.LAST_BIDDER)

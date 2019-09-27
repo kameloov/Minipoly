@@ -57,16 +57,17 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
         private ListItemCommentBinding binding;
         public MutableLiveData<Boolean> showReplies = new MutableLiveData<>(false);
         public Comment c;
+        LayoutInflater inflater;
 
         public CommentHolder(@NonNull ListItemCommentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            inflater = LayoutInflater.from(binding.getRoot().getContext());
         }
 
         public void loadReplies(Comment c) {
             CommentRepository.loadReplies(c, (success, data) -> {
                 if (success && data != null) {
-                    LayoutInflater inflater = LayoutInflater.from(binding.getRoot().getContext());
                     binding.lstReplies.removeAllViews();
                     for (Reply r : data) {
                         ListItemReplyBinding b = ListItemReplyBinding.inflate(inflater);
@@ -87,14 +88,19 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
         }
 
         public void reply(String text, Comment c) {
-            CommentRepository.addReply(text, c, success -> {
-                loadReplies(c);
-            });
+            CommentRepository.addReply(text, c, success -> loadReplies(c));
         }
 
         public void bind(Comment comment) {
             this.c = comment;
             binding.setCh(this);
+            binding.lstReplies.removeAllViews();
+            if (comment.getReply() != null) {
+                ListItemReplyBinding rb = ListItemReplyBinding.inflate(inflater);
+                rb.setR(comment.getReply());
+                binding.lstReplies.addView(rb.getRoot());
+            }
+
             binding.txtShow.setOnClickListener(v -> loadReplies(c));
         }
     }

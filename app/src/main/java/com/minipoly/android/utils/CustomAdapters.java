@@ -17,6 +17,7 @@ import com.minipoly.android.C;
 import com.minipoly.android.R;
 import com.minipoly.android.StorageManager;
 import com.minipoly.android.entity.Image;
+import com.minipoly.android.num.ToeType;
 import com.minipoly.android.repository.SocialRepository;
 
 import java.util.Date;
@@ -66,6 +67,27 @@ public class CustomAdapters {
             v.clearAnimation();
         }
         v.setVisibility(glow ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @BindingAdapter("toe")
+    public static void setToe(ImageView img, int id) {
+        if (id != 0)
+            img.setImageResource(id);
+    }
+
+    @BindingAdapter("toebg")
+    public static void setToeBg(View v, ToeType type) {
+        switch (type) {
+            case Offer:
+                v.setBackgroundResource(R.drawable.toe_blue);
+                break;
+            case Normal:
+                v.setBackgroundResource(R.drawable.toe_white);
+                break;
+            case Auction:
+                v.setBackgroundResource(R.drawable.toe_red);
+                break;
+        }
     }
 
     @BindingAdapter("image")

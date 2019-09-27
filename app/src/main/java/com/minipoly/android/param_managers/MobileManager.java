@@ -34,6 +34,21 @@ public class MobileManager {
     });
 
 
+    public static List<String> getMainTags(MobileInfo mobileInfo) {
+        ArrayList<String> list = new ArrayList<>();
+
+        if (mobileInfo != null) {
+            list.add(mobileInfo.getColor());
+            list.add(mobileInfo.getRam() == 0 ? null : mobileInfo.getRam() + " G");
+            list.add(mobileInfo.getStorage() == 0 ? null : mobileInfo.getStorage() + "G");
+        } else {
+            list.add(null);
+            list.add(null);
+            list.add(null);
+        }
+        return list;
+    }
+
     public static List<String> getTags(MobileInfo mobileInfo) {
         ArrayList<String> list = new ArrayList<>();
         if (mobileInfo != null) {

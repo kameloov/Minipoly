@@ -17,176 +17,72 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView61"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ch.c.like+``}"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView21"
-            app:layout_constraintStart_toStartOf="@+id/imageView21"
-            app:layout_constraintTop_toBottomOf="@+id/imageView21" />
 
         <ImageView
             android:id="@+id/imageView21"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:adjustViewBounds="true"
-            app:advrt="@{ch.c.id}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline30"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView53"
-            app:mode="@{`like`}"
-            app:srcCompat="@drawable/like" />
-
-        <ImageView
-            android:id="@+id/imageView22"
-            advrt="@{ch.c.id}"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@+id/textView53"
-            app:layout_constraintEnd_toStartOf="@+id/guideline30"
-            app:layout_constraintStart_toStartOf="parent"
-            app:mode="@{`dislike`}"
-            app:srcCompat="@drawable/dislike" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView23"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/comment_bg" />
 
         <ImageView
             android:id="@+id/imageView23"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginStart="8dp"
             app:avatar="@{ch.c.userBrief.id}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline31"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView21"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView53"
+            app:layout_constraintTop_toTopOf="@+id/imageView21"
+            app:layout_constraintVertical_bias="0.48000002"
             app:srcCompat="@drawable/circle" />
 
         <TextView
             android:id="@+id/textView53"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/comment_bg"
-            android:gravity="center_horizontal|top"
-            android:text="@{ch.c.text}"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/guideline33"
-            app:layout_constraintStart_toEndOf="@+id/imageView21"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.13" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.24" />
-
-        <TextView
-            android:id="@+id/txtback2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/reply_bg"
-            android:visibility="@{ch.showReplies || ch.c.reply == null || ch.c.replyCount &lt; 2 ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline35"
-            app:layout_constraintTop_toTopOf="@+id/imageView22" />
+            android:layout_marginEnd="8dp"
+            android:gravity="center_horizontal|top"
+            android:minLines="2"
+            android:text="@{ch.c.text, default = `comment text goes here `}"
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtback"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/reply_bg"
-            android:visibility="@{ch.showReplies|| ch.c.reply == null || ch.c.replyCount &lt; 2 ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline35"
-            app:layout_constraintTop_toTopOf="@+id/imageView22" />
-
-        <TextView
-            android:id="@+id/textView55"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/reply_bg"
-            android:gravity="center"
-            android:text="@{ch.c.reply.text}"
-            android:visibility="@{ch.c.reply == null || ch.showReplies ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline35"
-            app:layout_constraintTop_toTopOf="@+id/imageView22" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.8" />
-
-        <ImageView
-            android:id="@+id/imageView25"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="2dp"
-            android:visibility="@{ch.c.reply==null || ch.showReplies ?View.INVISIBLE:View.VISIBLE}"
-            app:avatar="@{ch.c.reply.userBrief.id}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toBottomOf="@+id/textView55"
-            app:srcCompat="@drawable/circle" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline34"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
 
         <TextView
             android:id="@+id/textView58"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="2dp"
+            android:gravity="center"
             android:text="@{ch.c.userBrief.name}"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline31"
+            app:layout_constraintEnd_toStartOf="@+id/imageView21"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView23" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.35" />
 
         <TextView
             android:id="@+id/textView59"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button"
             android:onClick="@{(v)->ch.showReply(v)}"
             android:paddingLeft="12dp"
@@ -196,39 +92,33 @@
             android:text="Reply"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-            app:layout_constraintStart_toEndOf="@+id/imageView23"
-            app:layout_constraintTop_toTopOf="@+id/imageView23" />
-
-        <TextView
-            android:id="@+id/textView60"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{``+ch.c.dislike}"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView22"
-            app:layout_constraintEnd_toEndOf="@+id/imageView22"
-            app:layout_constraintStart_toStartOf="@+id/imageView22" />
+            app:layout_constraintBottom_toBottomOf="@+id/imageView21"
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintTop_toBottomOf="@+id/lst_replies" />
 
         <TextView
             android:id="@+id/txtShow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@{ch.c.replyCount+` replies`}"
             android:textColor="@color/blue_gradiant_start"
             android:visibility="@{ch.c.reply==null || ch.showReplies ?View.INVISIBLE:View.VISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintTop_toBottomOf="@+id/imageView25" />
+            app:layout_constraintStart_toStartOf="@+id/lst_replies"
+            app:layout_constraintTop_toBottomOf="@+id/lst_replies" />
 
         <LinearLayout
             android:id="@+id/lst_replies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            android:visibility="@{ch.showReplies? View.VISIBLE:View.GONE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView22" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView21"
+            app:layout_constraintStart_toStartOf="@+id/imageView21"
+            app:layout_constraintTop_toBottomOf="@+id/textView53">
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

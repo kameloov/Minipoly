@@ -8,6 +8,16 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="action_auction_details">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_auctions">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                   <entry key="action_global_add_auction">
                     <value>
                       <LayoutPositions />
@@ -121,6 +131,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="auctionsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1130" />
+                            <option name="y" value="-2064" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="biddersDialog">
                     <value>
                       <LayoutPositions>
@@ -140,6 +162,18 @@
                           <Point>
                             <option name="x" value="-587" />
                             <option name="y" value="-1161" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="commentsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-990" />
+                            <option name="y" value="-990" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -309,6 +343,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_realestateDetails_to_commentsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_realestateDetails_to_editAdvrtDialog">
                               <value>
                                 <LayoutPositions />

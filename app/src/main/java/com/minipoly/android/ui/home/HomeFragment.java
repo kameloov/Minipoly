@@ -9,30 +9,23 @@ import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Observable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.minipoly.android.R;
 import com.minipoly.android.RootFragment;
 import com.minipoly.android.adapter.NotificationAdapter;
-import com.minipoly.android.adapter.RealestateAdapter;
+import com.minipoly.android.adapter.RealestateAdapter1;
 import com.minipoly.android.databinding.HomeFragmentBinding;
-import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.ui.category_dialog.CategoryDialog;
-import com.minipoly.android.utils.ZoomOutPageTransformer;
-
-import java.util.List;
 
 public class HomeFragment extends RootFragment {
 
     private HomeViewModel model;
-    private RealestateAdapter adapter;
-    private ViewPager pager;
+    private RealestateAdapter1 adapter = new RealestateAdapter1();
     private HomeFragmentBinding binding;
     private NotificationAdapter notificationAdapter;
 
@@ -54,6 +47,7 @@ public class HomeFragment extends RootFragment {
         binding.setLifecycleOwner(this);
         binding.setVm(model);
         showNav();
+        prepareAdapter();
         Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
         binding.load.startAnimation(a);
         prepareNotificationAdapter();
@@ -61,21 +55,12 @@ public class HomeFragment extends RootFragment {
     }
 
     private void attachObservers() {
-        model.typeRadio.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                model.category.setValue(null);
-                model.subCategory.setValue(null);
-                model.refresh();
-            }
-        });
-
         model.command.observe(this, command -> {
             if (command == HomeViewModel.Command.IDLE)
                 return;
             String id = command == HomeViewModel.Command.SELECT_CAT ?
                     null : model.category.getValue().getId();
-            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.typeRadio.isChecked(), (sub, category) -> model.setCatOrSubId(sub, category));
+            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.kind, (sub, category) -> model.setCatOrSubId(sub, category));
 
             dialog.show(getFragmentManager(), "CAT");
             model.command.setValue(HomeViewModel.Command.IDLE);
@@ -84,11 +69,7 @@ public class HomeFragment extends RootFragment {
         model.getRealestates().observe(this, realestates -> {
             binding.load.clearAnimation();
             binding.load.setVisibility(View.INVISIBLE);
-            if (adapter == null)
-                adapter = new RealestateAdapter(realestates);
-            else
-                adapter.setRealestates(realestates);
-            preparePager(binding.pager, realestates);
+            adapter.submitList(realestates);
 
         });
 
@@ -101,10 +82,14 @@ public class HomeFragment extends RootFragment {
     }
 
 
-    private void preparePager(ViewPager pager, List<Realestate> realestates) {
-        pager.setOffscreenPageLimit(5);
-        pager.setPageTransformer(false, new ZoomOutPageTransformer());
-        pager.setAdapter(adapter);
+    private void prepareAdapter() {
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 2);
+        binding.lstAds.setLayoutManager(manager);
+        adapter.setListener(realestate -> {
+            if (realestate != null)
+                model.showRealestate(realestate, binding.lstAds);
+        });
+        binding.lstAds.setAdapter(adapter);
     }
 
     private void prepareNotificationAdapter() {

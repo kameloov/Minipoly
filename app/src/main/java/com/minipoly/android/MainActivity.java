@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         handleLink();
     }
 
+
     private void prepareGooglesignin() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

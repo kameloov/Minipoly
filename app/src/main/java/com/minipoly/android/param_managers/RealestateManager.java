@@ -44,6 +44,22 @@ public class RealestateManager {
         return info;
     }
 
+
+    public static List<String> getMainTags(RealestateInfo info) {
+        ArrayList<String> lst = new ArrayList<>();
+        if (info != null) {
+            lst.add(info.getRoomCount() + "");
+            lst.add(info.getBathroomCount() + "");
+            lst.add(info.isFurnished() ? "Furnished" : "empty");
+        } else {
+            lst.add(null);
+            lst.add(null);
+            lst.add(null);
+        }
+
+        return lst;
+    }
+
     public static List<String> getTags(RealestateInfo r) {
         ArrayList<String> list = new ArrayList<>();
         if (r != null) {

@@ -3,12 +3,14 @@ package com.minipoly.android;
 import android.util.Log;
 import android.view.View;
 
+import androidx.databinding.Observable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.User;
 import com.minipoly.android.popup.PopupNew;
 import com.minipoly.android.repository.AuctionRepository;
@@ -17,11 +19,25 @@ import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.utils.ImageBuffer;
 import com.minipoly.android.utils.LocalData;
 
+import java.util.ArrayList;
+
 public class ActivityViewModel extends ViewModel {
 
     private MutableLiveData<Integer> section = new MutableLiveData<>();
     private MutableLiveData<Boolean> sectionsVisible = new MutableLiveData<>();
     private NavController navController;
+    private static ArrayList<IKindListener> listeners = new ArrayList<>();
+    public CustomRadio kindRadio = new CustomRadio(false, "Realestate", "Market");
+
+    public ActivityViewModel() {
+
+        kindRadio.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                notifyListeners(kindRadio.isChecked());
+            }
+        });
+    }
 
     public LiveData<Integer> getSection() {
         return section;
@@ -35,6 +51,22 @@ public class ActivityViewModel extends ViewModel {
         this.section.setValue(section);
         refresh(v);
 
+    }
+
+
+    public static void addKindListener(IKindListener listener) {
+        listeners.add(listener);
+    }
+
+    public static void removeKindListener(IKindListener listener) {
+        listeners.remove(listener);
+    }
+
+    private static void notifyListeners(boolean value) {
+        for (IKindListener listener : listeners) {
+            if (listener != null)
+                listener.onKindChanged(value);
+        }
     }
 
     public void setNavController(NavController navController) {
@@ -92,7 +124,7 @@ public class ActivityViewModel extends ViewModel {
                 navController.navigate(R.id.homeFragment);
                 break;
             case 2:
-                navController.navigate(R.id.mapFragment);
+                navController.navigate(R.id.auctionsFragment);
                 break;
             case -2:
                 navController.navigate(R.id.editProfileFragment);
@@ -100,5 +132,9 @@ public class ActivityViewModel extends ViewModel {
 
 
         }
+    }
+
+    public interface IKindListener {
+        void onKindChanged(boolean kind);
     }
 }

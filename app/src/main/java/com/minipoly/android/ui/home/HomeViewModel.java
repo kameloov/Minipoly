@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.minipoly.android.ActivityViewModel;
+import com.minipoly.android.NavGraphDirections;
 import com.minipoly.android.R;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.City;
@@ -28,7 +30,7 @@ import com.minipoly.android.ui.bars.top_bar.TopBarController;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindListener {
     private MutableLiveData<List<Realestate>> realestates = new MutableLiveData<>();
     private FireLiveQuery<Realestate> r;
     private MutableLiveData<Boolean> loading = new MutableLiveData<>();
@@ -40,10 +42,10 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<City> city = new MutableLiveData<>();
 
     public FireLiveQuery<Notification> notifications = UserRepository.getUserNotifications(UserRepository.getUserId(), 10);
-    public CustomRadio typeRadio = new CustomRadio(true, "Realestate", "Market");
     public CustomRadio priceRadio = new CustomRadio(false, "Low first", "High first ");
     private List<ValueFilter> realestateFilters;
     private PopupRealestateFilter rFilter;
+    public Boolean kind;
 
     public HomeViewModel() {
         rFilter = new PopupRealestateFilter(parmas -> {
@@ -51,13 +53,14 @@ public class HomeViewModel extends ViewModel {
             refresh();
         });
 
+        ActivityViewModel.addKindListener(this);
         refresh();
     }
 
 
     private List<ValueFilter> generateFilter() {
         ArrayList<ValueFilter> filters = new ArrayList<>();
-        filters.add(new ValueFilter("market", ValueFilter.FilterType.EQUAL, !typeRadio.isChecked()));
+        filters.add(new ValueFilter("market", ValueFilter.FilterType.EQUAL, kind));
         if (category.getValue() != null)
             filters.add(new ValueFilter("categoryId", ValueFilter.FilterType.EQUAL, category.getValue().getId()));
         if (subCategory.getValue() != null)
@@ -72,9 +75,11 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void refresh() {
+        loading.setValue(true);
         RealestateRepository.getRealestates(generateFilter(), (success, data) -> {
             if (success && data != null)
                 realestates.postValue(data);
+            loading.setValue(false);
         });
     }
 
@@ -164,23 +169,18 @@ public class HomeViewModel extends ViewModel {
 
     }
 
-    public void showAuctionEnd(View view) {
-        AuctionRepository.getAuctions((success, data) -> {
-            if (success) {
-                HomeFragmentDirections.AuctionEnd action =
-                        HomeFragmentDirections.auctionEnd(data.get(0).getId());
-                Navigation.findNavController(view).navigate(action);
-            }
-        });
+    public void showRealestate(Realestate realestate, View view) {
+        NavGraphDirections.ActionGlobalRealestateDetails action =
+                NavGraphDirections.actionGlobalRealestateDetails(realestate);
+        Navigation.findNavController(view).navigate(action);
     }
 
-    public void showEditProfile(View view) {
-        AuctionRepository.getAuctions((success, data) -> {
-            if (success) {
-                Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditProfileFragment());
-            }
-        });
+    @Override
+    public void onKindChanged(boolean kind) {
+        this.kind = kind;
+        refresh();
     }
+
 
     enum Command {IDLE, SELECT_CAT, SELECT_SUBCAT, SELECT_COUNTRY, SELECT_CITY}
 }

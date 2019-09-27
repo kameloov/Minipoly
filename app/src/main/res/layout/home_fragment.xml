@@ -17,22 +17,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            android:foregroundGravity="center"
-            android:paddingBottom="8dp"
-            app:layout_constraintDimensionRatio="w,1.27:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.viewpager.widget.ViewPager>
-
         <ImageView
             android:id="@+id/load"
             android:layout_width="wrap_content"
@@ -57,17 +41,6 @@
             app:srcCompat="@drawable/ic_tune" />
 
         <include
-            android:id="@+id/include26"
-            layout="@layout/filter_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:vm="@{vm}" />
-
-        <include
             android:id="@+id/top_bar"
             layout="@layout/top_bar"
             android:layout_width="0dp"
@@ -76,6 +49,17 @@
             android:layout_marginTop="8dp"
             app:c="@{vm.barController}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lst_ads"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

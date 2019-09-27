@@ -94,6 +94,9 @@
         <action
             android:id="@+id/action_realestateDetails_to_editAdvrtDialog"
             app:destination="@id/editAdvrtDialog" />
+        <action
+            android:id="@+id/action_realestateDetails_to_commentsFragment"
+            app:destination="@id/commentsFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/edit_profile_fragment"
@@ -211,6 +214,17 @@
         app:destination="@id/addAuctionDialog"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim" />
+    <action
+        android:id="@+id/action_auction_details"
+        app:destination="@id/auctionDetails"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
+
+    <action
+        android:id="@+id/action_auctions"
+        app:destination="@id/auctionsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
 
     <action
         android:id="@+id/action_global_add_promoted"
@@ -228,6 +242,18 @@
         app:exitAnim="@anim/fade"
         app:popEnterAnim="@anim/fade"
         app:popExitAnim="@anim/fade" />
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.minipoly.android.ui.comments.CommentsFragment"
+        android:label="CommentsFragment">
+        <argument
+            android:name="realestate"
+            app:argType="com.minipoly.android.entity.Realestate" />
+    </fragment>
+    <fragment
+        android:id="@+id/auctionsFragment"
+        android:name="com.minipoly.android.ui.auctions.AuctionsFragment"
+        android:label="AuctionsFragment" />
 
 
 </navigation>

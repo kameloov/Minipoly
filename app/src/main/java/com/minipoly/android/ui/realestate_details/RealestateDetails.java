@@ -10,8 +10,6 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.R;
 import com.minipoly.android.RootFragment;
@@ -48,8 +46,8 @@ public class RealestateDetails extends RootFragment {
         Realestate realestate = RealestateDetailsArgs.fromBundle(getArguments()).getRealestate();
         model = ViewModelProviders.of(this, new RealestateDetailsModelFactory(realestate))
                 .get(RealestateDetailsViewModel.class);
-        prepareImageAdapter();
-        prepareCommentsAdapter();
+//        prepareImageAdapter();
+//        prepareCommentsAdapter();
         binding.setLifecycleOwner(this);
         binding.setM(model);
         binding.setMyId(UserRepository.getUserId());
@@ -63,21 +61,21 @@ public class RealestateDetails extends RootFragment {
             if (model.isAdvrtOwner())
                 return;
             Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
-            binding.imgBell.startAnimation(a);
+//            binding.imgBell.startAnimation(a);
         });
     }
 
-    private void prepareImageAdapter() {
+/*    private void prepareImageAdapter() {
         remoteImageAdapter = new RemoteImageAdapter(model.getRealestate().getValue().getImages(),
                 model.currentImage);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
         binding.imgList.setLayoutManager(manager);
         binding.imgList.setAdapter(remoteImageAdapter);
-    }
+    }*/
 
-    private void prepareCommentsAdapter() {
+ /*   private void prepareCommentsAdapter() {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         binding.lstComments.setLayoutManager(manager);
         binding.lstComments.setAdapter(commentAdapter);
-    }
+    }*/
 }

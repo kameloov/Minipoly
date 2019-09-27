@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="text"
+            type="String" />
+
+        <variable
+            name="icon"
+            type="Integer" />
+
+        <variable
+            name="knid"
+            type="com.minipoly.android.num.ToeType" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/linearLayout26"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:toebg="@{kind}">
+
+        <ImageView
+            android:id="@+id/imageView100"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:visibility="@{icon==0? View.INVISIBLE: View.VISIBLE}"
+            app:srcCompat="@drawable/ic_bedroom"
+
+            app:toe="@{icon}" />
+
+        <TextView
+            android:id="@+id/textView192"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{text,default =`4`}"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+</layout>
