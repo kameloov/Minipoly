@@ -20,11 +20,12 @@ import com.minipoly.android.entity.Image;
 import com.minipoly.android.num.ToeType;
 import com.minipoly.android.repository.SocialRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomAdapters {
+    public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-    private static DateFormat dateFormat = new DateFormat();
 
     @BindingAdapter("avatar")
     public static void setAvatar(ImageView view, String image) {
@@ -39,6 +40,11 @@ public class CustomAdapters {
                 .load(reference).diskCacheStrategy(DiskCacheStrategy.NONE)
                 .apply(new RequestOptions().circleCrop().error(R.drawable.circle))
                 .into(view);
+    }
+
+    @BindingAdapter("date")
+    public static void setDate(TextView textView, Date date) {
+        textView.setText(formatter.format(date));
     }
 
     @BindingAdapter("wall")
@@ -77,15 +83,20 @@ public class CustomAdapters {
 
     @BindingAdapter("toebg")
     public static void setToeBg(View v, ToeType type) {
+        if (type == null) {
+            v.setBackgroundResource(R.drawable.toe_white_reverse);
+            return;
+        }
+
         switch (type) {
-            case Offer:
-                v.setBackgroundResource(R.drawable.toe_blue);
+            case OFFER:
+                v.setBackgroundResource(R.drawable.toe_red_reverse);
                 break;
-            case Normal:
-                v.setBackgroundResource(R.drawable.toe_white);
+            case NORMAL:
+                v.setBackgroundResource(R.drawable.toe_white_reverse);
                 break;
-            case Auction:
-                v.setBackgroundResource(R.drawable.toe_red);
+            case AUCTION:
+                v.setBackgroundResource(R.drawable.toe_blue_reverse);
                 break;
         }
     }
@@ -95,7 +106,8 @@ public class CustomAdapters {
         if (image == null)
             return;
         StorageReference reference = StorageManager.getRoot().child(image.getUserId()).child(image.getId());
-        GlideApp.with(view.getContext()).load(reference).into(view);
+        GlideApp.with(view.getContext())
+                .load(reference).placeholder(R.drawable.bar_frame).into(view);
     }
 
 
@@ -122,7 +134,7 @@ public class CustomAdapters {
     public static void setTime(TextView view, Date date) {
         if (date == null)
             return;
-        view.setText(DateFormat.format("hh : mm", date));
+        view.setText(DateFormat.format("hh:mm", date));
 
     }
 

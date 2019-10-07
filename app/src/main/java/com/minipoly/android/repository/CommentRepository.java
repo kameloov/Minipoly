@@ -3,7 +3,9 @@ package com.minipoly.android.repository;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.WriteBatch;
 import com.minipoly.android.C;
 import com.minipoly.android.CompleteListener;
 import com.minipoly.android.DataListener;
@@ -16,6 +18,7 @@ import com.minipoly.android.utils.LocalData;
 import java.util.List;
 
 import static com.minipoly.android.References.auctions;
+import static com.minipoly.android.References.db;
 import static com.minipoly.android.References.realestates;
 
 public class CommentRepository {
@@ -57,8 +60,12 @@ public class CommentRepository {
     public static void addComment(Comment comment, CompleteListener listener) {
         DocumentReference reference = realestates.document(comment.getAdvrtId())
                 .collection(C.COMMENTS_COLLECTION).document();
+        DocumentReference relRef = realestates.document(comment.getAdvrtId());
         comment.setId(reference.getId());
-        reference.set(comment).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
+        WriteBatch batch = db.batch();
+        batch.set(reference, comment);
+        batch.update(relRef, "commentCount", FieldValue.increment(1));
+        batch.commit().addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
     }
 
     public static void addReply(String text, Comment comment, CompleteListener listener) {

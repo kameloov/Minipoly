@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,8 +17,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.minipoly.android.entity.Interaction;
 
 import static com.minipoly.android.References.interactions;
@@ -25,12 +26,22 @@ public class UserManager {
     private static GoogleSignInClient signInClient;
     public static int GOOGLE_LOGIN = 1214;
     public static Interaction interaction;
+    private static MutableLiveData<Boolean> logged = new MutableLiveData(false);
 
     public static void init(Context context) {
         mauth = FirebaseAuth.getInstance();
-        if (getUserID() != null)
+        if (getUserID() != null) {
+            logged.setValue(true);
             getInteractions(null);
 
+        } else {
+            logged.setValue(false);
+        }
+
+    }
+
+    public static LiveData<Boolean> getLoginState() {
+        return logged;
     }
 
     private static void getInteractions(CompleteListener listener) {
@@ -42,64 +53,7 @@ public class UserManager {
         });
     }
 
-/*    public static void dislike( String itemId){
-        if (interaction==null)
-            getInteractions(success -> {
-                if (success) {
-                    dislikeItem(itemId);
-                }
-            });
-        else
-            dislikeItem(itemId);
-    }
 
-    public static void like( String itemId){
-        if (interaction==null)
-            getInteractions(success -> {
-                if (success) {
-                    likeItem(itemId);
-                }
-            });
-        else
-            likeItem(itemId);
-    }
-
-    private static void dislikeItem(String id){
-        DocumentReference reference = interactions.document(getUserID());
-        if (interaction.getDislike().contains(id)){
-            reference.update("dislike",FieldValue.arrayRemove(id));
-            interaction.getDislike().remove(id);
-        } else {
-            if (interaction.getLike().contains(id)){
-                reference.update("like",FieldValue.arrayRemove(id));
-                reference.update("dislike",FieldValue.arrayUnion(id));
-                interaction.getLike().remove(id);
-                interaction.getDislike().add(id);
-            }else {
-                reference.update("dislike",FieldValue.arrayUnion(id));
-                interaction.getDislike().add(id);
-            }
-        }
-    }*/
-
-
-    private static void likeItem(String id) {
-        DocumentReference reference = interactions.document(getUserID());
-        if (interaction.getLike().contains(id)) {
-            reference.update("like", FieldValue.arrayRemove(id));
-            interaction.getLike().remove(id);
-        } else {
-            if (interaction.getDislike().contains(id)) {
-                reference.update("dislike", FieldValue.arrayRemove(id));
-                reference.update("like", FieldValue.arrayUnion(id));
-                interaction.getDislike().remove(id);
-                interaction.getLike().add(id);
-            } else {
-                reference.update("like", FieldValue.arrayUnion(id));
-                interaction.getLike().add(id);
-            }
-        }
-    }
 
     public static void initGoogleSignIn(Context context) {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -128,7 +82,10 @@ public class UserManager {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mauth.signInWithCredential(credential)
-                .addOnCompleteListener(task -> listener.onComplete(task.isComplete()));
+                .addOnCompleteListener(task -> {
+                    listener.onComplete(task.isComplete());
+                    logged.setValue(true);
+                });
     }
 
     public static void linkWithFacebook(AccessToken token, CompleteListener listener) {
@@ -139,7 +96,9 @@ public class UserManager {
     }
 
     public static void loginAnonymously(final CompleteListener listener) {
-        mauth.signInAnonymously().addOnCompleteListener(task -> listener.onComplete(task.isComplete())
-        );
+        mauth.signInAnonymously().addOnCompleteListener(task -> {
+            logged.setValue(true);
+            listener.onComplete(task.isComplete());
+        });
     }
 }

@@ -1,10 +1,12 @@
 package com.minipoly.android.utils;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
 import com.minipoly.android.entity.ValueFilter;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FireStoreUtils {
 
@@ -17,6 +19,17 @@ public class FireStoreUtils {
           processFilter(query,filter);
         }
         return query;
+    }
+
+    public static boolean documentExists(DocumentReference reference) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        reference.get().addOnCompleteListener(task -> {
+
+            if (task.isSuccessful()) {
+                result.set(task.getResult().exists());
+            }
+        });
+        return result.get();
     }
 
     private static Query processFilter(Query query, ValueFilter filter) {

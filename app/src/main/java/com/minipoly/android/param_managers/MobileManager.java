@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.minipoly.android.R;
 import com.minipoly.android.entity.MobileInfo;
 import com.minipoly.android.entity.MobileMisc;
+import com.minipoly.android.entity.Toe;
 import com.minipoly.android.livedata.FireLiveDocument;
+import com.minipoly.android.num.ToeType;
 import com.minipoly.android.repository.MiscRepository;
 
 import java.util.ArrayList;
@@ -47,6 +50,22 @@ public class MobileManager {
             list.add(null);
         }
         return list;
+    }
+
+
+    public static List<Toe> getToes(MobileInfo info, ToeType toeType) {
+        ArrayList<Toe> lst = new ArrayList<>();
+        if (info != null) {
+            lst.add(new Toe(info.getColor(), R.drawable.ic_color, toeType));
+            lst.add(new Toe(info.getRam() + " G", R.drawable.ic_memory, toeType));
+            lst.add(new Toe(info.getStorage() + "G", R.drawable.ic_sd_storage, toeType));
+        } else {
+            lst.add(null);
+            lst.add(null);
+            lst.add(null);
+        }
+
+        return lst;
     }
 
     public static List<String> getTags(MobileInfo mobileInfo) {

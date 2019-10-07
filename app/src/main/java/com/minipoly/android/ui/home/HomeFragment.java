@@ -46,10 +46,9 @@ public class HomeFragment extends RootFragment {
         model = ViewModelProviders.of(this).get(HomeViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setVm(model);
+        binding.load.setVisibility(View.INVISIBLE);
         showNav();
         prepareAdapter();
-        Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
-        binding.load.startAnimation(a);
         prepareNotificationAdapter();
         attachObservers();
     }
@@ -60,7 +59,7 @@ public class HomeFragment extends RootFragment {
                 return;
             String id = command == HomeViewModel.Command.SELECT_CAT ?
                     null : model.category.getValue().getId();
-            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.kind, (sub, category) -> model.setCatOrSubId(sub, category));
+            CategoryDialog dialog = CategoryDialog.newInstance(id, !model.kind.getValue(), (sub, category) -> model.setCatOrSubId(sub, category));
 
             dialog.show(getFragmentManager(), "CAT");
             model.command.setValue(HomeViewModel.Command.IDLE);
@@ -79,6 +78,13 @@ public class HomeFragment extends RootFragment {
                 model.barController.blink();
             }
         });
+
+        model.kind.observe(this, aBoolean -> playAnimation());
+    }
+
+    private void playAnimation() {
+        Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+        binding.load.startAnimation(a);
     }
 
 
@@ -86,8 +92,10 @@ public class HomeFragment extends RootFragment {
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 2);
         binding.lstAds.setLayoutManager(manager);
         adapter.setListener(realestate -> {
-            if (realestate != null)
+            if (realestate != null) {
+                hideNav();
                 model.showRealestate(realestate, binding.lstAds);
+            }
         });
         binding.lstAds.setAdapter(adapter);
     }
@@ -105,8 +113,8 @@ public class HomeFragment extends RootFragment {
             }
         });
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 1);
-        binding.topBar.lstNotification.setLayoutManager(manager);
-        binding.topBar.lstNotification.setAdapter(notificationAdapter);
+//        binding.topBar.lstNotification.setLayoutManager(manager);
+//        binding.topBar.lstNotification.setAdapter(notificationAdapter);
     }
 
 }

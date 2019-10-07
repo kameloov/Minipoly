@@ -8,6 +8,7 @@ import com.google.firebase.firestore.Query;
 import com.minipoly.android.C;
 import com.minipoly.android.DataListener;
 import com.minipoly.android.entity.Car;
+import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.ComputerMisc;
 import com.minipoly.android.entity.Country;
 import com.minipoly.android.entity.MobileMisc;
@@ -32,6 +33,26 @@ public class MiscRepository {
     public static void addCountries(List<Country> countries) {
         for (Country c : countries)
             addCountry(c);
+    }
+
+
+    public static void addCity(City city) {
+        DocumentReference reference = countries.document(city.getCountryId())
+                .collection("city").document(city.getId());
+        if (!FireStoreUtils.documentExists(reference)) {
+            reference.set(city);
+        }
+    }
+
+    public static void getcity(String id, String countryId, DataListener<City> listener) {
+        DocumentReference reference = countries.document(countryId).collection("city")
+                .document(id);
+        reference.get().addOnCompleteListener(task -> {
+            City city = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                city = task.getResult().toObject(City.class);
+            listener.onComplete(task.isSuccessful(), city);
+        });
     }
 
     public static void addCar(Car car) {

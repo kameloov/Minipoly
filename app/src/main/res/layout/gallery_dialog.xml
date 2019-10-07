@@ -42,20 +42,20 @@
             android:textSize="12sp"
             android:visibility="@{model.info.status==ProgressInfo.PROGRESS? View.VISIBLE:View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView73" />
 
         <ProgressBar
             android:id="@+id/progressBar4"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:progress="@{model.info.overallProgress}"
             android:visibility="@{model.info.status==ProgressInfo.PROGRESS? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/textView26"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/progressBar2"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
             app:layout_constraintTop_toTopOf="@+id/textView26" />
 
         <TextView
@@ -81,46 +81,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
-            android:layout_height="240dp"
-            android:layout_margin="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
             android:layout_marginEnd="16dp"
-            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView106"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView73"
+            app:layout_constraintStart_toEndOf="@+id/imageView106"
+            app:layout_constraintTop_toTopOf="@+id/imageView106"
             tools:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/recycler_view_item_2"
             tools:spanCount="5">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:progress="@{model.info.progress}"
-            android:visibility="@{model.info.status==ProgressInfo.PROGRESS? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView25"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView25"
-            app:layout_constraintTop_toTopOf="@+id/textView25" />
-
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/current_image"
-            android:textSize="12sp"
-            android:visibility="@{model.info.status==ProgressInfo.PROGRESS? View.VISIBLE:View.GONE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
         <ProgressBar
             android:id="@+id/progressBar5"
@@ -134,20 +106,6 @@
             app:layout_constraintTop_toTopOf="@+id/recyclerView" />
 
         <ImageView
-            android:id="@+id/imageView72"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:onClick="@{()->model.addImage()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/add_image" />
-
-        <ImageView
             android:id="@+id/imageView73"
             android:layout_width="0dp"
             android:layout_height="8dp"
@@ -158,8 +116,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView72"
+            app:layout_constraintTop_toBottomOf="@+id/imageView106"
             app:srcCompat="@drawable/line" />
+
+        <ImageView
+            android:id="@+id/imageView106"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bid_radio"
+            app:layout_constraintDimensionRatio="1:1.5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline93"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_cover" />
+
+        <ImageView
+            android:id="@+id/imageView72"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{()->model.addImage()}"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+            app:srcCompat="@mipmap/add_image" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline93"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

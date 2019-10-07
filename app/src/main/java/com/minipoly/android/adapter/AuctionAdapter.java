@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.minipoly.android.databinding.ListItemAuctionBinding;
 import com.minipoly.android.entity.Auction;
 import com.minipoly.android.param_managers.MobileManager;
-import com.minipoly.android.param_managers.RealestateManager;
 
 import java.util.List;
 
@@ -80,7 +79,7 @@ public class AuctionAdapter extends ListAdapter<Auction, AuctionAdapter.AuctionV
                 lst = MobileManager.getMainTags(auction.getMobileInfo());
                 // todo add other types
             } else {
-                lst = RealestateManager.getMainTags(auction.getRealestateInfo());
+                //  lst = RealestateManager.getToes(auction.getRealestateInfo());
             }
             binding.setLst(lst);
         }

@@ -12,7 +12,8 @@ import com.minipoly.android.utils.LocalData;
 public class LoginViewModel extends ViewModel {
 
     public MutableLiveData<User> user = new MutableLiveData<>();
-    private MutableLiveData<Boolean> registered = new MutableLiveData<>();
+    public MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+    private LiveData<Boolean> registered = UserManager.getLoginState();
 
     public LoginViewModel() {
         User u = new User();
@@ -24,15 +25,14 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void register() {
+        this.loading.setValue(true);
         UserManager.loginAnonymously(success -> {
             if (success) {
                 User u = user.getValue();
                 u.setId(UserManager.getUserID());
                 u.setToken(LocalData.getDeviceToken());
-                SocialRepository.addUser(u, success1 -> {
-                    registered.setValue(success1);
-                    LocalData.saveUserInfo(u);
-                });
+                SocialRepository.addUser(u, success1 -> LocalData.saveUserInfo(u));
+                this.loading.setValue(false);
             }
         });
     }

@@ -10,6 +10,10 @@
 
         <import type="java.util.List" />
 
+        <import type="com.minipoly.android.entity.Toe" />
+
+        <import type="com.minipoly.android.num.ToeType" />
+
         <variable
             name="ad"
             type="com.minipoly.android.entity.Realestate" />
@@ -20,7 +24,7 @@
 
         <variable
             name="lst"
-            type="List&lt;String>" />
+            type="List&lt;com.minipoly.android.entity.Toe>" />
     </data>
 
 
@@ -43,16 +47,28 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <include
-            android:id="@+id/include24"
-            layout="@layout/toe_white"
+            layout="@layout/toe"
+            toe="@{lst[0]}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:bedroom="@{true}"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{lst[0]==null? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/include26"
+            app:layout_constraintDimensionRatio="2.5:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline84"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/include24"
+            layout="@layout/toe"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            toe="@{lst[2]}"
+            android:visibility="@{lst[2]==null? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/textView170"
             app:layout_constraintDimensionRatio="2.5:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline84"
-            app:layout_constraintStart_toStartOf="parent"
-            app:text="@{ad.realestateInfo.roomCount+``}" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline82"
@@ -73,19 +89,6 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline82"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_drawing" />
-
-        <TextView
-            android:id="@+id/textView180"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/price"
-            android:textColor="@color/gradiant_start"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView179"
-            app:layout_constraintEnd_toEndOf="@+id/textView179"
-            app:layout_constraintStart_toStartOf="@+id/textView179"
-            app:layout_constraintTop_toTopOf="@+id/imageView95" />
 
         <TextView
             android:id="@+id/textView170"
@@ -121,9 +124,9 @@
             android:id="@+id/textView178"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="2dp"
             android:text="@{arabic ? ad.cityNameAR : ad.cityName,default = `Ryadh`}"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView95"
@@ -140,6 +143,7 @@
             android:id="@+id/imageView96"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintBottom_toTopOf="@+id/textView178"
             app:layout_constraintEnd_toEndOf="@+id/textView178"
             app:layout_constraintStart_toStartOf="@+id/textView178"
@@ -151,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{ad.price +` `+ ad.currency,default = `500 USD`}"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView178"
             app:layout_constraintEnd_toStartOf="@+id/guideline85"
@@ -172,16 +176,56 @@
             app:layout_constraintGuide_percent="0.3" />
 
         <include
-            layout="@layout/toe_white"
+            android:id="@+id/include26"
+            layout="@layout/toe"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            toe="@{lst[1]}"
+            android:visibility="@{lst[1]==null? View.GONE : View.VISIBLE}"
             android:layout_marginBottom="8dp"
-            app:bedroom="@{false}"
             app:layout_constraintBottom_toTopOf="@+id/include24"
             app:layout_constraintDimensionRatio="2.5:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline84"
-            app:layout_constraintStart_toStartOf="parent"
-            app:text="@{ad.realestateInfo.bathroomCount+``}" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView87"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView179"
+            app:layout_constraintEnd_toEndOf="@+id/textView179"
+            app:layout_constraintStart_toStartOf="@+id/textView179"
+            app:layout_constraintTop_toTopOf="@+id/imageView95"
+            app:srcCompat="@drawable/ic_money" />
+
+        <ImageView
+            android:id="@+id/imageView102"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:adjustViewBounds="true"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/imageView96"
+            app:layout_constraintStart_toStartOf="@+id/imageView87"
+            app:layout_constraintTop_toTopOf="@+id/imageView95"
+            app:srcCompat="@drawable/discount_bg" />
+
+        <TextView
+            android:id="@+id/textView189"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{ad.offerPercent+ `%`,default = `35 %`}"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView102"
+            app:layout_constraintEnd_toEndOf="@+id/imageView102"
+            app:layout_constraintStart_toStartOf="@+id/imageView102"
+            app:layout_constraintTop_toTopOf="@+id/imageView102" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

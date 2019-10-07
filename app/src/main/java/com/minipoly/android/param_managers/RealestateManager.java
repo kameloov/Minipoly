@@ -2,8 +2,11 @@ package com.minipoly.android.param_managers;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.minipoly.android.R;
 import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.RealestateInfo;
+import com.minipoly.android.entity.Toe;
+import com.minipoly.android.num.ToeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +48,12 @@ public class RealestateManager {
     }
 
 
-    public static List<String> getMainTags(RealestateInfo info) {
-        ArrayList<String> lst = new ArrayList<>();
+    public static List<Toe> getToes(RealestateInfo info, ToeType toeType) {
+        ArrayList<Toe> lst = new ArrayList<>();
         if (info != null) {
-            lst.add(info.getRoomCount() + "");
-            lst.add(info.getBathroomCount() + "");
-            lst.add(info.isFurnished() ? "Furnished" : "empty");
+            lst.add(new Toe(info.getRoomCount() + "", R.drawable.ic_bedroom, toeType));
+            lst.add(new Toe(info.getBathroomCount() + "", R.drawable.ic_shower, toeType));
+            lst.add(new Toe(info.isFurnished() ? "Furnished" : "empty", 0, toeType));
         } else {
             lst.add(null);
             lst.add(null);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -39,6 +40,7 @@
             android:background="@drawable/reply"
             android:gravity="center_horizontal|top"
             android:minLines="2"
+            android:paddingBottom="12dp"
             android:text="@{r.text}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView24"
@@ -56,6 +58,18 @@
             app:layout_constraintEnd_toStartOf="@+id/textView54"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView24" />
+
+        <TextView
+            android:id="@+id/textView204"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="8sp"
+            app:date="@{r.date}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView54"
+            app:layout_constraintEnd_toEndOf="@+id/textView54"
+            tools:text="12/11/2018 13:20" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

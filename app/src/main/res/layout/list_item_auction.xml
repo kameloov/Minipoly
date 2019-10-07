@@ -102,7 +102,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/toe_blue"
-            android:drawableEnd="@drawable/ic_location_white"
+            android:drawableEnd="@drawable/ic_location_dark"
             android:gravity="center_vertical|end"
             android:text="@{arabic?ad.cityName:ad.cityNameAR,default=`Riyadh`}"
             android:textColor="@color/white"

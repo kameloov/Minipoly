@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_realestateDetails_to_commentsFragment"
             app:destination="@id/commentsFragment" />
+        <action
+            android:id="@+id/action_realestateDetails_to_more"
+            app:destination="@id/more" />
     </fragment>
     <fragment
         tools:layout="@layout/edit_profile_fragment"
@@ -254,6 +257,14 @@
         android:id="@+id/auctionsFragment"
         android:name="com.minipoly.android.ui.auctions.AuctionsFragment"
         android:label="AuctionsFragment" />
+    <dialog
+        android:id="@+id/more"
+        android:name="com.minipoly.android.ui.more_dialog.More"
+        android:label="More">
+        <argument
+            android:name="realestate"
+            app:argType="com.minipoly.android.entity.Realestate" />
+    </dialog>
 
 
 </navigation>

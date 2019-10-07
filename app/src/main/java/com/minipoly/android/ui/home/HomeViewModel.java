@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import com.minipoly.android.ActivityViewModel;
 import com.minipoly.android.NavGraphDirections;
 import com.minipoly.android.R;
+import com.minipoly.android.UserManager;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.Country;
@@ -21,11 +22,13 @@ import com.minipoly.android.entity.Notification;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.ValueFilter;
 import com.minipoly.android.livedata.FireLiveQuery;
+import com.minipoly.android.popup.PopupNew;
 import com.minipoly.android.popup.PopupRealestateFilter;
 import com.minipoly.android.repository.AuctionRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.ui.bars.top_bar.TopBarController;
+import com.minipoly.android.utils.ImageBuffer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +48,7 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
     public CustomRadio priceRadio = new CustomRadio(false, "Low first", "High first ");
     private List<ValueFilter> realestateFilters;
     private PopupRealestateFilter rFilter;
-    public Boolean kind;
+    public MutableLiveData<Boolean> kind = new MutableLiveData<>(false);
 
     public HomeViewModel() {
         rFilter = new PopupRealestateFilter(parmas -> {
@@ -57,10 +60,41 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
         refresh();
     }
 
+    public void showProfile(View view) {
+        NavGraphDirections.ActionGlobalProfile profile =
+                NavGraphDirections.actionGlobalProfile(UserManager.getUserID());
+        Navigation.findNavController(view).navigate(profile);
+    }
+
+    public void showNew(View view) {
+        PopupNew popupNew = new PopupNew(view.getContext(), type -> {
+            NavController navController = Navigation.findNavController(view);
+            switch (type) {
+                case NT_AD:
+                    ImageBuffer.reset();
+                    navController.navigate(R.id.action_global_add_promoted);
+                    break;
+                case NT_AUCTION:
+                    ImageBuffer.reset();
+                    NavGraphDirections.ActionGlobalAddAuction
+                            auction = NavGraphDirections.actionGlobalAddAuction(AuctionRepository.generateAuction(12, 11, null));
+                    navController.navigate(auction);
+                    break;
+                case NT_DEAL:
+                    ImageBuffer.reset();
+                    NavGraphDirections.ActionGlobalAddRealestate
+                            realestate = NavGraphDirections.actionGlobalAddRealestate(RealestateRepository.generateRealestate(5, -7, null));
+                    navController.navigate(realestate);
+                    break;
+            }
+        });
+        Log.e("showNew: ", "id is " + view.getId());
+        popupNew.show(view);
+    }
 
     private List<ValueFilter> generateFilter() {
         ArrayList<ValueFilter> filters = new ArrayList<>();
-        filters.add(new ValueFilter("market", ValueFilter.FilterType.EQUAL, kind));
+        filters.add(new ValueFilter("market", ValueFilter.FilterType.EQUAL, !kind.getValue()));
         if (category.getValue() != null)
             filters.add(new ValueFilter("categoryId", ValueFilter.FilterType.EQUAL, category.getValue().getId()));
         if (subCategory.getValue() != null)
@@ -170,6 +204,7 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
     }
 
     public void showRealestate(Realestate realestate, View view) {
+
         NavGraphDirections.ActionGlobalRealestateDetails action =
                 NavGraphDirections.actionGlobalRealestateDetails(realestate);
         Navigation.findNavController(view).navigate(action);
@@ -177,7 +212,7 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
 
     @Override
     public void onKindChanged(boolean kind) {
-        this.kind = kind;
+        this.kind.setValue(kind);
         refresh();
     }
 

@@ -42,7 +42,6 @@ public class PopupNew extends PopupWindow {
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         showAtLocation(parent, Gravity.NO_GRAVITY, 0, (int) (parent.getY() - getContentView().getMeasuredHeight() - 20));
         float y = parent.getY();
-        int height = getContentView().getMeasuredHeight();
         Log.e("show: ", "showing popup");
     }
 

@@ -2,10 +2,13 @@ package com.minipoly.android.param_managers;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.minipoly.android.R;
 import com.minipoly.android.entity.ComputerInfo;
 import com.minipoly.android.entity.ComputerMisc;
 import com.minipoly.android.entity.CustomRadio;
+import com.minipoly.android.entity.Toe;
 import com.minipoly.android.livedata.FireLiveDocument;
+import com.minipoly.android.num.ToeType;
 import com.minipoly.android.repository.MiscRepository;
 
 import java.util.ArrayList;
@@ -46,6 +49,21 @@ public class ComputerManager {
                 list.add(null);
         }
         return list;
+    }
+
+    public static List<Toe> getToes(ComputerInfo info, ToeType toeType) {
+        ArrayList<Toe> lst = new ArrayList<>();
+        if (info != null) {
+            lst.add(new Toe(info.getScreenSize() + "", R.drawable.ic_screen, toeType));
+            lst.add(new Toe(info.getRam() + " G", R.drawable.ic_ram_pc, toeType));
+            lst.add(new Toe(info.getStorage() + "G", R.drawable.ic_sd_storage, toeType));
+        } else {
+            lst.add(null);
+            lst.add(null);
+            lst.add(null);
+        }
+
+        return lst;
     }
 
 

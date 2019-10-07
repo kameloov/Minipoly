@@ -31,6 +31,7 @@ import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.utils.LocalData;
 import com.minipoly.android.utils.SocialUtils;
 
+import java.util.Date;
 import java.util.List;
 
 public class RealestateDetailsViewModel extends ViewModel {
@@ -44,6 +45,7 @@ public class RealestateDetailsViewModel extends ViewModel {
     public MutableLiveData<Boolean> adding = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> following = new MutableLiveData<>(false);
     public MutableLiveData<Boolean> watching = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> offer = new MutableLiveData<>(false);
     public List<String> tags;
 
     public RealestateDetailsViewModel(Realestate r) {
@@ -53,6 +55,7 @@ public class RealestateDetailsViewModel extends ViewModel {
         like.setValue(false);
         dislike.setValue(false);
         this.relestate.setValue(r);
+        offer.setValue(r.getOfferEnd() != null && r.getOfferEnd().after(new Date()));
         SocialRepository.isFollowing(r.getUserBrief().getId(), (success, data) -> following.setValue(data));
         sync();
         RealestateRepository.isFollowing(relestate.getValue().getId(), (success, data) -> watching.setValue(success && data));
@@ -83,13 +86,19 @@ public class RealestateDetailsViewModel extends ViewModel {
     }
 
     public void doAction(View v) {
-        if (!isAdvrtOwner())
-            order(v);
-        else {
+        if (!isAdvrtOwner()) {
+            RealestateDetailsDirections.ActionRealestateDetailsToMore action =
+                    RealestateDetailsDirections.actionRealestateDetailsToMore(relestate.getValue());
+            Navigation.findNavController(v).navigate(action);
+        } else {
             RealestateDetailsDirections.ActionRealestateDetailsToEditAdvrtDialog action =
                     RealestateDetailsDirections.actionRealestateDetailsToEditAdvrtDialog(relestate.getValue());
             Navigation.findNavController(v).navigate(action);
         }
+    }
+
+    public void showGallery(View view) {
+
     }
 
     public void share(View v) {

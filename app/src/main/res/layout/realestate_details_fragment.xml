@@ -7,6 +7,11 @@
 
     <data>
         <import type="android.view.View" />
+
+        <import type="com.minipoly.android.entity.Toe" />
+
+        <import type="java.util.List" />
+
         <variable
             name="myId"
             type="String" />
@@ -22,6 +27,10 @@
         <variable
             name="arabic"
             type="Boolean" />
+
+        <variable
+            name="lst"
+            type="List&lt;com.minipoly.android.entity.Toe>" />
 
     </data>
 
@@ -45,6 +54,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+        <include
+            android:id="@+id/include26"
+            layout="@layout/toe"
+            toe="@{lst[0]}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{lst[0]==null? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/include24"
+            app:layout_constraintDimensionRatio="h,3:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline84"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/textView191"
             android:layout_width="0dp"
@@ -56,7 +79,6 @@
             android:paddingStart="8dp"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:visibility="@{m.realestate.userBrief.id.equals(myId)?View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintDimensionRatio="3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -64,16 +86,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView188"
             tools:text="@{myId.equals(m.realestate.userBrief.id)? @string/update_realestate : @string/order_deal}" />
 
-        <TextView
-            android:id="@+id/textView190"
+        <include
+            android:id="@+id/include25"
+            layout="@layout/toe"
+            toe="@{lst[2]}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/toe_red_reverse"
-            android:drawableStart="@drawable/ic_bedroom"
-            android:gravity="center"
-            android:paddingStart="8dp"
-            android:text="@{m.realestate.realestateInfo.roomCount+``}"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{lst[2]==null? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/imageView95"
             app:layout_constraintDimensionRatio="h,3:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline84"
@@ -86,7 +106,6 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/toe_red"
-            android:drawableStart="@drawable/ic_like"
             android:onClick="@{(v)->m.share(v)}"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
@@ -103,7 +122,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/toe_red"
-            android:drawableStart="@drawable/ic_like"
+            android:drawableStart="@{m.like == true ? @drawable/ic_like_gold :@drawable/ic_like}"
             android:gravity="center"
             android:onClick="@{()->m.like()}"
             android:paddingStart="8dp"
@@ -143,7 +162,6 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/toe_red"
-            android:drawableStart="@drawable/ic_like"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             app:layout_constraintDimensionRatio="2:1"
@@ -201,6 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/price"
+            android:visibility="@{m.offer==false? View.VISIBLE:View.GONE}"
             android:textColor="@color/gradiant_start"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -272,7 +291,7 @@
             android:id="@+id/textView179"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{m.realestate.price +` `+ m.realestate.currency,default = `500 USD`}"
+            android:text="@{(m.offer? m.realestate.price*m.realestate.offerPercent/100 : m.realestate.price )+` `+ m.realestate.currency,default = `500 USD`}"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView178"
@@ -342,17 +361,15 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.68" />
 
-        <TextView
-            android:id="@+id/textView189"
+        <include
+            android:id="@+id/include24"
+            layout="@layout/toe"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            toe="@{lst[1]}"
+            android:visibility="@{lst[1]==null? View.GONE : View.VISIBLE}"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/toe_red_reverse"
-            android:drawableStart="@drawable/ic_shower"
-            android:gravity="center"
-            android:paddingStart="8dp"
-            android:text="@{m.realestate.realestateInfo.bathroomCount+``}"
-            app:layout_constraintBottom_toTopOf="@+id/textView190"
+            app:layout_constraintBottom_toTopOf="@+id/include25"
             app:layout_constraintDimensionRatio="h,3:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline84"
             app:layout_constraintStart_toStartOf="parent" />
@@ -364,6 +381,76 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.82" />
 
+        <ImageView
+            android:id="@+id/imageView105"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:visibility="@{m.offer? View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/imageView96"
+            app:layout_constraintStart_toEndOf="@+id/textView183"
+            app:layout_constraintTop_toBottomOf="@+id/textView190"
+            app:srcCompat="@drawable/discount_bg" />
+
+        <TextView
+            android:id="@+id/textView190"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView95"
+            app:layout_constraintStart_toStartOf="@+id/guideline84" />
+
+        <TextView
+            android:id="@+id/textView202"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@{m.realestate.offerPercent+` %`,default = `35 %`}"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="@{m.offer? View.VISIBLE:View.GONE}"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView105"
+            app:layout_constraintEnd_toEndOf="@+id/imageView105"
+            app:layout_constraintStart_toStartOf="@+id/imageView105"
+            app:layout_constraintTop_toTopOf="@+id/imageView105" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout26"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="start"
+            android:onClick="@{(v)->m.showGallery(v)}"
+            android:orientation="horizontal"
+            android:paddingEnd="6dp"
+            app:layout_constraintBottom_toTopOf="@+id/include26"
+            app:layout_constraintDimensionRatio="h,3:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline84"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:background="@drawable/toe_white_reverse">
+
+            <ImageView
+                android:id="@+id/imageView100"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="3"
+                app:srcCompat="@drawable/ic_camera" />
+
+            <TextView
+                android:id="@+id/textView192"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@{`1/`+m.realestate.images.size(),default= `1/8`}"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

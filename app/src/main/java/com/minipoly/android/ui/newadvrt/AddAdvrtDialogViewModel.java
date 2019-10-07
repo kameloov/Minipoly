@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.minipoly.android.entity.Category;
+import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.Image;
 import com.minipoly.android.entity.Realestate;
@@ -80,6 +81,16 @@ public class AddAdvrtDialogViewModel extends ViewModel {
 
     public void setRealestate(Realestate realestate) {
         this.realestate.setValue( realestate);
+    }
+
+    public void setLocationData(City city, float lat, float lang) {
+        Realestate r = realestate.getValue();
+        r.setLat(lat);
+        r.setLang(lang);
+        r.setCityId(city.getId());
+        r.setCountryId(city.getCountryId());
+        r.setCityNameAR(city.getNameAr());
+        realestate.setValue(r);
     }
 
     public void addRealestate() {

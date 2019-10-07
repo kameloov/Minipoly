@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.minipoly.android.R;
 import com.minipoly.android.entity.Car;
 import com.minipoly.android.entity.CarInfo;
 import com.minipoly.android.entity.CustomRadio;
 import com.minipoly.android.entity.FilterObject;
+import com.minipoly.android.entity.Toe;
+import com.minipoly.android.num.ToeType;
 import com.minipoly.android.repository.MiscRepository;
 
 import java.util.ArrayList;
@@ -70,6 +73,21 @@ public class CarManager {
                 list.add(null);
         }
         return list;
+    }
+
+    public static List<Toe> getToes(CarInfo info, ToeType toeType) {
+        ArrayList<Toe> lst = new ArrayList<>();
+        if (info != null) {
+            lst.add(new Toe(info.getColor(), R.drawable.ic_color, toeType));
+            lst.add(new Toe(info.getType() + " ", R.drawable.ic_car, toeType));
+            lst.add(new Toe(info.getKilometres() + " Km", R.drawable.ic_kilometers, toeType));
+        } else {
+            lst.add(null);
+            lst.add(null);
+            lst.add(null);
+        }
+
+        return lst;
     }
 
 

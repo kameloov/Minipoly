@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/guideline43"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,12 +36,12 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
+            android:src="@{vm.kindRadio.checked? @color/gradiant_start: @color/blue_gradiant_start,default=@color/blue_gradiant_start}"
             android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline43"
-            app:srcCompat="@color/blue_gradiant_start" />
+            app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline18"
@@ -156,6 +156,7 @@
             android:adjustViewBounds="true"
             android:padding="2dp"
             android:scaleType="centerInside"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView31"
             app:layout_constraintStart_toStartOf="@+id/guideline39"
@@ -170,6 +171,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView31"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="parent"

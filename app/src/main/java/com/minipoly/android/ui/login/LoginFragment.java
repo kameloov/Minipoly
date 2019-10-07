@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,15 +37,17 @@ public class LoginFragment extends RootFragment {
         model = ViewModelProviders.of(this).get(LoginViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setM(model);
-        binding.imgGoogle.setOnClickListener(v -> UserManager.loginGoogle(getActivity()));
-        if (UserManager.isLogged())
-            showMap();
+        binding.imgGoogle.setOnClickListener(v -> {
+            model.loading.setValue(true);
+            UserManager.loginGoogle(getActivity());
+        });
+        attachObservers();
+    }
+
+    private void attachObservers() {
         model.isRegistered().observe(this, aBoolean -> {
             if (aBoolean)
                 showMap();
-            else
-                Toast.makeText(getContext(), "Error logging in ", Toast.LENGTH_SHORT).show();
-
         });
     }
 

@@ -80,7 +80,7 @@
     <string name="message">Message</string>
     <string name="auction_ended">Auction ended</string>
     <string name="used_tag">Used</string>
-
+    <string name="mapbox_token">pk.eyJ1Ijoia2FtZWxvb3YiLCJhIjoiY2swazh0endwMGl1dDNkcXMxcWZnODlnayJ9.5VCEVveo3r2ZnYlyyW9I7g</string>
     <string name="provided_by">Provided by</string>
     <string name="contact_auction_owner">Contact auction owner</string>
     <string name="bidders">Bidders</string>
@@ -171,4 +171,7 @@
     <string name="by">By</string>
     <string name="add_first_bid">Add first bid</string>
     <string name="no_auction">No auctions !!</string>
+    <string name="no_offers">No offers !!</string>
+    <string name="location_error">Error getting location data, please try again</string>
+    <string name="call_owner">Call owner</string>
 </resources>

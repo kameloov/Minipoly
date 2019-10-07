@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.minipoly.android.ui.more_dialog.MoreViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout18"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.more_dialog.More">
+
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            mapbox:layout_constraintDimensionRatio="1.66:1"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toTopOf="parent"
+            mapbox:mapbox_cameraTargetLat="40.73581"
+            mapbox:mapbox_cameraTargetLng="-73.99155"
+            mapbox:mapbox_cameraZoom="11">
+
+        </com.mapbox.mapboxsdk.maps.MapView>
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:minLines="2"
+            android:text="@{vm.realestate.text,default=`deal details here`}"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintHorizontal_bias="0.0"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toBottomOf="@+id/include11" />
+
+        <TextView
+            android:id="@+id/textView206"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:onClick="@{()->vm.toggleVisible()}"
+            android:text="@string/call_owner"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            mapbox:layout_constraintEnd_toEndOf="@+id/mapView"
+            mapbox:layout_constraintStart_toStartOf="@+id/mapView"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <ImageView
+            android:id="@+id/imageView108"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:avatar="@{vm.realestate.userBrief.id}"
+            mapbox:layout_constraintBottom_toBottomOf="@+id/textView206"
+            mapbox:layout_constraintEnd_toEndOf="@+id/textView206"
+            mapbox:layout_constraintTop_toTopOf="@+id/textView206"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <include
+            android:id="@+id/include11"
+            layout="@layout/tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:lst="@{m.tags}"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintHorizontal_bias="0.5"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toBottomOf="@+id/mapView" />
+
+        <ImageView
+            android:id="@+id/imageView109"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{(v)->vm.orderwhats(v)}"
+            android:visibility="@{vm.callVisible? View.VISIBLE:View.INVISIBLE}"
+            app:srcCompat="@drawable/whatsapp"
+            mapbox:layout_constraintEnd_toEndOf="@+id/textView206"
+            mapbox:layout_constraintHorizontal_bias="0.25"
+            mapbox:layout_constraintStart_toStartOf="@+id/textView206"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView206" />
+
+        <ImageView
+            android:id="@+id/imageView110"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{(v)->vm.orderCall(v)}"
+            android:visibility="@{vm.callVisible? View.VISIBLE:View.INVISIBLE}"
+            app:srcCompat="@drawable/ic_call"
+            mapbox:layout_constraintEnd_toEndOf="@+id/textView206"
+            mapbox:layout_constraintHorizontal_bias="0.75"
+            mapbox:layout_constraintStart_toStartOf="@+id/textView206"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView206"
+            mapbox:srcCompat="@drawable/ic_call_blue" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

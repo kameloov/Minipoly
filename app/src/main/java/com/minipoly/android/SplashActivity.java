@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mapbox.mapboxsdk.Mapbox;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -15,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SplashActivity extends AppCompatActivity {
 
     private static final int DELAY_MILLIS = 2000;
-
+    private String token = "pk.eyJ1Ijoia2FtZWxvb3YiLCJhIjoiY2swazh0endwMGl1dDNkcXMxcWZnODlnayJ9.5VCEVveo3r2ZnYlyyW9I7g";
     private final Handler mHideHandler = new Handler();
 
 
@@ -27,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         UserManager.initGoogleSignIn(this);
+        Mapbox.getInstance(getApplicationContext(), token);
         startMainActivity();
     }
 

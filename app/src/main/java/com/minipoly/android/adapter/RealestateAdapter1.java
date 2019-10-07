@@ -11,7 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.databinding.ListItemAdvrt1Binding;
 import com.minipoly.android.entity.Realestate;
+import com.minipoly.android.entity.Toe;
+import com.minipoly.android.num.ToeType;
+import com.minipoly.android.param_managers.CarManager;
+import com.minipoly.android.param_managers.ComputerManager;
+import com.minipoly.android.param_managers.MobileManager;
 import com.minipoly.android.param_managers.RealestateManager;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class RealestateAdapter1 extends ListAdapter<Realestate, RealestateAdapter1.RelestateViewHolder> {
 
@@ -73,8 +82,24 @@ public class RealestateAdapter1 extends ListAdapter<Realestate, RealestateAdapte
             binding.setAd(realestate);
             binding.setArabic(false);
             binding.getRoot().setOnClickListener(this);
-            binding.setLst(RealestateManager.getTags(realestate.getRealestateInfo()));
+            List<Toe> list = new ArrayList<>();
+            ToeType type = isOffer(realestate) ? ToeType.OFFER : ToeType.NORMAL;
+            if (realestate.isMarket()) {
+                if (realestate.getCategoryId().equalsIgnoreCase("car"))
+                    list = CarManager.getToes(realestate.getCarInfo(), type);
+                if (realestate.getCategoryId().equalsIgnoreCase("mobile"))
+                    list = MobileManager.getToes(realestate.getMobileInfo(), type);
+                if (realestate.getCategoryId().equalsIgnoreCase("computer"))
+                    list = ComputerManager.getToes(realestate.getComputerInfo(), type);
 
+            } else
+                list = RealestateManager.getToes(realestate.getRealestateInfo(), type);
+            binding.setLst(list);
+        }
+
+        private boolean isOffer(Realestate r) {
+            Date now = new Date();
+            return r.getOfferEnd() != null && r.getOfferEnd().after(now);
         }
 
         @Override
