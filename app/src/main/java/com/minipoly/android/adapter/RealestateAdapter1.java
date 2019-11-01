@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.minipoly.android.R;
 import com.minipoly.android.databinding.ListItemAdvrt1Binding;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.Toe;
@@ -95,6 +96,14 @@ public class RealestateAdapter1 extends ListAdapter<Realestate, RealestateAdapte
             } else
                 list = RealestateManager.getToes(realestate.getRealestateInfo(), type);
             binding.setLst(list);
+            String red;
+            if (realestate.isMarket())
+                red = binding.getRoot().getContext()
+                        .getString(realestate.isUsed() ? R.string.used_tag : R.string.new_tag);
+            else
+                red = binding.getRoot().getContext()
+                        .getString(realestate.getRealestateInfo().isRent() ? R.string.rent : R.string.sell);
+            binding.setRed(red);
         }
 
         private boolean isOffer(Realestate r) {

@@ -7,6 +7,7 @@ public class Pin {
     protected float zoomMin;
     protected float zoomMax;
     protected String iconUrl;
+    protected String pinTitle;
 
     public Pin() {
     }
@@ -24,6 +25,14 @@ public class Pin {
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public String getPinTitle() {
+        return pinTitle;
+    }
+
+    public void setPinTitle(String pinTitle) {
+        this.pinTitle = pinTitle;
     }
 
     public double getLang() {

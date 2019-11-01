@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
-import com.minipoly.android.HttpService;
 import com.minipoly.android.R;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.City;
@@ -25,7 +24,6 @@ import com.minipoly.android.entity.ValueFilter;
 import com.minipoly.android.livedata.FireLiveQuery;
 import com.minipoly.android.repository.AuctionRepository;
 import com.minipoly.android.repository.CategoryRepository;
-import com.minipoly.android.repository.MiscRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.utils.CardBuilder;
 
@@ -94,13 +92,13 @@ public class MapViewModel extends ViewModel {
     }
 
     public void update() {
-        VisibleRegion region = googleMap.getProjection().getVisibleRegion();
+ /*       VisibleRegion region = googleMap.getProjection().getVisibleRegion();
         float zoom = googleMap.getCameraPosition().zoom;
         if (zoom > 8)
             HttpService.getRealestates(realestates, region.latLngBounds.southwest, region.latLngBounds.northeast,
                     minPrice.getValue(), maxPrice.getValue(), rent.getValue().isChecked(), catgory.getValue());
         else
-            MiscRepository.getCountries(getLongFilter(region), countries);
+            MiscRepository.getCountries(getLongFilter(region), countries);*/
     }
 
     public void setMapAndGeocoder(GoogleMap map, Geocoder geocoder) {

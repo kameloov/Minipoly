@@ -56,7 +56,7 @@
     <string name="follow">Follow</string>
     <string name="following">Following</string>
     <string name="no_messages">No messages yet</string>
-    <string name="order_deal">Order this deal</string>
+    <string name="order_deal">More..</string>
     <string name="kilometers">Kilometers</string>
     <string name="transmission">Transmission</string>
     <string name="select_category">Select category</string>
@@ -166,7 +166,7 @@
     <string name="new_auction">New Auction</string>
     <string name="new_ad">New Advertisement</string>
     <string name="ads">Ads</string>
-    <string name="update_realestate">Update Realestate</string>
+    <string name="update_realestate">Update Item</string>
     <string name="last_price">Last price :</string>
     <string name="by">By</string>
     <string name="add_first_bid">Add first bid</string>
@@ -174,4 +174,12 @@
     <string name="no_offers">No offers !!</string>
     <string name="location_error">Error getting location data, please try again</string>
     <string name="call_owner">Call owner</string>
+    <string name="sales">Sales</string>
+    <string name="average_price">Average price</string>
+    <string name="rent_type">Rent type</string>
+    <string name="yes">Yes</string>
+    <string name="all">All</string>
+    <string name="no">No</string>
+    <string name="search">Search</string>
+    <string name="near_you">Near you</string>
 </resources>

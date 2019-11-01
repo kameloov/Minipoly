@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.CustomRadio;
@@ -19,6 +20,7 @@ import com.minipoly.android.param_managers.RealestateManager;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.utils.ImageBuffer;
 import com.minipoly.android.utils.LocalData;
+import com.minipoly.android.utils.MapUtils;
 
 import java.util.List;
 
@@ -90,6 +92,10 @@ public class AddAdvrtDialogViewModel extends ViewModel {
         r.setCityId(city.getId());
         r.setCountryId(city.getCountryId());
         r.setCityNameAR(city.getNameAr());
+        r.setCityName(city.getName());
+        LatLng latLng = new LatLng(lat, lang);
+        for (int i = 0; i < 10; i++)
+            r.setLevelCoord(i, MapUtils.getCoordinatesString(i, latLng));
         realestate.setValue(r);
     }
 
@@ -104,17 +110,27 @@ public class AddAdvrtDialogViewModel extends ViewModel {
         boolean isMarket = !kindRadio.isChecked();
         r.setMarket(isMarket);
         r.setCategoryId(category.getValue() == null ? null : category.getValue().getId());
-        if (subCategory.getValue() != null)
+        if (category.getValue() != null) {
+            Category c = category.getValue();
+            r.setCategoryId(c.getId());
+            r.setCategoryName(c.getTitle());
+            r.setCategoryNameAr(c.getTitleAr());
+        }
+
+        if (subCategory.getValue() != null) {
             r.setSubCategoryId(subCategory.getValue().getId());
+            r.setSubCatName(subCategory.getValue().getTitle());
+            r.setSubCatNameAr(subCategory.getValue().getTitleAr());
+        }
         if (!isMarket)
             r.setRealestateInfo(realestateManager.getValue().getInfo());
         else {
             String catId = category.getValue() == null ? "" : category.getValue().getId();
-            if (catId.equals("car"))
+            if (catId.equalsIgnoreCase("car"))
                 r.setCarInfo(carManager.getCarInfo());
-            if (catId.equals("computer"))
+            if (catId.equalsIgnoreCase("computer"))
                 r.setComputerInfo(computerManager.getInfo());
-            if (catId.equals("mobile"))
+            if (catId.equalsIgnoreCase("mobile"))
                 r.setMobileInfo(mobileManager.getMobileInfo());
         }
         RealestateRepository.addRealestate(r, (s) -> {

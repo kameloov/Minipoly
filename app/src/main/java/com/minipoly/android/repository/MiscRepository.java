@@ -22,6 +22,7 @@ import java.util.List;
 import static com.minipoly.android.References.cars;
 import static com.minipoly.android.References.computer;
 import static com.minipoly.android.References.countries;
+import static com.minipoly.android.References.db;
 import static com.minipoly.android.References.mobile;
 
 public class MiscRepository {
@@ -94,6 +95,16 @@ public class MiscRepository {
     public static FireLiveQuery<Country> getCountries() {
         return new FireLiveQuery<Country>(countries.orderBy("name").get(), Country.class);
     }
+
+    public static void getCountries(DataListener<List<Country>> listener) {
+        countries.get().addOnCompleteListener(task -> {
+            List<Country> countries = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                countries = task.getResult().toObjects(Country.class);
+            listener.onComplete(task.isSuccessful(), countries);
+        });
+    }
+
     public static void getCountries(ValueFilter<Double> lang, MutableLiveData liveData) {
         Query query = FireStoreUtils.processFilter(countries, lang);
         if (query == null)
@@ -101,6 +112,15 @@ public class MiscRepository {
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null)
                 liveData.setValue(task.getResult().toObjects(Country.class));
+        });
+    }
+
+    public static void getCities(DataListener<List<City>> listener) {
+        db.collectionGroup("city").get().addOnCompleteListener(task -> {
+            List<City> cities = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                cities = task.getResult().toObjects(City.class);
+            listener.onComplete(task.isSuccessful(), cities);
         });
     }
 

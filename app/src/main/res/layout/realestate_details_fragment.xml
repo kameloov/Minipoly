@@ -183,7 +183,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:alpha="0.75"
+            android:alpha="0.85"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline82"
@@ -197,6 +197,7 @@
             android:text="@{m.realestate.realestateInfo.area +` M`,default = `120 M`}"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="@{m.realestate.market? View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/textView178"
             app:layout_constraintEnd_toStartOf="@+id/guideline84"
             app:layout_constraintStart_toStartOf="@+id/imageView95" />
@@ -209,6 +210,7 @@
             android:textColor="@color/gradiant_start"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="@{m.realestate.market? View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/textView179"
             app:layout_constraintEnd_toStartOf="@+id/guideline84"
             app:layout_constraintStart_toStartOf="@+id/imageView95"
@@ -235,7 +237,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/toe_white"
             android:gravity="center"
-            android:text="@{m.realestate.categoryId,default= `Building`}"
+            android:text="@{m.realestate.market ? m.realestate.subCatName : m.realestate.categoryId,default= `Building`}"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/imageView95"
@@ -249,7 +251,7 @@
             android:layout_height="0dp"
             android:background="@drawable/toe_red"
             android:gravity="center"
-            android:text="@{m.realestate.realestateInfo.rent? @string/rent:@string/sell,default=`For sale`}"
+            android:text="@{m.gettype(context),default=`For sale`}"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -295,8 +297,8 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView178"
-            app:layout_constraintEnd_toStartOf="@+id/guideline85"
-            app:layout_constraintStart_toStartOf="@+id/guideline84" />
+            app:layout_constraintEnd_toStartOf="@+id/textView178"
+            app:layout_constraintStart_toEndOf="@+id/textView184" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline83"

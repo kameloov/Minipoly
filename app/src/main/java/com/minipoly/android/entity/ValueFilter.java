@@ -1,5 +1,7 @@
 package com.minipoly.android.entity;
 
+import androidx.annotation.Nullable;
+
 public class ValueFilter<T> {
     public enum FilterType{ EQUAL,EQUAL_GREATER,EQUAL_LESS,GREATER,LESS,RANGE}
 
@@ -19,6 +21,14 @@ public class ValueFilter<T> {
         this.field = field;
         this.type = type;
         this.value1 = value1;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return obj instanceof ValueFilter && ((ValueFilter) obj).value1.equals(this.value1)
+                && ((ValueFilter) obj).value2.equals(this.value2)
+                && ((ValueFilter) obj).field.equals(this.field)
+                && ((ValueFilter) obj).type.equals(this.type);
     }
 
     public String getField() {

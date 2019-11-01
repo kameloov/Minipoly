@@ -13,10 +13,8 @@ import com.minipoly.android.databinding.ListItemCategoryBinding;
 import com.minipoly.android.entity.Category;
 
 public class CategoryAdapter extends ListAdapter<Category, CategoryAdapter.CategoryViewHolder> {
-    public CategoryAdapter() {
-        super(CATEGORY_ITEM_CALLBACK);
-    }
 
+    private ICategorySelect listener;
     private static final DiffUtil.ItemCallback<Category> CATEGORY_ITEM_CALLBACK =
             new DiffUtil.ItemCallback<Category>() {
 
@@ -31,6 +29,10 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryAdapter.Categ
                 }
             };
 
+    public CategoryAdapter(ICategorySelect listener) {
+        super(CATEGORY_ITEM_CALLBACK);
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -45,6 +47,10 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryAdapter.Categ
         categoryViewHolder.bind(getItem(i));
     }
 
+
+    public interface ICategorySelect {
+        void onCategorySelected(Category category);
+    }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ListItemCategoryBinding binding;
@@ -61,7 +67,8 @@ public class CategoryAdapter extends ListAdapter<Category, CategoryAdapter.Categ
 
         @Override
         public void onClick(View v) {
-
+            if (listener != null)
+                listener.onCategorySelected(binding.getC());
         }
     }
 }

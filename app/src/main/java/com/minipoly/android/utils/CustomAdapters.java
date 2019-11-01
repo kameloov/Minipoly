@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
@@ -16,12 +17,15 @@ import com.google.firebase.storage.StorageReference;
 import com.minipoly.android.C;
 import com.minipoly.android.R;
 import com.minipoly.android.StorageManager;
+import com.minipoly.android.adapter.OptionAdapter;
 import com.minipoly.android.entity.Image;
+import com.minipoly.android.entity.Option;
 import com.minipoly.android.num.ToeType;
 import com.minipoly.android.repository.SocialRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class CustomAdapters {
     public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -32,6 +36,7 @@ public class CustomAdapters {
         if (image == null || image.isEmpty()) {
             GlideApp.with(view.getContext()).load(R.drawable.circle)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .fallback(R.drawable.circle)
                     .into(view);
             return;
         }
@@ -42,22 +47,28 @@ public class CustomAdapters {
                 .into(view);
     }
 
+    public static void setAdapter(Spinner spinner, List<Option> list) {
+        if (list == null)
+            return;
+        OptionAdapter adapter = new OptionAdapter(list);
+        spinner.setAdapter(adapter);
+    }
+
     @BindingAdapter("date")
     public static void setDate(TextView textView, Date date) {
-        textView.setText(formatter.format(date));
+        if (date != null)
+            textView.setText(formatter.format(date));
     }
 
     @BindingAdapter("wall")
     public static void setWall(ImageView view, String image) {
-        if (image == null || image.isEmpty()) {
-            GlideApp.with(view.getContext()).load(R.drawable.circle)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(view);
+        if (image == null || image.isEmpty())
             return;
-        }
+
         StorageReference reference = StorageManager.getRoot().child(C.WALLS_FOLDER).child(image);
         GlideApp.with(view.getContext())
-                .load(reference).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+                .load(reference).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(view);
     }
 
     @BindingAdapter("glow")

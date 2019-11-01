@@ -35,7 +35,6 @@ public class RealestateCardDialog extends DialogFragment {
         model.setRealestate(RealestateCardDialogArgs.fromBundle(getArguments()).getRealestate());
         binding.setLifecycleOwner(this);
         binding.setVm(model);
-        // TODO: Use the ViewModel
     }
 
 }

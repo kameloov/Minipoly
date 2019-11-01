@@ -44,6 +44,19 @@ public class RealestateRepository {
         realestates.document(id).set(realestate).addOnCompleteListener(task -> listener.onComplete(task.isSuccessful()));
     }
 
+    public static void setRealestate(Realestate realestate) {
+        realestates.document(realestate.getId()).set(realestate);
+    }
+
+
+    public static void getRealestates(int zoomLevel, String coord, DataListener<List<Realestate>> listener) {
+        realestates.whereEqualTo("l" + zoomLevel, coord).get().addOnCompleteListener(task -> {
+            List<Realestate> realestates = null;
+            if (task.isSuccessful() && task.getResult() != null)
+                realestates = task.getResult().toObjects(Realestate.class);
+            listener.onComplete(task.isSuccessful(), realestates);
+        });
+    }
 
     public static void getRealestates(List<ValueFilter> filters, DataListener<List<Realestate>> listener) {
         Query query = FireStoreUtils.buildQuery(realestates, filters);

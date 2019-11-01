@@ -6,13 +6,13 @@
     <color name="primaryText">#8C0505</color>
     <color name="priceText">#F44336</color>
     <color name="border">#0F0F0F</color>
-    <color name="white">#F1EAEA</color>
+    <color name="white">#F8F2F2</color>
     <color name="country_bg">#5C58D1</color>
     <color name="edit_bg">#DFDFDFDF</color>
     <color name="editborder">#DEDEDE</color>
     <color name="line_color">#302F2F</color>
     <color name="gray">#7A7A7A</color>
-    <color name="transparent">#00FFFFFF</color>
+    <color name="transparent">#00FFFEFE</color>
     <color name="gradiant_start">#FF4D4D</color>
     <color name="image_frame">#FA2C2C</color>
     <color name="gradiant_end">#990000</color>
@@ -20,6 +20,7 @@
     <color name="green">#7CB342</color>
     <color name="text_secondary">#A7A7A7</color>
     <color name="black_transparent">#99000000</color>
+    <color name="shadow">#40000000</color>
     <color name="bidders_bg_color">#E4000000</color>
     <color name="tag_bg_blue">#2C7EED</color>
     <color name="text_blue">#2C7EED</color>

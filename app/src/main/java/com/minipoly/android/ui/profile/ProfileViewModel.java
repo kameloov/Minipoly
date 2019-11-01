@@ -1,10 +1,13 @@
 package com.minipoly.android.ui.profile;
 
 import android.util.Log;
+import android.view.View;
 
 import androidx.databinding.Observable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.github.mikephil.charting.data.PieEntry;
 import com.minipoly.android.entity.CustomRadio;
@@ -43,6 +46,11 @@ public class ProfileViewModel extends ViewModel {
                 fillChart(data);
             }
         });
+    }
+
+    public void edit(View v) {
+        NavDirections directions = ProfileFragmentDirections.actionUserProfileFragmentToEditProfileFragment();
+        Navigation.findNavController(v).navigate(directions);
     }
 
     private void fillChart(List<Realestate> ads) {

@@ -81,6 +81,17 @@ public class RealestateDetailsViewModel extends ViewModel {
         });*/
     }
 
+
+    public String gettype(Context c) {
+        String red;
+        Realestate realestate = this.relestate.getValue();
+        if (realestate.isMarket())
+            red = c.getString(realestate.isUsed() ? R.string.used_tag : R.string.new_tag);
+        else
+            red = c.getString(realestate.getRealestateInfo().isRent() ? R.string.rent : R.string.sell);
+        return red;
+    }
+
     public boolean isAdvrtOwner() {
         return relestate.getValue().getUserBrief().getId().equals(UserRepository.getUserId());
     }

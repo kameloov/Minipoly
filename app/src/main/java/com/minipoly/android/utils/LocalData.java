@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.User;
 
@@ -17,6 +18,7 @@ public class LocalData {
     private static final String CONTACT_INFO = "CONTACT_INFO";
     private static final String DEVICE_TOKEN = "DEVICE_TOKEN";
     private static final String CATEGORIES = "CATEGORIES";
+    private static final String LOCATION = "LOCATION";
     private static Gson gson = new Gson();
     private static Context context;
 
@@ -61,6 +63,14 @@ public class LocalData {
 
     public static void saveUserInfo(User user) {
         save(LOGIN_INFO, user);
+    }
+
+    public static void saveLocation(LatLng latLng) {
+        save(LOCATION, latLng);
+    }
+
+    public static LatLng getLocation() {
+        return load(LatLng.class, LOCATION);
     }
 
     public static void logout() {

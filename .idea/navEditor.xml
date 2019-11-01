@@ -220,8 +220,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2419" />
-                            <option name="y" value="-1035" />
+                            <option name="x" value="-2483" />
+                            <option name="y" value="-1043" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -232,6 +232,11 @@
                               </value>
                             </entry>
                             <entry key="action_homeFragment_to_editProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_realestateFilterFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -381,6 +386,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="realestateFilterFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1526" />
+                            <option name="y" value="-1866" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

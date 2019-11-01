@@ -44,7 +44,6 @@ public class CommentAdapter extends ListAdapter<Comment, CommentAdapter.CommentH
     public CommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ListItemCommentBinding binding = ListItemCommentBinding.inflate(inflater);
-        binding.setLifecycleOwner(owner);
         return new CommentHolder(binding);
     }
 

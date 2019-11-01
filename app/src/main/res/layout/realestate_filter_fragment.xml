@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.minipoly.android.ui.filters.realestate.RealestateFilterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout19"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.filters.realestate.RealestateFilterFragment">
+
+        <Switch
+            android:id="@+id/switch14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            mapbox:layout_constraintStart_toStartOf="@+id/guideline98"
+            mapbox:layout_constraintTop_toTopOf="@+id/textView212" />
+
+        <Switch
+            android:id="@+id/switch12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:checked="@={vm.filter.monthly}"
+            android:text="@string/monthly_rent"
+            android:textSize="14sp"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintStart_toStartOf="@+id/switch14"
+            mapbox:layout_constraintTop_toBottomOf="@+id/switch14" />
+
+        <TextView
+            android:id="@+id/textView215"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{vm.filter.rooms+``}"
+            mapbox:layout_constraintBottom_toBottomOf="@+id/linearLayout29"
+            mapbox:layout_constraintStart_toEndOf="@+id/linearLayout30"
+            mapbox:layout_constraintTop_toTopOf="@+id/linearLayout29"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/textView213"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/bathroom_count"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toBottomOf="@+id/linearLayout29" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout30"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_counter"
+            android:gravity="center"
+            android:orientation="horizontal"
+            mapbox:layout_constraintDimensionRatio="w,3:1"
+            mapbox:layout_constraintStart_toStartOf="@+id/textView213"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView213">
+
+            <TextView
+                android:id="@+id/textView216"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->vm.changeBathrooms(1)}"
+                android:text="+"
+                android:textColor="@color/blue_gradiant_start"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView217"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="|" />
+
+            <TextView
+                android:id="@+id/textView218"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->vm.changeBathrooms(-1)}"
+                android:text="-"
+                android:textColor="@color/image_frame"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/include9"
+            layout="@layout/radios_sm"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="parent"
+            app:radio="@{vm.rent}"
+            mapbox:layout_constraintEnd_toStartOf="@+id/guideline98"
+            mapbox:layout_constraintTop_toBottomOf="@+id/lstCategory" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstCategory"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapView" />
+
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintDimensionRatio="1.5:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            mapbox:mapbox_cameraTargetLat="30.73581"
+            mapbox:mapbox_cameraTargetLng="30.99155"
+            mapbox:mapbox_cameraZoom="7" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline98"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            mapbox:layout_constraintGuide_percent="0.5" />
+
+        <Spinner
+            android:id="@+id/spinner9"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintStart_toStartOf="@+id/guideline98"
+            mapbox:layout_constraintTop_toTopOf="@+id/include9" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintHorizontal_bias="0.5"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView208" />
+
+        <TextView
+            android:id="@+id/textView208"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/average_price"
+            mapbox:layout_constraintStart_toStartOf="@+id/include9"
+            mapbox:layout_constraintTop_toBottomOf="@+id/include9" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout29"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_counter"
+            android:gravity="center"
+            android:orientation="horizontal"
+            mapbox:layout_constraintDimensionRatio="w,3:1"
+            mapbox:layout_constraintStart_toStartOf="@+id/textView212"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView212">
+
+            <TextView
+                android:id="@+id/textView209"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->vm.changeRooms(1)}"
+                android:text="+"
+                android:textColor="@color/blue_gradiant_start"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView210"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="|" />
+
+            <TextView
+                android:id="@+id/textView211"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->vm.changeRooms(-1)}"
+                android:text="-"
+                android:textColor="@color/image_frame"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView212"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/room_count"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            mapbox:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+        <TextView
+            android:id="@+id/textView214"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{vm.filter.bathrooms+``}"
+            mapbox:layout_constraintBottom_toBottomOf="@+id/linearLayout30"
+            mapbox:layout_constraintStart_toEndOf="@+id/linearLayout30"
+            mapbox:layout_constraintTop_toTopOf="@+id/linearLayout30"
+            tools:text="2" />
+
+        <Switch
+            android:id="@+id/switch11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:checked="@={vm.filter.yearly}"
+            android:text="@string/yearly_rent"
+            android:textSize="14sp"
+            mapbox:layout_constraintEnd_toEndOf="@+id/switch12"
+            mapbox:layout_constraintStart_toStartOf="@+id/switch12"
+            mapbox:layout_constraintTop_toBottomOf="@+id/switch12" />
+
+        <TextView
+            android:id="@+id/textView164"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/rent_type"
+            android:textStyle="bold"
+            mapbox:layout_constraintBottom_toBottomOf="@+id/switch14"
+            mapbox:layout_constraintStart_toEndOf="@+id/switch14"
+            mapbox:layout_constraintTop_toTopOf="@+id/switch14" />
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintStart_toStartOf="@+id/guideline98"
+            mapbox:layout_constraintTop_toBottomOf="@+id/textView165">
+
+            <RadioButton
+                android:id="@+id/radioButton10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_sharp"
+                android:button="@null"
+                android:checked="@={vm.filter.furnishedStatus,default = true}"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="@string/all"
+                android:textColor="@drawable/radio_text_color" />
+
+            <RadioButton
+                android:id="@+id/radioButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_sharp"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:onClick="@{(v)->vm.setfurnished(true)}"
+                android:padding="6dp"
+                android:text="@string/yes"
+                android:textColor="@drawable/radio_text_color" />
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radio_sharp"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="@{(v)->vm.setfurnished(false)}"
+                android:padding="6dp"
+                android:text="@string/no"
+                android:textColor="@drawable/radio_text_color" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView165"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/furnished"
+            mapbox:layout_constraintStart_toStartOf="@+id/guideline98"
+            mapbox:layout_constraintTop_toBottomOf="@+id/switch11" />
+
+        <TextView
+            android:id="@+id/textView201"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_button_rect"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/search"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            mapbox:layout_constraintBottom_toBottomOf="parent"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintHorizontal_bias="0.5"
+            mapbox:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

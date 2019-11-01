@@ -54,18 +54,19 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
+                android:background="#E2E2E2"
                 android:scaleType="centerCrop"
+                android:src="@drawable/splash"
                 app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:wall="@{vm.user.id}"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                app:wall="@{vm.user.id}" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:visibility="@{vm.chartData.size()>0 ? View.VISIBLE : View.GONE}"
@@ -89,17 +90,6 @@
 
             </FrameLayout>
 
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.448"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_container" />
-
             <TextView
                 android:id="@+id/textView116"
                 android:layout_width="60dp"
@@ -109,12 +99,10 @@
 
             <ImageView
                 android:id="@+id/imageView60"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:adjustViewBounds="true"
                 app:avatar="@{vm.user.id}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView116"
@@ -131,10 +119,10 @@
                 android:text="@{vm.user.name}"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView60" />
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toBottomOf="@+id/imageView60"
+                tools:text="User name " />
 
             <ImageView
                 android:id="@+id/imageView61"
@@ -142,7 +130,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="8dp"
                 android:adjustViewBounds="true"
-                app:layout_constraintStart_toStartOf="@+id/textView117"
+                app:layout_constraintStart_toStartOf="@+id/imageView112"
                 app:layout_constraintTop_toBottomOf="@+id/textView117"
                 app:srcCompat="@mipmap/star5"
                 app:stars="@{vm.user.stars}" />
@@ -152,8 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:text="@{`(`+vm.user.dealCount+`)deals`}"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView61"
                 app:layout_constraintStart_toEndOf="@+id/imageView61"
                 app:layout_constraintTop_toTopOf="@+id/imageView61" />
@@ -185,6 +173,17 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView119"
                 app:radio="@{vm.radio}" />
+
+            <ImageView
+                android:id="@+id/imageView112"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{(v)->vm.edit(v)}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView117"
+                app:layout_constraintEnd_toStartOf="@+id/textView117"
+                app:layout_constraintTop_toTopOf="@+id/textView117"
+                app:srcCompat="@drawable/ic_edit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -32,8 +32,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:wall="@{m.user.id}"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:srcCompat="@drawable/splash"
+            app:wall="@{m.user.id}" />
 
         <TextView
             android:id="@+id/textView52"
@@ -157,20 +157,6 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/edit_profile"
-            android:textColor="@color/line_color"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/textView43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -190,7 +176,7 @@
             android:id="@+id/editText6"
             android:layout_width="0dp"
             android:layout_height="36dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
@@ -204,7 +190,7 @@
             android:id="@+id/editText7"
             android:layout_width="0dp"
             android:layout_height="36dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
@@ -219,7 +205,7 @@
             android:id="@+id/editText8"
             android:layout_width="0dp"
             android:layout_height="36dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
@@ -234,7 +220,7 @@
             android:id="@+id/editText9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/edit_text"
             android:ems="10"
@@ -302,7 +288,7 @@
             android:id="@+id/textView54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/upload_error"
             android:textColor="@color/colorAccent"
             android:textSize="12sp"
@@ -332,12 +318,11 @@
 
         <ImageView
             android:id="@+id/imageView17"
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
             android:visibility="@{m.user.picture.length()==0? View.VISIBLE:View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
             app:layout_constraintEnd_toStartOf="@+id/guideline27"
@@ -354,10 +339,10 @@
 
         <ImageView
             android:id="@+id/imageView59"
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:adjustViewBounds="true"
             app:layout_constraintBottom_toTopOf="@+id/guideline67"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_camera" />

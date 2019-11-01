@@ -17,20 +17,22 @@
         android:id="@+id/frameLayout18"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/more_bg"
+        android:paddingBottom="16dp"
         tools:context=".ui.more_dialog.More">
 
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            mapbox:layout_constraintDimensionRatio="1.66:1"
-            mapbox:layout_constraintEnd_toEndOf="parent"
-            mapbox:layout_constraintStart_toStartOf="parent"
-            mapbox:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:0.6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             mapbox:mapbox_cameraTargetLat="40.73581"
             mapbox:mapbox_cameraTargetLng="-73.99155"
             mapbox:mapbox_cameraZoom="11">
@@ -88,7 +90,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:lst="@{m.tags}"
+            app:lst="@{vm.tags}"
             mapbox:layout_constraintEnd_toEndOf="parent"
             mapbox:layout_constraintHorizontal_bias="0.5"
             mapbox:layout_constraintStart_toStartOf="parent"
@@ -96,32 +98,40 @@
 
         <ImageView
             android:id="@+id/imageView109"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:adjustViewBounds="true"
+            android:background="@drawable/button"
             android:onClick="@{(v)->vm.orderwhats(v)}"
-            android:visibility="@{vm.callVisible? View.VISIBLE:View.INVISIBLE}"
-            app:srcCompat="@drawable/whatsapp"
-            mapbox:layout_constraintEnd_toEndOf="@+id/textView206"
-            mapbox:layout_constraintHorizontal_bias="0.25"
-            mapbox:layout_constraintStart_toStartOf="@+id/textView206"
-            mapbox:layout_constraintTop_toBottomOf="@+id/textView206" />
+            android:padding="8dp"
+            android:visibility="@{vm.callVisible? View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline94"
+            app:layout_constraintTop_toBottomOf="@+id/textView206"
+            app:srcCompat="@drawable/whatsapp" />
 
         <ImageView
             android:id="@+id/imageView110"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
+            android:background="@drawable/button"
             android:onClick="@{(v)->vm.orderCall(v)}"
-            android:visibility="@{vm.callVisible? View.VISIBLE:View.INVISIBLE}"
-            app:srcCompat="@drawable/ic_call"
-            mapbox:layout_constraintEnd_toEndOf="@+id/textView206"
-            mapbox:layout_constraintHorizontal_bias="0.75"
-            mapbox:layout_constraintStart_toStartOf="@+id/textView206"
-            mapbox:layout_constraintTop_toBottomOf="@+id/textView206"
-            mapbox:srcCompat="@drawable/ic_call_blue" />
+            android:padding="8dp"
+            android:visibility="@{vm.callVisible? View.VISIBLE:View.GONE}"
+            app:layout_constraintStart_toStartOf="@+id/guideline94"
+            app:layout_constraintTop_toBottomOf="@+id/textView206"
+            app:srcCompat="@drawable/ic_call_blue" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline94"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

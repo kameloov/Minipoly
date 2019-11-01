@@ -36,7 +36,9 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@{vm.kindRadio.checked? @color/gradiant_start: @color/blue_gradiant_start,default=@color/blue_gradiant_start}"
+            android:background="@color/line_color"
+            android:paddingTop="1dp"
+            android:src="@color/white"
             android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,14 +119,14 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline39"
             app:layout_constraintStart_toStartOf="@+id/guideline41"
             app:layout_constraintTop_toTopOf="@+id/imageView31"
-            tools:srcCompat="@drawable/ic_auction_selected" />
+            tools:srcCompat="@drawable/ic_auction_normal" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.92" />
+            app:layout_constraintGuide_percent="0.93" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -168,9 +170,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView31"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"

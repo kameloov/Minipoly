@@ -20,9 +20,9 @@ public class ActivityViewModel extends ViewModel {
 
     private MutableLiveData<Integer> section = new MutableLiveData<>();
     private MutableLiveData<Boolean> sectionsVisible = new MutableLiveData<>();
-    private NavController navController;
+    public static CustomRadio kindRadio = new CustomRadio(true, "Realestate", "Market");
     private static ArrayList<IKindListener> listeners = new ArrayList<>();
-    public CustomRadio kindRadio = new CustomRadio(false, "Realestate", "Market");
+    private static NavController navController;
 
     public ActivityViewModel() {
 
@@ -48,9 +48,12 @@ public class ActivityViewModel extends ViewModel {
 
     }
 
+    public static NavController getNavController() {
+        return navController;
+    }
 
-    public static void addKindListener(IKindListener listener) {
-        listeners.add(listener);
+    public void setNavController(NavController navController) {
+        ActivityViewModel.navController = navController;
     }
 
     public static void removeKindListener(IKindListener listener) {
@@ -64,8 +67,10 @@ public class ActivityViewModel extends ViewModel {
         }
     }
 
-    public void setNavController(NavController navController) {
-        this.navController = navController;
+    public static void addKindListener(IKindListener listener) {
+        if (!listeners.contains(listener))
+            listeners.add(listener);
+        listener.onKindChanged(kindRadio.isChecked());
     }
 
     public void showSections() {
@@ -84,7 +89,6 @@ public class ActivityViewModel extends ViewModel {
         UserRepository.addUser(user, success -> LocalData.saveUserInfo(user));
     }
 
-
     private void refresh(View v) {
         int index = section.getValue();
         switch (index) {
@@ -95,7 +99,7 @@ public class ActivityViewModel extends ViewModel {
                 navController.navigate(R.id.auctionsFragment);
                 break;
             case -2:
-                navController.navigate(R.id.editProfileFragment);
+                // navController.navigate(R.id.editProfileFragment);
                 break;
 
 

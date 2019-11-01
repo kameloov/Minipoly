@@ -25,7 +25,7 @@
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
             app:avatar="@{r.userBrief.id}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView54"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView111"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView54"
             app:srcCompat="@drawable/circle" />
@@ -37,14 +37,16 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/reply"
             android:gravity="center_horizontal|top"
-            android:minLines="2"
-            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
             android:text="@{r.text}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView24"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Reply text goes here in this are ,this is a test reply to find out " />
 
         <TextView
             android:id="@+id/textView84"
@@ -62,14 +64,24 @@
         <TextView
             android:id="@+id/textView204"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="2dp"
             android:textSize="8sp"
             app:date="@{r.date}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView54"
             app:layout_constraintEnd_toEndOf="@+id/textView54"
+            app:layout_constraintTop_toBottomOf="@+id/textView54"
             tools:text="12/11/2018 13:20" />
+
+        <ImageView
+            android:id="@+id/imageView111"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/textView204"
+            app:layout_constraintEnd_toEndOf="@+id/textView54"
+            app:layout_constraintStart_toEndOf="@+id/imageView24"
+            app:layout_constraintTop_toTopOf="@+id/textView54"
+            app:srcCompat="@drawable/ic_reply_bg" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

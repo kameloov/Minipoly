@@ -25,6 +25,10 @@
         <variable
             name="lst"
             type="List&lt;com.minipoly.android.entity.Toe>" />
+
+        <variable
+            name="red"
+            type="String" />
     </data>
 
 
@@ -97,7 +101,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/toe_white"
             android:gravity="center"
-            android:text="@{ad.categoryId,default= `Building`}"
+            android:text="@{ad.market? ad.subCatName: ad.categoryId,default= `Building`}"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/imageView95"
@@ -111,7 +115,7 @@
             android:layout_height="0dp"
             android:background="@drawable/toe_red"
             android:gravity="center"
-            android:text="@{ad.realestateInfo.rent? @string/rent:@string/sell,default=`For sale`}"
+            android:text="@{red,default=`For sale`}"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"

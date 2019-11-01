@@ -1,6 +1,7 @@
 package com.minipoly.android.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mapbox.android.gestures.MoveGestureDetector;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
+import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager;
 import com.minipoly.android.R;
 import com.minipoly.android.RootFragment;
 import com.minipoly.android.adapter.NotificationAdapter;
@@ -28,6 +35,10 @@ public class HomeFragment extends RootFragment {
     private RealestateAdapter1 adapter = new RealestateAdapter1();
     private HomeFragmentBinding binding;
     private NotificationAdapter notificationAdapter;
+    private MapView mapView;
+    private MapboxMap mapboxMap;
+    private MarkerViewManager markerViewManager;
+
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -43,14 +54,48 @@ public class HomeFragment extends RootFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        model = ViewModelProviders.of(this).get(HomeViewModel.class);
+        model = ViewModelProviders.of(this, new HomeViewModelFactory(binding.getRoot())).get(HomeViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setVm(model);
         binding.load.setVisibility(View.INVISIBLE);
+        mapView = binding.mapView;
+        mapView.onCreate(savedInstanceState);
         showNav();
+        prepareMap();
         prepareAdapter();
         prepareNotificationAdapter();
         attachObservers();
+    }
+
+
+    private void prepareMap() {
+        mapView.getMapAsync(mapboxMap -> mapboxMap.setStyle(Style.MAPBOX_STREETS, style -> {
+            this.mapboxMap = mapboxMap;
+            markerViewManager = new MarkerViewManager(mapView, mapboxMap);
+            model.setMarkerManger(markerViewManager);
+            model.setSymbolManager(new SymbolManager(mapView, mapboxMap, style, null));
+
+            mapboxMap.addOnMoveListener(new MapboxMap.OnMoveListener() {
+                @Override
+                public void onMoveBegin(@NonNull MoveGestureDetector detector) {
+
+                }
+
+                @Override
+                public void onMove(@NonNull MoveGestureDetector detector) {
+
+                }
+
+                @Override
+                public void onMoveEnd(@NonNull MoveGestureDetector detector) {
+                    Log.e("map", "idle");
+                    LayoutInflater inflater = getLayoutInflater();
+
+                    if (model.map.getValue())
+                        model.updateRegion(mapboxMap.getProjection().getVisibleRegion().latLngBounds, inflater);
+                }
+            });
+        }));
     }
 
     private void attachObservers() {
@@ -67,8 +112,11 @@ public class HomeFragment extends RootFragment {
 
         model.getRealestates().observe(this, realestates -> {
             binding.load.clearAnimation();
+            model.clearMarkers();
             binding.load.setVisibility(View.INVISIBLE);
             adapter.submitList(realestates);
+            model.addRealestateMarkers(getLayoutInflater());
+
 
         });
 
@@ -79,12 +127,17 @@ public class HomeFragment extends RootFragment {
             }
         });
 
-        model.kind.observe(this, aBoolean -> playAnimation());
+        model.kind.observe(this, aBoolean -> {
+            playAnimation();
+            model.realestateFilter.setMarket(aBoolean);
+        });
     }
 
     private void playAnimation() {
-        Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
-        binding.load.startAnimation(a);
+        if (model.getLoading().getValue()) {
+            Animation a = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+            binding.load.startAnimation(a);
+        }
     }
 
 
@@ -112,9 +165,50 @@ public class HomeFragment extends RootFragment {
                 model.hideBar();
             }
         });
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 1);
-//        binding.topBar.lstNotification.setLayoutManager(manager);
-//        binding.topBar.lstNotification.setAdapter(notificationAdapter);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        binding.mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        binding.mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding.mapView.onDestroy();
+        model.manager.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        binding.mapView.onSaveInstanceState(outState);
+    }
+
 
 }

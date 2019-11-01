@@ -11,6 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.Style;
+import com.minipoly.android.R;
 import com.minipoly.android.databinding.MoreFragmentBinding;
 import com.minipoly.android.entity.Realestate;
 
@@ -24,9 +30,16 @@ public class More extends DialogFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.Theme_Dialog);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         binding = MoreFragmentBinding.inflate(inflater);
         return binding.getRoot();
     }
@@ -38,10 +51,22 @@ public class More extends DialogFragment {
         model = ViewModelProviders.of(this, new MoreModelFactory(realestate)).get(MoreViewModel.class);
         binding.setLifecycleOwner(this);
         binding.setVm(model);
+        Mapbox.getInstance(getActivity(), getString(R.string.mapbox_token));
         binding.mapView.onCreate(savedInstanceState);
-        binding.mapView.getMapAsync(model);
-    }
+        binding.mapView.getMapAsync(mapboxMap -> mapboxMap.setStyle(Style.MAPBOX_STREETS, style -> {
+         /*   SymbolManager manager = new SymbolManager(binding.mapView,mapboxMap,style);
+            FeatureCollection collection = FeatureCollection.fromFeature(Feature.fromGeometry(
+                    Point.fromLngLat(realestate.getLat(), realestate.getLang())));
+            manager.create(collection);*/
 
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(new LatLng(realestate.getLat(), realestate.getLang()))
+                    .zoom(5)
+                    .build();
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+
+        }));
+    }
 
     @Override
     public void onStart() {

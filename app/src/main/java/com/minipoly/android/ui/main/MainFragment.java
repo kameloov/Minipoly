@@ -29,7 +29,8 @@ public class MainFragment extends Fragment {
     private   MainFragmentBinding binding;
     private int SELECT_IMAGE = 1000;
     private boolean afterKITKAT = Build.VERSION.SDK_INT > 19;
-    private CategoryAdapter adapter = new CategoryAdapter();
+    private CategoryAdapter adapter = new CategoryAdapter(category -> {
+    });
 
     public static MainFragment newInstance() {
         return new MainFragment();

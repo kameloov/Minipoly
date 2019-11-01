@@ -53,7 +53,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
     private void prepareAdapter() {
-        adapter = new CategoryAdapter();
+        adapter = new CategoryAdapter(category -> {
+        });
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
         binding.lstCategory.setLayoutManager(manager);
         binding.lstCategory.setAdapter(adapter);

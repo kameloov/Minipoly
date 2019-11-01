@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minipoly.android.R;
@@ -88,7 +88,7 @@ public class AuctionDetails extends RootFragment {
 
 
     private void prepareCommentsAdapter() {
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 1);
         binding.lstComments.setLayoutManager(manager);
         binding.lstComments.setAdapter(commentAdapter);
     }

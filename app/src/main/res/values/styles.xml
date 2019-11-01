@@ -18,6 +18,11 @@
         <item name="android:spinnerDropDownItemStyle">@style/MySpinnerLook</item>
     </style>
 
+    <style name="Card">
+        <item name="android:windowEnterAnimation">@anim/card_in</item>
+        <item name="android:windowExitAnimation">@anim/card_out</item>
+    </style>
+
     <style name="MySpinnerLook" parent="@android:style/Widget.TextView.SpinnerItem">
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">center</item>

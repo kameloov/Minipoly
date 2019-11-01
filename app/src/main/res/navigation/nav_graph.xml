@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.minipoly.android.ui.map.MapFragment"
@@ -69,6 +69,9 @@
         <action
             android:id="@+id/auction_end"
             app:destination="@id/auctionEndFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_realestateFilterFragment"
+            app:destination="@id/realestateFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/realestateDetails"
@@ -265,6 +268,14 @@
             android:name="realestate"
             app:argType="com.minipoly.android.entity.Realestate" />
     </dialog>
+    <fragment
+        android:id="@+id/realestateFilterFragment"
+        android:name="com.minipoly.android.ui.filters.realestate.RealestateFilterFragment"
+        android:label="RealestateFilterFragment">
+        <argument
+            android:name="filter"
+            app:argType="com.minipoly.android.filters.RealestateFilter" />
+    </fragment>
 
 
 </navigation>
