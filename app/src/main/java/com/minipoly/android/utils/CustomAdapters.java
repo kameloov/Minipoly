@@ -47,6 +47,7 @@ public class CustomAdapters {
                 .into(view);
     }
 
+
     public static void setAdapter(Spinner spinner, List<Option> list) {
         if (list == null)
             return;
@@ -164,7 +165,7 @@ public class CustomAdapters {
     }
 
     @BindingAdapter("social")
-    public static void setSocial(TextView textView, int value) {
+    public static void setSocial(TextView textView, float value) {
         String s = String.valueOf(value);
         if (value >= 1000)
             s = value / 1000.0f + " K";

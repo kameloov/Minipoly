@@ -2,19 +2,22 @@ package com.minipoly.android.repository;
 
 import android.location.Geocoder;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.minipoly.android.C;
 import com.minipoly.android.CompleteListener;
 import com.minipoly.android.DataListener;
+import com.minipoly.android.UserManager;
 import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.entity.UserBrief;
-import com.minipoly.android.entity.ValueFilter;
-import com.minipoly.android.utils.FireStoreUtils;
 import com.minipoly.android.utils.LocalData;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,28 +52,44 @@ public class RealestateRepository {
     }
 
 
-    public static void getRealestates(int zoomLevel, String coord, DataListener<List<Realestate>> listener) {
-        realestates.whereEqualTo("l" + zoomLevel, coord).get().addOnCompleteListener(task -> {
-            List<Realestate> realestates = null;
+    public static void search(List<String> tags, DataListener<List<Realestate>> listener) {
+        if (tags == null || tags.size() == 0)
+            listener.onComplete(false, null);
+        Query q = realestates;
+        for (String tag : tags)
+            q = q.whereEqualTo("tags." + tag, true);
+
+        q.get().addOnCompleteListener(task -> {
+            List<Realestate> realestates = new ArrayList<>();
             if (task.isSuccessful() && task.getResult() != null)
                 realestates = task.getResult().toObjects(Realestate.class);
             listener.onComplete(task.isSuccessful(), realestates);
         });
     }
 
-    public static void getRealestates(List<ValueFilter> filters, DataListener<List<Realestate>> listener) {
-        Query query = FireStoreUtils.buildQuery(realestates, filters);
-        if (query == null)
-            query = users;
-        query.orderBy("publishDate", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
-            List<Realestate> realestates = null;
-            if (task.isSuccessful() && task.getResult() != null)
-                realestates = task.getResult().toObjects(Realestate.class);
-            listener.onComplete(task.isSuccessful(), realestates);
+    public static void getFollowingAds(DataListener<List<Realestate>> listener) {
+        String userId = UserManager.getUserID();
+        SocialRepository.getFollowing(userId, (success, data) -> {
+            if (success && data != null) {
+                List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+                for (UserBrief user : data) {
+                    Task t = realestates.whereEqualTo("userBrief.id", user.getId()).get();
+                    tasks.add(t);
+                }
+                Tasks.whenAllComplete(tasks).addOnCompleteListener(task -> {
+                    List<Realestate> realestates = new ArrayList<>();
+                    if (task.isSuccessful() && task.getResult() != null)
+                        for (Task t : task.getResult())
+                            if (t.isSuccessful() && t.getResult() != null)
+                                realestates.addAll(((QuerySnapshot) t.getResult()).toObjects(Realestate.class));
+                    listener.onComplete(task.isSuccessful(), realestates);
+                });
+
+            } else
+                listener.onComplete(true, null);
 
         });
     }
-
 
     public static void follow(String id, CompleteListener listener) {
         UserBrief brief = new UserBrief(LocalData.getUserInfo());

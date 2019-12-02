@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.minipoly.android.CompleteListener;
 import com.minipoly.android.entity.Category;
 import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.CustomRadio;
@@ -21,7 +22,9 @@ import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.utils.ImageBuffer;
 import com.minipoly.android.utils.LocalData;
 import com.minipoly.android.utils.MapUtils;
+import com.minipoly.android.utils.SearchUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class AddAdvrtDialogViewModel extends ViewModel {
@@ -133,10 +136,26 @@ public class AddAdvrtDialogViewModel extends ViewModel {
             if (catId.equalsIgnoreCase("mobile"))
                 r.setMobileInfo(mobileManager.getMobileInfo());
         }
-        RealestateRepository.addRealestate(r, (s) -> {
+        setTags(r, success1 -> RealestateRepository.addRealestate(r, (s) -> {
             success.setValue(s);
             ImageBuffer.reset();
             Log.e("add", "addRealestate: " + s);
+        }));
+    }
+
+
+    private void setTags(Realestate r, CompleteListener listener) {
+        List<String> words = Realestate.getWords(r);
+        SearchUtils.getTagIds(words, (success1, data1) -> {
+            if (data1 != null) {
+                HashMap<String, Boolean> map = new HashMap<>();
+                for (String id : data1)
+                    map.put(id, true);
+                r.setTags(map);
+                Log.e("tags", "tags size " + map.size());
+            } else
+                Log.e("tags", "tags , no tags data null ");
+            listener.onComplete(true);
         });
     }
 

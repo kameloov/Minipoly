@@ -58,6 +58,10 @@ public class UserRepository {
                 .collection(C.COLLECTION_NOTIFICATION).limit(limit).get(), Notification.class);
     }
 
+    public static FireLiveQuery<Notification> getMyNotifications(int limit) {
+        return getUserNotifications(getUserId(), limit);
+    }
+
     public static void updateUser(User user, CompleteListener listener) {
         users.document(user.getId()).set(user).addOnCompleteListener(task -> {
             if (listener != null)

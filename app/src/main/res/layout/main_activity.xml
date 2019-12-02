@@ -31,102 +31,25 @@
             app:navGraph="@navigation/nav_graph" />
 
         <ImageView
-            android:id="@+id/imageView31"
+            android:id="@+id/imageView117"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:background="@color/line_color"
-            android:paddingTop="1dp"
-            android:src="@color/white"
-            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline112"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline43" />
+            app:layout_constraintTop_toTopOf="@+id/guideline111"
+            app:layout_constraintVertical_bias="0.439"
+            app:srcCompat="@drawable/filters" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.39" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.56" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline41"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.73" />
-
-        <ImageView
-            android:id="@+id/imageView32"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:adjustViewBounds="true"
-            android:onClick="@{(v)->vm.setSection(v,0)}"
-            android:padding="2dp"
-            android:scaleType="centerInside"
-            android:src="@{vm.section==0? @drawable/ic_home_selected : @drawable/ic_home_normal}"
-            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline40"
-            app:layout_constraintStart_toStartOf="@+id/guideline18"
-            app:layout_constraintTop_toTopOf="@+id/imageView31"
-            tools:srcCompat="@drawable/ic_home_selected" />
-
-        <ImageView
-            android:id="@+id/imageView33"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:adjustViewBounds="true"
-            android:alpha="1"
-            android:onClick="@{(v)->vm.setSection(v,-2)}"
-            android:padding="2dp"
-            android:scaleType="centerInside"
-            android:src="@{vm.section==-2?@drawable/ic_discount_selected: @drawable/ic_discount_normal}"
-            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline41"
-            app:layout_constraintStart_toStartOf="@+id/guideline40"
-            app:layout_constraintTop_toTopOf="@+id/imageView31"
-            tools:srcCompat="@drawable/ic_discount_normal" />
-
-        <ImageView
-            android:id="@+id/imageView35"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:adjustViewBounds="true"
-            android:onClick="@{(v)->vm.setSection(v,2)}"
-            android:padding="2dp"
-            android:scaleType="centerInside"
-            android:src="@{vm.section==2?@drawable/ic_auction_selected:@drawable/ic_auction_normal}"
-            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline39"
-            app:layout_constraintStart_toStartOf="@+id/guideline41"
-            app:layout_constraintTop_toTopOf="@+id/imageView31"
-            tools:srcCompat="@drawable/ic_auction_normal" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline43"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
+            app:layout_constraintGuide_percent="0.4" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -134,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.9" />
+            app:layout_constraintGuide_percent="0.85" />
 
         <LinearLayout
             android:id="@+id/popup"
@@ -149,43 +72,61 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView84"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:adjustViewBounds="true"
-            android:padding="2dp"
-            android:scaleType="centerInside"
-            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView31"
-            app:layout_constraintStart_toStartOf="@+id/guideline39"
-            app:layout_constraintTop_toTopOf="@+id/imageView31"
-            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
-
-        <include
-            layout="@layout/radios"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:visibility="@{vm.sectionViible? View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView31"
-            app:layout_constraintEnd_toStartOf="@+id/guideline18"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView31"
-            app:radio="@{vm.kindRadio}" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline39"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
+            app:layout_constraintGuide_percent="0.6" />
+
+        <include
+            android:id="@+id/include23"
+            layout="@layout/home_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline105"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintHorizontal_bias="0.275"
+            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:vm="@{vm}" />
+
+        <ImageView
+            android:id="@+id/imageView35"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:onClick="@{()->vm.toggleMode()}"
+            android:visibility="@{vm.sectionViible? View.VISIBLE:View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline112"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/popup"
+            app:layout_constraintStart_toStartOf="@+id/guideline39"
+            app:layout_constraintTop_toTopOf="@+id/guideline111"
+            app:layout_constraintVertical_bias="0.439"
+            app:srcCompat="@drawable/switch_btn" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline105"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.99" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline112"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.98" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

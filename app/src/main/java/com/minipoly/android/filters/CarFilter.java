@@ -23,7 +23,7 @@ public class CarFilter extends AdvrtFilter implements Serializable {
 
     public void setTransmissionStatus(boolean transmissionStatus) {
         this.transmissionStatus = transmissionStatus;
-        notifyPropertyChanged(BR.TransmissionStatus);
+        notifyPropertyChanged(BR.transmissionStatus);
     }
 
     public String getColor() {

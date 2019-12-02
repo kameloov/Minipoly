@@ -20,4 +20,5 @@ public class References {
     public static CollectionReference reports = db.collection(C.COLLECTION_REPORT);
     public static CollectionReference promotedAds = db.collection(C.COLLECTION_PROMOTED_ADS);
     public static CollectionReference countries = db.collection(C.COLLECTION_COUNTRY);
+    public static CollectionReference tags = db.collection(C.COLLECTION_TAGS);
 }

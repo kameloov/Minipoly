@@ -17,8 +17,9 @@ import com.minipoly.android.entity.User;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.SocialRepository;
 import com.minipoly.android.utils.LocalData;
-import com.minipoly.android.utils.MapUtils;
+import com.minipoly.android.utils.SearchUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
         UserManager.initGoogleSignIn(this);
         Mapbox.getInstance(getApplicationContext(), token);
         updateLocation();
+        // fixRealestates();
         if (!UserManager.isLogged())
             login();
         else
@@ -76,15 +78,23 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
-    private void fixRealestates(List<Realestate> realestates) {
-        for (Realestate r : realestates) {
-            LatLng latLng = new LatLng(r.getLat(), r.getLang());
-            for (int i = 0; i < 10; i++) {
-                r.setLevelCoord(i, MapUtils.getCoordinatesString(i, latLng));
-                r.setCategoryName(r.getCategoryId());
+    private void fixRealestates() {
+        RealestateRepository.getRealestates((success, data) -> {
+            if (success && data != null) {
+                for (Realestate r : data) {
+                    List<String> words = Realestate.getWords(r);
+                    SearchUtils.getTagIds(words, (success1, data1) -> {
+                        if (data1 != null) {
+                            HashMap<String, Boolean> map = new HashMap<>();
+                            for (String id : data1)
+                                map.put(id, true);
+                            r.setTags(map);
+                            RealestateRepository.setRealestate(r);
+                        }
+                    });
+                }
             }
-            RealestateRepository.setRealestate(r);
-        }
+        });
     }
 
     private void startMainActivity(int wait) {

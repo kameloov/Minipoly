@@ -82,6 +82,7 @@ public class RealestateAdapter1 extends ListAdapter<Realestate, RealestateAdapte
         public void bind(Realestate realestate) {
             binding.setAd(realestate);
             binding.setArabic(false);
+            binding.setNow(new Date());
             binding.getRoot().setOnClickListener(this);
             List<Toe> list = new ArrayList<>();
             ToeType type = isOffer(realestate) ? ToeType.OFFER : ToeType.NORMAL;

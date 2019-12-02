@@ -9,6 +9,7 @@
     <color name="white">#F8F2F2</color>
     <color name="country_bg">#5C58D1</color>
     <color name="edit_bg">#DFDFDFDF</color>
+    <color name="price_circle_bg">#74CACACA</color>
     <color name="editborder">#DEDEDE</color>
     <color name="line_color">#302F2F</color>
     <color name="gray">#7A7A7A</color>
@@ -30,8 +31,12 @@
     <color name="blue_gradiant_start">#2A7BE4</color>
     <color name="green_gradiant_end">#315F24</color>
     <color name="green_gradiant_start">#77E42A</color>
+    <color name="shadow_gradient_start">#9A000000</color>
+    <color name="shadow_gradient_end">#00FFFFFF</color>
     <color name="chart1">#FF3F4B</color>
     <color name="chart2">#F0BD22</color>
     <color name="chart3">#00D06D</color>
     <color name="black_overlay">#66000000</color>
+    <color name="price">#454547</color>
+
 </resources>

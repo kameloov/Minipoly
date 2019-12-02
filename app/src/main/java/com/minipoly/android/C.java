@@ -34,4 +34,5 @@ public interface C {
     String COLLECTION_PROMOTED_ADS = "promoted_ads";
     String COLLECTION_COUNTRY = "country";
     String COLLECTION_CITY = "city";
+    String COLLECTION_TAGS = "tags";
 }

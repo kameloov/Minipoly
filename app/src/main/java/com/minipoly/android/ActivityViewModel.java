@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.databinding.Observable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
@@ -23,7 +24,10 @@ public class ActivityViewModel extends ViewModel {
     public static CustomRadio kindRadio = new CustomRadio(true, "Realestate", "Market");
     private static ArrayList<IKindListener> listeners = new ArrayList<>();
     private static NavController navController;
-
+    public static int activeWorkers = 0;
+    private static MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+    private static MutableLiveData<Boolean> homeMode = new MutableLiveData<>(false);
+    private static MediatorLiveData<Boolean> working = new MediatorLiveData<>();
     public ActivityViewModel() {
 
         kindRadio.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
@@ -31,6 +35,32 @@ public class ActivityViewModel extends ViewModel {
             public void onPropertyChanged(Observable sender, int propertyId) {
                 notifyListeners(kindRadio.isChecked());
             }
+        });
+    }
+
+    public static LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public static void setLoading(boolean status) {
+        loading.setValue(status);
+    }
+
+    public static LiveData<Boolean> getHomeMode() {
+        return homeMode;
+    }
+
+    public static void setHomeMode(boolean home) {
+        homeMode.setValue(home);
+    }
+
+    public static void addWorker(LiveData<Boolean> worker) {
+        working.addSource(worker, b -> {
+            if (b)
+                activeWorkers++;
+            else
+                activeWorkers--;
+            working.setValue(activeWorkers > 0);
         });
     }
 
@@ -46,6 +76,18 @@ public class ActivityViewModel extends ViewModel {
         this.section.setValue(section);
         refresh(v);
 
+    }
+
+    public static void removeWorker(LiveData<Boolean> worker) {
+        working.removeSource(worker);
+    }
+
+    public LiveData<Boolean> getWorking() {
+        return working;
+    }
+
+    public void toggleMode() {
+        kindRadio.setChecked(!kindRadio.isChecked());
     }
 
     public static NavController getNavController() {

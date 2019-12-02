@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,8 +51,19 @@ public class MainActivity extends AppCompatActivity {
         model.setNavController(Navigation.findNavController(this, R.id.fragment));
         binding.setLifecycleOwner(this);
         binding.setVm(model);
+        attachObservers();
         prepareGooglesignin();
         handleLink();
+    }
+
+    private void attachObservers() {
+        ActivityViewModel.getLoading().observe(this, aBoolean -> {
+            if (aBoolean) {
+                Animation a = AnimationUtils.loadAnimation(this, R.anim.rotate);
+                binding.include23.imgLoading.startAnimation(a);
+            } else
+                binding.include23.imgLoading.clearAnimation();
+        });
     }
 
     private void prepareGooglesignin() {

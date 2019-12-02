@@ -6,17 +6,20 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Query;
 import com.minipoly.android.C;
+import com.minipoly.android.CompleteListener;
 import com.minipoly.android.DataListener;
 import com.minipoly.android.entity.Car;
 import com.minipoly.android.entity.City;
 import com.minipoly.android.entity.ComputerMisc;
 import com.minipoly.android.entity.Country;
 import com.minipoly.android.entity.MobileMisc;
+import com.minipoly.android.entity.Tag;
 import com.minipoly.android.entity.ValueFilter;
 import com.minipoly.android.livedata.FireLiveDocument;
 import com.minipoly.android.livedata.FireLiveQuery;
 import com.minipoly.android.utils.FireStoreUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.minipoly.android.References.cars;
@@ -24,6 +27,7 @@ import static com.minipoly.android.References.computer;
 import static com.minipoly.android.References.countries;
 import static com.minipoly.android.References.db;
 import static com.minipoly.android.References.mobile;
+import static com.minipoly.android.References.tags;
 
 public class MiscRepository {
 
@@ -36,6 +40,39 @@ public class MiscRepository {
             addCountry(c);
     }
 
+
+    public static void getTagId(String tag, DataListener<String> listener) {
+        tags.whereArrayContains("names", tag).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult() != null) {
+                    List<Tag> tagList = task.getResult().toObjects(Tag.class);
+                    if (tagList.size() > 0) {
+                        listener.onComplete(true, tagList.get(0).getId());
+                    } else
+                        // add new tag
+                        addTag(tag, listener);
+
+                } else
+                    addTag(tag, listener);
+            } else listener.onComplete(false, null);
+        });
+    }
+
+
+    public static void addTag(Tag tag, CompleteListener listener) {
+        tag.setId(tags.document().getId());
+        tags.document(tag.getId()).set(tag);
+    }
+
+    private static void addTag(String tag, DataListener<String> listener) {
+        Tag t = new Tag();
+        t.setId(tags.document().getId());
+        ArrayList<String> names = new ArrayList<>();
+        names.add(tag);
+        t.setNames(names);
+        tags.document(t.getId()).set(t);
+        listener.onComplete(true, t.getId());
+    }
 
     public static void addCity(City city) {
         DocumentReference reference = countries.document(city.getCountryId())

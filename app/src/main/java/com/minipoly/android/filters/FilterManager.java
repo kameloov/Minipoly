@@ -29,7 +29,7 @@ public class FilterManager {
         current = FireStoreUtils.buildQuery(realestates, filters);
         if (current == null)
             current = realestates;
-        current = current.orderBy("publishDate", Query.Direction.DESCENDING).limit(20);
+        current = current.orderBy("publishDate", Query.Direction.DESCENDING).limit(10);
         load(current, false);
     }
 
@@ -50,8 +50,10 @@ public class FilterManager {
                     realestates.addAll(0, data.getValue());
                 data.setValue(realestates);
                 int index = task.getResult().getDocuments().size() - 1;
-                DocumentSnapshot last = task.getResult().getDocuments().get(index);
-                nextQuery = current.startAfter(last);
+                if (index > -1) {
+                    DocumentSnapshot last = task.getResult().getDocuments().get(index);
+                    nextQuery = current.startAfter(last);
+                }
             }
         });
     }

@@ -51,7 +51,6 @@ public class MapViewModel extends ViewModel {
         filtersVisible.setValue(true);
         rent.setValue(new CustomRadio(false, "For Rent", "For Sale"));
         realestate.setValue(new CustomRadio(false, "Realestate", "Market"));
-
     }
 
 

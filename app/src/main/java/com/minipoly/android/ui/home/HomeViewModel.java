@@ -32,15 +32,14 @@ import com.minipoly.android.entity.Realestate;
 import com.minipoly.android.filters.FilterManager;
 import com.minipoly.android.filters.RealestateFilter;
 import com.minipoly.android.livedata.FireLiveQuery;
-import com.minipoly.android.popup.PopupNew;
 import com.minipoly.android.popup.PopupRealestate;
 import com.minipoly.android.repository.AuctionRepository;
 import com.minipoly.android.repository.MiscRepository;
 import com.minipoly.android.repository.RealestateRepository;
 import com.minipoly.android.repository.UserRepository;
 import com.minipoly.android.ui.bars.top_bar.TopBarController;
-import com.minipoly.android.utils.ImageBuffer;
 import com.minipoly.android.utils.MapUtils;
+import com.minipoly.android.utils.SearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +60,7 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
     public MutableLiveData<Boolean> map = new MutableLiveData<>(false);
     public FireLiveQuery<Country> counries = MiscRepository.getCountries();
     public RealestateFilter realestateFilter = new RealestateFilter();
+    public MutableLiveData<String> searchText = new MutableLiveData<>();
     private MutableLiveData<List<Realestate>> realestates;
     private MutableLiveData<Boolean> loading;
     private SymbolManager symbolManager;
@@ -79,6 +79,16 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
             if (success && data != null)
                 cities = data;
         });
+        RealestateRepository.getFollowingAds((success, data) -> {
+            if (success) {
+                if (data != null)
+                    Log.e("found", "following found, count is " + data.size());
+                else
+                    Log.e("found", "not following anyone yet");
+
+            } else
+                Log.e("failed", "failed to get following");
+        });
         ActivityViewModel.addKindListener(this);
     }
 
@@ -86,6 +96,19 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
         HomeFragmentDirections.ActionHomeFragmentToRealestateFilterFragment action =
                 HomeFragmentDirections.actionHomeFragmentToRealestateFilterFragment(realestateFilter);
         Navigation.findNavController(view).navigate(action);
+    }
+
+    /// search by tags the database has a tags collection
+    public void search() {
+        this.realestates.setValue(new ArrayList<Realestate>());
+        this.loading.setValue(true);
+        SearchUtils.getTagIds(searchText.getValue(), (success, data) -> {
+            if (data != null)
+                RealestateRepository.search(data, (success1, data1) -> {
+                    this.loading.setValue(false);
+                    realestates.setValue(data1);
+                });
+        });
     }
 
     public void showProfile(View view) {
@@ -193,33 +216,6 @@ public class HomeViewModel extends ViewModel implements ActivityViewModel.IKindL
                 markers.add(markerView);
             }
         }
-    }
-
-
-    public void showNew(View view) {
-        PopupNew popupNew = new PopupNew(view.getContext(), type -> {
-            NavController navController = Navigation.findNavController(view);
-            switch (type) {
-                case NT_AD:
-                    ImageBuffer.reset();
-                    navController.navigate(R.id.action_global_add_promoted);
-                    break;
-                case NT_AUCTION:
-                    ImageBuffer.reset();
-                    NavGraphDirections.ActionGlobalAddAuction
-                            auction = NavGraphDirections.actionGlobalAddAuction(AuctionRepository.generateAuction(12, 11, null));
-                    navController.navigate(auction);
-                    break;
-                case NT_DEAL:
-                    ImageBuffer.reset();
-                    NavGraphDirections.ActionGlobalAddRealestate
-                            realestate = NavGraphDirections.actionGlobalAddRealestate(RealestateRepository.generateRealestate(5, -7, null));
-                    navController.navigate(realestate);
-                    break;
-            }
-        });
-        Log.e("showNew: ", "id is " + view.getId());
-        popupNew.show(view);
     }
 
     public void refresh() {

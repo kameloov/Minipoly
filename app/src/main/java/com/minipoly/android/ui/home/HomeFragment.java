@@ -25,14 +25,15 @@ import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager;
 import com.minipoly.android.R;
 import com.minipoly.android.RootFragment;
 import com.minipoly.android.adapter.NotificationAdapter;
-import com.minipoly.android.adapter.RealestateAdapter1;
+import com.minipoly.android.adapter.RealestateAdapterHor;
 import com.minipoly.android.databinding.HomeFragmentBinding;
+import com.minipoly.android.decorations.SpacesItemDecoration;
 import com.minipoly.android.ui.category_dialog.CategoryDialog;
 
 public class HomeFragment extends RootFragment {
 
     private HomeViewModel model;
-    private RealestateAdapter1 adapter = new RealestateAdapter1();
+    private RealestateAdapterHor adapter = new RealestateAdapterHor();
     private HomeFragmentBinding binding;
     private NotificationAdapter notificationAdapter;
     private MapView mapView;
@@ -60,7 +61,6 @@ public class HomeFragment extends RootFragment {
         binding.load.setVisibility(View.INVISIBLE);
         mapView = binding.mapView;
         mapView.onCreate(savedInstanceState);
-        showNav();
         prepareMap();
         prepareAdapter();
         prepareNotificationAdapter();
@@ -99,7 +99,7 @@ public class HomeFragment extends RootFragment {
     }
 
     private void attachObservers() {
-        model.command.observe(this, command -> {
+        model.command.observe(getViewLifecycleOwner(), command -> {
             if (command == HomeViewModel.Command.IDLE)
                 return;
             String id = command == HomeViewModel.Command.SELECT_CAT ?
@@ -110,24 +110,26 @@ public class HomeFragment extends RootFragment {
             model.command.setValue(HomeViewModel.Command.IDLE);
         });
 
-        model.getRealestates().observe(this, realestates -> {
-            binding.load.clearAnimation();
-            model.clearMarkers();
+        model.getRealestates().observe(getViewLifecycleOwner(), realestates -> {
             binding.load.setVisibility(View.INVISIBLE);
+            binding.load.clearAnimation();
+            if (realestates == null)
+                return;
+            model.clearMarkers();
             adapter.submitList(realestates);
             model.addRealestateMarkers(getLayoutInflater());
 
 
         });
 
-        model.notifications.observe(this, notifications -> {
+        model.notifications.observe(getViewLifecycleOwner(), notifications -> {
             if (notifications != null) {
                 notificationAdapter.submitList(notifications);
                 model.barController.blink();
             }
         });
 
-        model.kind.observe(this, aBoolean -> {
+        model.kind.observe(getViewLifecycleOwner(), aBoolean -> {
             playAnimation();
             model.realestateFilter.setMarket(aBoolean);
         });
@@ -142,15 +144,22 @@ public class HomeFragment extends RootFragment {
 
 
     private void prepareAdapter() {
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 2);
-        binding.lstAds.setLayoutManager(manager);
-        adapter.setListener(realestate -> {
-            if (realestate != null) {
-                hideNav();
-                model.showRealestate(realestate, binding.lstAds);
-            }
+        binding.lstAds.post(() -> {
+            int w = binding.lstAds.getMeasuredWidth() - 32;
+            int h = (int) ((w / 2) * 1.5f);
+            adapter.setItemHeight(h);
+            RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 2);
+            binding.lstAds.setLayoutManager(manager);
+            binding.lstAds.addItemDecoration(new SpacesItemDecoration(8));
+            adapter.setListener(realestate -> {
+                if (realestate != null) {
+                    hideNav();
+                    model.showRealestate(realestate, binding.lstAds);
+                }
+            });
+            binding.lstAds.setAdapter(adapter);
         });
-        binding.lstAds.setAdapter(adapter);
+
     }
 
     private void prepareNotificationAdapter() {

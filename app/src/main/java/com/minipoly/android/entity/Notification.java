@@ -1,5 +1,9 @@
 package com.minipoly.android.entity;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Notification {
     private String id;
     private String text;
@@ -7,6 +11,9 @@ public class Notification {
     private String itemId;
     private String link;
     private UserBrief user;
+    private boolean seen;
+    @ServerTimestamp
+    private Date timeStamp;
     private int actionType; /// 1 like , 2 dislike ,3 comment , 4  bid ,5 notify
 
     public String getId() {
@@ -19,6 +26,22 @@ public class Notification {
 
     public String getText() {
         return text;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 
     public void setText(String text) {

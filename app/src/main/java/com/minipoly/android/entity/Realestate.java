@@ -1,9 +1,12 @@
 package com.minipoly.android.entity;
 
 import com.google.firebase.firestore.ServerTimestamp;
+import com.minipoly.android.utils.SearchUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class Realestate extends Pin implements Serializable {
@@ -13,6 +16,7 @@ public class Realestate extends Pin implements Serializable {
     private String categoryId;
     private String subCategoryId;
     private List<Image> images;
+    private HashMap<String, Boolean> tags;
     private String[] videos;
     private UserBrief userBrief;
     private float price;
@@ -53,6 +57,19 @@ public class Realestate extends Pin implements Serializable {
     private String l8;
     private String l9;
 
+    public static List<String> getWords(Realestate r) {
+        ArrayList<String> tagList = new ArrayList<>();
+        tagList.addAll(SearchUtils.extractWords(r.categoryName));
+        tagList.addAll(SearchUtils.extractWords(r.categoryNameAr));
+        tagList.addAll(SearchUtils.extractWords(r.subCatName));
+        tagList.addAll(SearchUtils.extractWords(r.subCatNameAr));
+        tagList.addAll(SearchUtils.extractWords(r.cityName));
+        tagList.addAll(SearchUtils.extractWords(r.cityNameAR));
+        tagList.addAll(SearchUtils.extractWords(r.title));
+        tagList.addAll(SearchUtils.extractWords(r.text));
+        return tagList;
+    }
+
     public Date getPromoteEnd() {
         return promoteEnd;
     }
@@ -75,6 +92,14 @@ public class Realestate extends Pin implements Serializable {
 
     public String getL0() {
         return l0;
+    }
+
+    public HashMap<String, Boolean> getTags() {
+        return tags;
+    }
+
+    public void setTags(HashMap<String, Boolean> tags) {
+        this.tags = tags;
     }
 
     public void setL0(String l0) {
